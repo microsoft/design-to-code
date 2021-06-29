@@ -1,7 +1,7 @@
 name: Bug Report
 description: File a bug report
 title: "[Bug]: "
-labels: [status:triage, bug]
+labels: ["status:triage", bug]
 body:
   - type: markdown
     attributes:
@@ -21,9 +21,9 @@ body:
       label: What package(s) are causing the problem?
       multiple: true
       options:
-        - @microsoft/fast-tooling
-        - @microsoft/fast-tooling-react
-        - @microsoft/fast-tooling-wasm
+        - "@microsoft/fast-tooling"
+        - "@microsoft/fast-tooling-react"
+        - "@microsoft/fast-tooling-wasm"
   - type: dropdown
     id: browsers
     attributes:
