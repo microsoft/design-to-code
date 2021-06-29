@@ -1,0 +1,26 @@
+name: Feature Request
+description: File a feature request
+title: "[Feature]: "
+labels: [status:triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: dropdown
+    id: package
+    attributes:
+      label: What package(s) should this feature be added to?
+      multiple: true
+      options:
+        - @microsoft/fast-tooling
+        - @microsoft/fast-tooling-react
+        - @microsoft/fast-tooling-wasm
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Please write a summary of the feature you would like added, along with any real-world examples.
+      placeholder: Tell us what you would like to see!
+    validations:
+      required: true
