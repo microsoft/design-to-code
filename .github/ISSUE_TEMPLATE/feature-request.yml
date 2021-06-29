@@ -1,7 +1,7 @@
 name: Feature Request
 description: File a feature request
 title: "[Feature]: "
-labels: [status:triage]
+labels: ["status:triage"]
 body:
   - type: markdown
     attributes:
@@ -13,9 +13,9 @@ body:
       label: What package(s) should this feature be added to?
       multiple: true
       options:
-        - @microsoft/fast-tooling
-        - @microsoft/fast-tooling-react
-        - @microsoft/fast-tooling-wasm
+        - "@microsoft/fast-tooling"
+        - "@microsoft/fast-tooling-react"
+        - "@microsoft/fast-tooling-wasm"
   - type: textarea
     id: summary
     attributes:
