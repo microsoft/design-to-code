@@ -10,18 +10,6 @@ FAST Tooling uses Git as its source control system. If you haven't already insta
 
 Once Git is installed, you'll also need Node.js, which FAST Tooling uses as its JavaScript runtime, enabling its build and test scripts. Node.js instructions and downloads for your preferred OS can be found [here](https://nodejs.org/en/).
 
-Because the FAST Tooling repository is structured as a monorepo, we'll need a couple of tools to manage that. The first is Yarn, which can be installed by executing the following command at the terminal:
-
-```shell
-npm install -g yarn
-```
-
-The second tool you'll need is Lerna, which can be installed with this command:
-
-```bash
-yarn global add lerna
-```
-
 :::important
 The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.
 :::
