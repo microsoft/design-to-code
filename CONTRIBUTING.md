@@ -46,7 +46,7 @@ npm run prepare --workspaces
 To run all tests for all packages, use the following command:
 
 ```bash
-yarn test
+npm run test --workspaces
 ```
 
 This command can also be run from within individual package folders to execute only tests from that package.
