@@ -38,7 +38,7 @@ npm install
 After the initial install, you can re-build all workspaces in the future with:
 
 ```bash
-yarn prepare
+npm run prepare --workspaces
 ```
 
 ### Testing
