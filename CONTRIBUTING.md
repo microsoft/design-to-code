@@ -71,7 +71,7 @@ When working across feature branches, you'll need to target the branch using the
 ```json
 {
   "type": "minor",
-  "comment": "add fancy new feature for components",
+  "comment": "Add fancy new feature for components.",
   "packageName": "@microsoft/fast-tooling",
   "email": "name@example.com",
   "dependentChangeType": "minor",
