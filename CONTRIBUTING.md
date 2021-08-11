@@ -32,7 +32,7 @@ git clone git@github.com:microsoft/fast-tooling.git
 From within the `fast-tooling` folder where you've cloned the repo, install all package dependencies and build all workspaces (local dependencies) with this command:
 
 ```bash
-yarn
+npm install
 ```
 
 After the initial install, you can re-build all workspaces in the future with:
