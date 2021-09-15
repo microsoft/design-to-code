@@ -9,6 +9,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "./packages/fast-tooling",
     "./packages/fast-tooling-react"
   ],
   "repository": {
