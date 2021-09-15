@@ -3,6 +3,7 @@
   "description": "A set of utilities to assist in creating web UI",
   "sideEffects": false,
   "version": "0.29.0",
+  "type": "module",
   "author": {
     "name": "Microsoft",
     "url": "https://discord.gg/FcSNfg4"
