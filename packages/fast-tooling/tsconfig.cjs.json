@@ -27,6 +27,7 @@
     "exclude": [
         "app",
         "node_modules",
-        "src/message-system/webworker.ts"
+        "src/message-system/webworker.ts",
+        "**/*.spec.ts"
     ]
 }
