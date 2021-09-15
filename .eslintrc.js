@@ -16,7 +16,6 @@ module.exports = {
     },
     rules: {
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/typedef": "off",
         "@typescript-eslint/no-empty-interface": [
             "error",
             {
@@ -24,7 +23,6 @@ module.exports = {
             },
         ],
         "@typescript-eslint/interface-name-prefix": ["error", { prefixWithI: "never" }],
-        "max-len": ["error", 140],
         "import/order": "error",
         "sort-imports": [
             "error",
@@ -37,10 +35,13 @@ module.exports = {
         "@typescript-eslint/typedef": [
             "error",
             {
+                arrowParameter: false,
+                arrayDestructuring: true,
                 parameter: true,
                 propertyDeclaration: true,
                 memberVariableDeclaration: true,
                 variableDeclarationIgnoreFunction: true,
+                variableDeclaration: false,
             },
         ],
         "@typescript-eslint/explicit-function-return-type": "error",

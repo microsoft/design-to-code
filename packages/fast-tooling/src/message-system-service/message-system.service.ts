@@ -116,7 +116,7 @@ export abstract class MessageSystemService<A, C = {}> {
         const errorMsg = `No action with id: ${id} is available`;
 
         return {
-            run: () => {
+            run: (): void => {
                 throw new Error(errorMsg);
             },
             error: errorMsg,

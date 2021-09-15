@@ -90,7 +90,8 @@ export class ShortcutsAction extends MessageSystemServiceAction<
     public keys: KeyConfig[];
     public name: string;
 
-    constructor(config) {
+    constructor(config: any) {
+        // TODO: #82
         super(config);
 
         this.keys = config.keys;

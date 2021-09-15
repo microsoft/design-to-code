@@ -29,7 +29,8 @@ export class MonacoAdapterAction extends MessageSystemServiceAction<
     private updateMonacoModelValue: (value: string[], isExternal: boolean) => void;
     private messageSystemType: MessageSystemType;
 
-    constructor(config) {
+    constructor(config: any) {
+        // TODO: #82
         super(config);
 
         this.messageSystemType = config.messageSystemType;
@@ -62,7 +63,7 @@ export class MonacoAdapterAction extends MessageSystemServiceAction<
         return this.messageSystemType;
     }
 
-    matches = (type: MessageSystemType) => {
+    matches = (type: MessageSystemType): boolean => {
         return this.messageSystemType === type;
     };
 }

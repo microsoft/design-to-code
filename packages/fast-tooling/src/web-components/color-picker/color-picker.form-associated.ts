@@ -9,5 +9,5 @@ interface _ColorPicker extends FormAssociated {}
  * @internal
  */
 export class FormAssociatedColorPicker extends FormAssociated(_ColorPicker) {
-    proxy = document.createElement("input");
+    proxy: HTMLInputElement = document.createElement("input");
 }

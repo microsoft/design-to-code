@@ -4,3 +4,9 @@ node_modules
 dist
 # don't lint coverage output
 coverage
+# don't lint tests
+__test__
+__tests__
+*.spec.ts
+# don't lint the testing application
+app

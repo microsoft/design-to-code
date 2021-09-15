@@ -75,7 +75,8 @@ export class Shortcuts extends MessageSystemService<
     ShortcutsActionCallbackConfig,
     ShortcutsRegisterConfig
 > {
-    constructor(config) {
+    // TODO: #82
+    constructor(config: any) {
         super();
 
         this.registerMessageSystem({

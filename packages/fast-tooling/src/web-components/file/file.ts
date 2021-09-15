@@ -55,7 +55,7 @@ export class File extends FormAssociatedFile {
      */
     @observable
     public action: HTMLSlotElement;
-    private actionChanged(oldValue, newValue): void {
+    private actionChanged(oldValue: HTMLSlotElement, newValue: HTMLSlotElement): void {
         if (this.$fastController.isConnected) {
             this.fileAction = Array.from(this.children).find(
                 this.isFileAction

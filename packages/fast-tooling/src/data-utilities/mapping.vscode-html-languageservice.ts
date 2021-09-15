@@ -29,7 +29,10 @@ export interface MapNodeToDataDictionaryConfig {
  * vscode-html-languageservice package
  */
 
-function parseElementAttributeValue(schema, attribute): [string, any] {
+function parseElementAttributeValue(
+    schema: any,
+    attribute: { name: string; value: string }
+): [string, any] {
     if (schema && schema.properties && schema.properties[attribute.name]) {
         if (schema.properties[attribute.name].type === DataType.boolean) {
             // When the attribute is a boolean, it does not matter
@@ -157,9 +160,9 @@ function resolveDataDictionaryFromNode(
 }
 
 function resolveDataDictionaryFromTextNode(
-    linkedDataId,
-    textSchemaId,
-    value
+    linkedDataId: string,
+    textSchemaId: string,
+    value: unknown
 ): [DataDictionary<unknown>, string] {
     return [
         [
@@ -485,7 +488,7 @@ function identifyElementsFromParsedValue(
     });
 }
 
-function mapElementAttributes(element: Node, schema): { [key: string]: any } {
+function mapElementAttributes(element: Node, schema: any): { [key: string]: any } {
     return element.attributes.reduce((prevValue, currentValue) => {
         const parsedAttribute = parseElementAttributeValue(schema, currentValue);
 

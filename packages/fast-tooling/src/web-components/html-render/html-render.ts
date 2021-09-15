@@ -59,7 +59,7 @@ export class HTMLRender extends FoundationElement {
 
     @observable
     public layers: HTMLSlotElement;
-    private layersChanged(oldValue, newValue): void {
+    private layersChanged(oldValue: HTMLSlotElement, newValue: HTMLSlotElement): void {
         if (this.$fastController.isConnected) {
             this.renderLayers = [];
             if (this.children.length > 0) {
@@ -87,7 +87,7 @@ export class HTMLRender extends FoundationElement {
     }
 
     // Messaging
-    private selectTimeout = null;
+    private selectTimeout: number | null = null;
     private handleMessageSystem = (e: MessageEvent): void => {
         if (e.data) {
             if (

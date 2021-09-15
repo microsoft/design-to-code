@@ -28,7 +28,7 @@ export abstract class MessageSystemServiceAction<TCallback = {}, TMatch = {}> {
     ) => void;
     public id: string;
 
-    constructor(config: MessageSystemServiceActionConfig<TCallback>) {
+    constructor(config: MessageSystemServiceActionConfig<TCallback> & TMatch) {
         this.id = config.id;
         this.action = config.action;
     }
@@ -37,7 +37,7 @@ export abstract class MessageSystemServiceAction<TCallback = {}, TMatch = {}> {
      * Gets the action to be called
      */
     public getAction = (config: TCallback): (() => void) => {
-        return () => {
+        return (): void => {
             this.action({
                 ...config,
                 id: this.id,

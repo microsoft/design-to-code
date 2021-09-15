@@ -9,7 +9,7 @@ interface _File extends FormAssociated {}
  * @internal
  */
 export class FormAssociatedFile extends FormAssociated(_File) {
-    proxy = (() => {
+    proxy: HTMLInputElement = (() => {
         const proxy = document.createElement("input");
         proxy.setAttribute("type", "file");
         return proxy;

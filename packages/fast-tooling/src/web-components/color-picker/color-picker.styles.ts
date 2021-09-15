@@ -1,6 +1,13 @@
-import { css } from "@microsoft/fast-element";
+import { css, ElementStyles } from "@microsoft/fast-element";
+import {
+    ElementDefinitionContext,
+    FoundationElementDefinition,
+} from "@microsoft/fast-foundation";
 
-export const colorPickerStyles = (context, definition) => css`
+export const colorPickerStyles: (
+    context: ElementDefinitionContext,
+    definition: FoundationElementDefinition
+) => ElementStyles = () => css`
     .root .color-ui {
         display: none;
         padding: 2px;

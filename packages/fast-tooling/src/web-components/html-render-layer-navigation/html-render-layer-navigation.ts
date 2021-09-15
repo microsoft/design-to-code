@@ -113,7 +113,7 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
         return new OverlayPosition(pos.top, pos.left, pos.width, pos.height);
     }
 
-    private getTitleForDictionaryId(dataDictionaryId): string | null {
+    private getTitleForDictionaryId(dataDictionaryId: string): string | null {
         const dataDictionaryEntry = this.dataDictionary?.[0][dataDictionaryId];
         return (
             dataDictionaryEntry.data[dataSetName] ??
