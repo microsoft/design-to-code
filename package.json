@@ -19,6 +19,7 @@
     "url": "https://github.com/microsoft/fast-tooling/issues/new/choose"
   },
   "scripts": {
+    "prepare": "npm run prepare --workspaces --if-present",
     "test:diff:error": "echo \"Untracked files exist, try running npm prepare to identify the culprit.\" && exit 1",
     "test:diff": "git update-index --refresh && git diff-index --quiet HEAD -- || npm test:diff:error",
     "test": "npm run prettier:diff && npm run test:diff:error && npm run test --workspaces --if-present",
@@ -36,11 +37,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
-    "@babel/preset-env": "^7.12.13",
-    "@types/jest": "^25.2.1",
-    "@types/lodash-es": "^4.17.4",
-    "@types/node": "^9.4.7",
     "chalk": "^2.4.2",
     "copyfiles": "^2.4.1",
     "dotenv": "^6.0.0",
@@ -49,9 +45,10 @@
     "lint-staged": "^10.1.2",
     "prettier": "2.0.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^25.4.0",
-    "typescript": "^3.9.0",
     "yargs": "^16.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@microsoft/fast-tooling": "^0.29.0",
+    "@microsoft/fast-tooling-react": "^2.11.4"
+  }
 }

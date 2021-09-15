@@ -9,7 +9,8 @@
         "jsx": "react",
         "resolveJsonModule": true,
         "types": [
-            "jest"
+            "jest",
+            "node"
         ],
     },
     "exclude": [
