@@ -55,9 +55,6 @@ storybook-static
 .tmp/
 temp/
 
-# npm package-locks
-package-lock.json
-
 # GitHub Actions Local Testing
 .github/workflows/testing/*.json
 

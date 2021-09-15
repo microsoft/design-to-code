@@ -20,7 +20,6 @@
     "url": "https://github.com/microsoft/fast-tooling/issues/new/choose"
   },
   "scripts": {
-    "prepare": "npm run prepare --workspaces --if-present",
     "test:diff:error": "echo \"Untracked files exist, try running npm prepare to identify the culprit.\" && exit 1",
     "test:diff": "git update-index --refresh && git diff-index --quiet HEAD -- || npm test:diff:error",
     "test": "npm run prettier:diff && npm run test:diff:error && npm run test --workspaces --if-present",
