@@ -1,12 +1,12 @@
 const path = require("path");
 const glob = require("glob");
-const rootAppWebpackConfig = require(path.resolve(__dirname, "app/webpack.dev.js"));
+const rootAppWebpackConfig = require(path.resolve(__dirname, "app/webpack.dev.cjs"));
 const outDir = path.resolve(__dirname, "./www");
 
 const configs = new Promise(resolver => {
     try {
         glob(
-            `${path.resolve(__dirname, "./app/examples")}/*/webpack.dev.js`,
+            `${path.resolve(__dirname, "./app/examples")}/*/webpack.dev.cjs`,
             {},
             function (err, files) {
                 if (err) {
