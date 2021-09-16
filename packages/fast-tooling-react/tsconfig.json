@@ -1,0 +1,22 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": [
+        "src/**/*"
+    ],
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "dist",
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "types": [
+            "jest",
+            "node"
+        ],
+    },
+    "exclude": [
+        "app",
+        "**/*.spec.ts",
+        "**/*.spec.tsx",
+        "**/__tests__/**"
+    ]
+  }

@@ -1,0 +1,56 @@
+{
+  "name": "@microsoft/fast-tooling-repository",
+  "description": "A system of development tools, and utilities used à la carte or as a suite to build enterprise-grade websites and applications.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Microsoft",
+    "url": "https://discord.gg/FcSNfg4"
+  },
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "./packages/fast-tooling-react",
+    "./packages/fast-tooling"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/fast-tooling.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microsoft/fast-tooling/issues/new/choose"
+  },
+  "scripts": {
+    "test:diff:error": "echo \"Untracked files exist, try running npm prepare to identify the culprit.\" && exit 1",
+    "test:diff": "git update-index --refresh && git diff-index --quiet HEAD -- || npm run test:diff:error",
+    "test": "npm run prettier --workspaces --if-present && npm run test:diff && npm run test --workspaces --if-present"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-react": "^7.19.0",
+    "chalk": "^2.4.2",
+    "copyfiles": "^2.4.1",
+    "dotenv": "^6.0.0",
+    "glob": "^7.1.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.2",
+    "prettier": "2.0.2",
+    "rimraf": "^3.0.2",
+    "yargs": "^16.2.0"
+  },
+  "dependencies": {
+  }
+}
