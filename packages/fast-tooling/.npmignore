@@ -11,12 +11,12 @@ coverage/
 # Config files
 .prettierignore
 .eslintignore
-.eslintrc.js
+.eslintrc.cjs
 .storybook
-babel.config.js
 tsconfig.json
 tsconfig.build.json
-webpack.message-system.config.js
+webpack.config.cjs
+webpack.message-system.config.cjs
 
 # Temp files
 .tmp/
