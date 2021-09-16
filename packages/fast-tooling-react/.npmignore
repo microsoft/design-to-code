@@ -13,8 +13,8 @@ coverage/
 # Config files
 .prettierignore
 .eslintignore
-.eslintrc.js
+.eslintrc.cjs
 babel.config.js
 tsconfig.build.json
 tsconfig.json
-webpack.config.js
+webpack.config.cjs
