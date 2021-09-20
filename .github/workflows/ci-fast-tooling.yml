@@ -1,4 +1,4 @@
-name: CI-FAST-TOOLING
+name: CI - FAST Tooling
 
 on:
   push:
