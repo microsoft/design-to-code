@@ -14,7 +14,8 @@ Example:
 ```text
 my-component/
 └─ my-component.ts
-└─ my-component.style.ts
+└─ my-component.styles.ts
+└─ my-component.template.ts
 └─ my-component.spec.ts
 ```
 
