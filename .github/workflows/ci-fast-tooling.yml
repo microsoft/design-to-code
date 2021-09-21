@@ -43,6 +43,6 @@ jobs:
       run: npm run build --if-present
 
     - name: Test
-      run: npm run test
+      run: npm run test --if-present
         
        
