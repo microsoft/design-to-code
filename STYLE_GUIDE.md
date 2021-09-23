@@ -4,7 +4,7 @@ This is the code style guide for the FAST tooling repository. When contributing 
 
 ## Files
 
-File and folder naming in general should not include special characters or space. Alphanumeric is preffered, separated by dash or underscore depending on the type of file. Names should be as concise as possible while also being meaningful.
+File and folder naming in general should not include special characters or spaces. Alphanumeric is preffered, separated by dash or underscore depending on the type of file. Names should be as concise as possible while also being meaningful, and should attempt to follow any standard set by a standards governing body such as W3C.
 
 ### Organization
 
@@ -59,6 +59,10 @@ Example:
 @attr({ attribute: "readonly" })
 public readOnly: boolean;
 ```
+
+When naming attributes:
+- **Avoid auxiliary verbs** - prefer `selected` over `isSelected`
+- **Avoid unnecessary prefixing** - prefer `collapsed` instead of `accordionCollapsed`. Unless there are multiple collapsed things, prefixing as such is redundant
 
 ### HTML class names
 
