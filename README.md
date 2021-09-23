@@ -1,6 +1,6 @@
 # FAST Tooling
 
-This is the FAST Tooling project, containing a set of packages that can be combined to create complex workflows for web applications. The goal of these workflows is to allow allow users to create and modify their own web based experiences, from individual web components to completed web sites.
+This is the FAST Tooling project, containing a set of packages that can be combined to create complex workflows for web applications. The goal of these workflows is to allow users to create and modify their own web based experiences, from individual web components to completed web sites.
 
 This project is not to be confused with its related project [FAST](https://github.com/microsoft/fast), a set of libraries for creating native web components and design systems.
 
@@ -30,4 +30,3 @@ We look forward to building an amazing open source community with you!
 
 * Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
 * Submit requests and issues on [GitHub](https://github.com/microsoft/fast-tooling/issues/new/choose).
-* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fast-tooling/labels/community:good-first-issue).
