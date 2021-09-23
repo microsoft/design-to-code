@@ -1,5 +1,8 @@
 import { XOR } from "../data-utilities/type.utilities";
-import { MessageSystemServiceAction } from "./message-system.service-action";
+import {
+    MessageSystemServiceAction,
+    MessageSystemServiceActionConfig,
+} from "./message-system.service-action";
 import { ActionNotFound } from "./message-system.service";
 
 export interface MetaKey {
@@ -85,13 +88,18 @@ export function mapKeyboardEventToKeyConfig(e: KeyboardEvent): KeyConfig[] {
 
 export class ShortcutsAction extends MessageSystemServiceAction<
     ShortcutsActionCallbackConfig,
-    KeyboardEvent
+    KeyboardEvent,
+    ShortcutsActionCallbackConfigSuccess
 > {
     public keys: KeyConfig[];
     public name: string;
 
-    constructor(config: any) {
-        // TODO: #82
+    constructor(
+        config: MessageSystemServiceActionConfig<
+            ShortcutsActionCallbackConfig,
+            ShortcutsActionCallbackConfigSuccess
+        >
+    ) {
         super(config);
 
         this.keys = config.keys;
