@@ -578,7 +578,7 @@ xdescribe("MonacoAdapter", () => {
                 new MonacoAdapterAction({
                     id: "foo",
                     action: config => {
-                        config.updateMonacoModelValue(["    foo\n   bar"]);
+                        config.updateMonacoModelValue(["    foo\n   bar"], false);
                     },
                 }),
             ],
@@ -689,7 +689,7 @@ xdescribe("MonacoAdapter", () => {
                 new MonacoAdapterAction({
                     id: "foo",
                     action: config => {
-                        config.updateMonacoModelValue(["<ul>", "foobar", "</ul>"]);
+                        config.updateMonacoModelValue(["<ul>", "foobar", "</ul>"], false);
                     },
                 }),
             ],

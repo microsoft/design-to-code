@@ -23,7 +23,7 @@ export interface ActionNotFound {
     error: string;
 }
 
-export interface MessageSystemServiceConfig<A, C = {}> {
+export interface MessageSystemServiceConfig<SACallback, SConfig = {}> {
     /**
      * The id for the service
      */
@@ -38,22 +38,22 @@ export interface MessageSystemServiceConfig<A, C = {}> {
     /**
      * Shortcut actions
      */
-    actions?: MessageSystemServiceAction<A, unknown>[];
+    actions?: MessageSystemServiceAction<SACallback, unknown>[];
 
     /**
      * Any additional configurations for this service
      */
-    config?: C;
+    config?: SConfig;
 }
 
 /**
  * This abstract class are for services that
  * use the MessageSystem to register and de-register themselves
  */
-export abstract class MessageSystemService<A, C = {}> {
+export abstract class MessageSystemService<SACallback, SConfig = {}> {
     public messageSystem: MessageSystem;
     private messageSystemConfig: Register;
-    protected registeredActions: MessageSystemServiceAction<A, unknown>[] = [];
+    protected registeredActions: MessageSystemServiceAction<SACallback, unknown>[] = [];
 
     /**
      * Destroy this before dereferencing the validator
@@ -67,7 +67,9 @@ export abstract class MessageSystemService<A, C = {}> {
      * Register this service with the message system
      * This should be called during construction
      */
-    public registerMessageSystem(config: MessageSystemServiceConfig<A, C>): void {
+    public registerMessageSystem(
+        config: MessageSystemServiceConfig<SACallback, SConfig>
+    ): void {
         if (config.messageSystem !== undefined) {
             this.messageSystemConfig = {
                 id: config.id,
@@ -94,14 +96,14 @@ export abstract class MessageSystemService<A, C = {}> {
      * The service should get any config to be passed to
      * the registered actions
      */
-    abstract getActionConfig(id: string): A;
+    abstract getActionConfig(id: string): SACallback;
 
     /**
      * Returns an action with a specific ID that can be run
      */
     public action = (id: string): IdentifiedAction => {
         const action = this.registeredActions.find(
-            (action: MessageSystemServiceAction<A, unknown>) => {
+            (action: MessageSystemServiceAction<SACallback, unknown>) => {
                 return action.id === id;
             }
         );
