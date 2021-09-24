@@ -1,33 +1,32 @@
-# Project
+# FAST Tooling
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This is the FAST Tooling project, containing a set of packages that can be combined to create complex workflows for web applications. The goal of these workflows is to allow users to create and modify their own web based experiences, from individual web components to completed web sites.
 
-As the maintainer of this project, please make a few updates:
+This project is not to be confused with its related project [FAST](https://github.com/microsoft/fast), a set of libraries for creating native web components and design systems.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+## Packages
 
-## Contributing
+### `@microsoft/fast-tooling`
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/@microsoft%2Ffast-tooling.svg)](https://badge.fury.io/js/@microsoft%2Ffast-tooling)
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+The `@microsoft/fast-tooling` package contains a web worker referred to as the Message System and infrastructure for registering, posting, and receiving messages that aide in editing and navigating a serializable data structure that maps to JSON schema. There are also various services available to integrate commonly used libraries with the Message System, such as AJV and the Monaco Editor. To learn more, check out the package [README](./packages/fast-tooling).
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+### `@microsoft/fast-tooling-react`
 
-## Trademarks
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/@microsoft%2Ffast-tooling-react.svg)](https://badge.fury.io/js/@microsoft%2Ffast-tooling-react)
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+The `@microsoft/fast-tooling-react` package contains various React components that work with the message system provided by `@microsoft/fast-tooling` to edit data, render data as HTML, and navigate data. To learn more, check out the package [README](./packages/fast-tooling-react).
+
+## Joining the Community
+
+Looking to get answers to questions or engage with us in realtime? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/microsoft/fast-tooling/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fast-tooling/labels/community:good-first-issue).
+
+We look forward to building an amazing open source community with you!
+
+## Contact
+
+* Join the community and chat with us in real-time on [Discord](https://discord.gg/FcSNfg4).
+* Submit requests and issues on [GitHub](https://github.com/microsoft/fast-tooling/issues/new/choose).
