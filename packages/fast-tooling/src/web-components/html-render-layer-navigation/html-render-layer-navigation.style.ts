@@ -9,7 +9,7 @@ import {
 } from "../style/css-properties";
 
 export const htmlRenderLayerNavigationStyles = (context, definition) => css`
-    .navigation-region {
+    .navigation {
         position: fixed;
         top: 0;
         right: 0;
@@ -17,8 +17,8 @@ export const htmlRenderLayerNavigationStyles = (context, definition) => css`
         left: 0;
         pointer-events: none;
     }
-    .click-layer,
-    .hover-layer {
+    .navigation-select,
+    .navigation-hover {
         display: none;
         position: absolute;
         box-sizing: content-box;
@@ -30,14 +30,20 @@ export const htmlRenderLayerNavigationStyles = (context, definition) => css`
         margin: calc(${FocusOutlineWidthProperty} * -1px) 0 0
             calc(${FocusOutlineWidthProperty} * -1px);
     }
-    .click-layer.active {
+    .navigation-select__insetVert {
+        margin-top: 0;
+    }
+    .navigation-select__insetHorz {
+        margin-left: 0;
+    }
+    .navigation-select__active {
         display: block;
         border: calc(${FocusOutlineWidthProperty} * 1px) solid ${AccentFillRestProperty};
     }
-    .hover-layer.active {
+    .navigation-hover__active {
         display: block;
     }
-    .hover-layer.active:after {
+    .navigation-hover__active:after {
         content: "";
         position: absolute;
         width: 100%;
@@ -46,7 +52,8 @@ export const htmlRenderLayerNavigationStyles = (context, definition) => css`
         border: calc(${FocusOutlineWidthProperty} * 1px) solid ${AccentFillRestProperty};
         background-color: ${AccentFillRestProperty};
     }
-    .pill {
+    .select-pill,
+    .hover-pill {
         position: absolute;
         box-sizing: border-box;
         top: calc((${LineHeight1Property} + (${FocusOutlineWidthProperty} * 4px)) * -1);
@@ -61,7 +68,15 @@ export const htmlRenderLayerNavigationStyles = (context, definition) => css`
         color: ${BackgroundColorProperty};
         white-space: nowrap;
     }
-    .hover-layer .pill {
+    .select-pill__inset {
+        top: calc(${FocusOutlineWidthProperty} * 1px + 2px);
+        left: calc(${FocusOutlineWidthProperty} * 1px + 2px);
+    }
+    .hover-pill__inset {
+        top: calc(${FocusOutlineWidthProperty} * 2px + 2px);
+        left: calc(${FocusOutlineWidthProperty} * 2px + 2px);
+    }
+    .hover-pill {
         background-color: ${BackgroundColorProperty};
         color: ${ForegroundColorProperty};
     }

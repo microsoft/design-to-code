@@ -482,6 +482,13 @@ export class HTMLRender extends FoundationElement {
     public renderMarkup(): void {
         if (this.markupDefinitions !== null) {
             this.tabCounter = 1;
+            const rootIsBody: boolean =
+                this.dataDictionary[0][this.dataDictionary[1]].schemaId === "body";
+            if (rootIsBody) {
+                (this.dataDictionary[0][this.dataDictionary[1]].data as any).root_type =
+                    "body";
+                this.dataDictionary[0][this.dataDictionary[1]].schemaId = "div";
+            }
             this.markup = mapDataDictionary({
                 dataDictionary: this.dataDictionary,
                 schemaDictionary: this.schemaDictionary,
@@ -505,6 +512,9 @@ export class HTMLRender extends FoundationElement {
                 }),
                 resolver: this.renderHtmlResolver,
             });
+            if (rootIsBody) {
+                this.dataDictionary[0][this.dataDictionary[1]].schemaId = "body";
+            }
         }
     }
 
