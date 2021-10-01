@@ -1,5 +1,8 @@
 import { MessageSystemType } from "../message-system";
-import { MessageSystemServiceAction } from "./message-system.service-action";
+import {
+    MessageSystemServiceAction,
+    MessageSystemServiceActionConfig,
+} from "./message-system.service-action";
 
 export interface MonacoAdapterActionCallbackConfig {
     /**
@@ -15,7 +18,14 @@ export interface MonacoAdapterActionCallbackConfig {
     /**
      * The message system type to run on
      */
-    messageSystemType: MessageSystemType;
+    messageSystemType?: MessageSystemType;
+}
+
+export interface MonacoAdapterActionOptions {
+    /**
+     * The message system type to run on
+     */
+    messageSystemType?: MessageSystemType;
 }
 
 /**
@@ -23,14 +33,19 @@ export interface MonacoAdapterActionCallbackConfig {
  */
 export class MonacoAdapterAction extends MessageSystemServiceAction<
     MonacoAdapterActionCallbackConfig,
-    MessageSystemType
+    MessageSystemType,
+    MonacoAdapterActionOptions
 > {
     private getMonacoModelValue: () => string[];
     private updateMonacoModelValue: (value: string[], isExternal: boolean) => void;
     private messageSystemType: MessageSystemType;
 
-    constructor(config: any) {
-        // TODO: #82
+    constructor(
+        config: MessageSystemServiceActionConfig<
+            MonacoAdapterActionCallbackConfig,
+            MonacoAdapterActionOptions
+        >
+    ) {
         super(config);
 
         this.messageSystemType = config.messageSystemType;

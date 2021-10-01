@@ -5,7 +5,7 @@ export interface MessageSystemServiceActionCallbackConfig {
     id: string;
 }
 
-export interface MessageSystemServiceActionConfig<TCallback>
+export interface MessageSystemServiceActionCallback<TCallback>
     extends MessageSystemServiceActionCallbackConfig {
     /**
      * The action to take when the key values have been pressed
@@ -13,22 +13,33 @@ export interface MessageSystemServiceActionConfig<TCallback>
     action: (config: TCallback) => void;
 }
 
+export type MessageSystemServiceActionConfig<
+    TCallback,
+    TOptions
+> = MessageSystemServiceActionCallbackConfig &
+    MessageSystemServiceActionCallback<TCallback> &
+    TOptions;
+
 /**
  * This abstract class is for actions intended to be part
  * of a registered class
  *
- * It takes two generics, C, an object which is added to the
- * MessageSystemServiceActionCallbackConfig,
- * and M, a generic used for matching
- * the action to some specific parameters
+ * It takes three generics, TCallback, an object which is added to the
+ * MessageSystemServiceActionCallbackConfig and provided to the class constructor,
+ * TMatch, a generic used for matching against to determine if the action should run,
+ * and TOptions for additional options to be passed in the constructor.
  */
-export abstract class MessageSystemServiceAction<TCallback = {}, TMatch = {}> {
+export abstract class MessageSystemServiceAction<
+    TCallback = {},
+    TMatch = {},
+    TOptions = {}
+> {
     private action: (
         config: TCallback & MessageSystemServiceActionCallbackConfig
     ) => void;
     public id: string;
 
-    constructor(config: MessageSystemServiceActionConfig<TCallback> & TMatch) {
+    constructor(config: MessageSystemServiceActionConfig<TCallback, TOptions>) {
         this.id = config.id;
         this.action = config.action;
     }

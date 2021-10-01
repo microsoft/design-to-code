@@ -3,7 +3,10 @@ import {
     ShortcutsAction,
     ShortcutsActionCallbackConfig,
 } from "./shortcuts.service-action";
-import { MessageSystemService } from "./message-system.service";
+import {
+    MessageSystemService,
+    MessageSystemServiceConfig,
+} from "./message-system.service";
 
 export type shortcutsMessageSystemAction = "initialize";
 export type shortcutsMessageSystemListenerType = "keypress";
@@ -73,10 +76,11 @@ export interface ShortcutsRegisterConfig {
  */
 export class Shortcuts extends MessageSystemService<
     ShortcutsActionCallbackConfig,
-    ShortcutsRegisterConfig
+    ShortcutsConfig
 > {
-    // TODO: #82
-    constructor(config: any) {
+    constructor(
+        config: MessageSystemServiceConfig<ShortcutsActionCallbackConfig, ShortcutsConfig>
+    ) {
         super();
 
         this.registerMessageSystem({
