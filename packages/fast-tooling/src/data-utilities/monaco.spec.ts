@@ -1,19 +1,22 @@
 import { expect } from "chai";
 import { IPosition } from "monaco-editor";
 import { linkedDataSchema } from "../schemas";
-import { mapDataDictionaryToMonacoEditorHTML, findMonacoEditorHTMLPositionByDictionaryId } from "./monaco";
+import {
+    mapDataDictionaryToMonacoEditorHTML,
+    findMonacoEditorHTMLPositionByDictionaryId,
+} from "./monaco";
 import { DataType, ReservedElementMappingKeyword } from "./types";
 
 const divSchema = {
     type: DataType.object,
     [ReservedElementMappingKeyword.mapsToTagName]: "div",
     properties: {
-        Slot: linkedDataSchema
-    }
+        Slot: linkedDataSchema,
+    },
 };
 const textSchema = {
     type: DataType.string,
-}
+};
 
 describe("mapDataDictionaryToMonacoEditorHTML", () => {
     it("should not map a data dictionary if no schema dictionaries conform to entries", () => {
@@ -638,17 +641,15 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                 {
                     root: {
                         schemaId: "div",
-                        data: {}
-                    }
+                        data: {},
+                    },
                 },
-                "root"
+                "root",
             ],
             {
-                div: divSchema
+                div: divSchema,
             },
-            [
-                "<div></div>"
-            ]
+            ["<div></div>"]
         );
 
         expect(position.column).to.equal(0);
@@ -664,26 +665,22 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                         data: {
                             Slot: [
                                 {
-                                    id: "foo"
-                                }
-                            ]
-                        }
+                                    id: "foo",
+                                },
+                            ],
+                        },
                     },
                     foo: {
                         schemaId: "div",
-                        data: {}
-                    }
+                        data: {},
+                    },
                 },
-                "root"
+                "root",
             ],
             {
-                div: divSchema
+                div: divSchema,
             },
-            [
-                "<div>",
-                "    <div></div>",
-                "</div>"
-            ]
+            ["<div>", "    <div></div>", "</div>"]
         );
 
         expect(position.column).to.equal(4);
@@ -699,34 +696,29 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                         data: {
                             Slot: [
                                 {
-                                    id: "foo"
+                                    id: "foo",
                                 },
                                 {
-                                    id: "bar"
-                                }
-                            ]
-                        }
+                                    id: "bar",
+                                },
+                            ],
+                        },
                     },
                     foo: {
                         schemaId: "div",
-                        data: {}
+                        data: {},
                     },
                     bar: {
                         schemaId: "div",
-                        data: {}
+                        data: {},
                     },
                 },
-                "root"
+                "root",
             ],
             {
-                div: divSchema
+                div: divSchema,
             },
-            [
-                "<div>",
-                "    <div></div>",
-                "    <div></div>",
-                "</div>"
-            ]
+            ["<div>", "    <div></div>", "    <div></div>", "</div>"]
         );
 
         expect(position.column).to.equal(4);
@@ -742,62 +734,62 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                         data: {
                             Slot: [
                                 {
-                                    id: "text1"
+                                    id: "text1",
                                 },
                                 {
-                                    id: "foo"
+                                    id: "foo",
                                 },
                                 {
-                                    id: "text2"
+                                    id: "text2",
                                 },
                                 {
-                                    id: "bar"
-                                }
-                            ]
-                        }
+                                    id: "bar",
+                                },
+                            ],
+                        },
                     },
                     text1: {
                         schemaId: "text",
-                        data: "Hello world"
+                        data: "Hello world",
                     },
                     foo: {
                         schemaId: "div",
                         data: {
                             Slot: [
                                 {
-                                    id: "text3"
-                                }
-                            ]
-                        }
+                                    id: "text3",
+                                },
+                            ],
+                        },
                     },
                     text3: {
                         schemaId: "text",
-                        data: "Hello"
+                        data: "Hello",
                     },
                     text2: {
                         schemaId: "text",
-                        data: "Hello world"
+                        data: "Hello world",
                     },
                     bar: {
                         schemaId: "div",
                         data: {
                             Slot: [
                                 {
-                                    id: "text4"
-                                }
-                            ]
-                        }
+                                    id: "text4",
+                                },
+                            ],
+                        },
                     },
                     text4: {
                         schemaId: "text",
-                        data: "world"
-                    }
+                        data: "world",
+                    },
                 },
-                "root"
+                "root",
             ],
             {
                 div: divSchema,
-                text: textSchema
+                text: textSchema,
             },
             [
                 "<div>",
@@ -805,7 +797,7 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                 "    <div>Hello</div>",
                 "    Hello world",
                 "    <div>world</div>",
-                "</div>"
+                "</div>",
             ]
         );
 
@@ -822,79 +814,79 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                         data: {
                             Slot: [
                                 {
-                                    id: "text1"
+                                    id: "text1",
                                 },
                                 {
-                                    id: "foo"
+                                    id: "foo",
                                 },
                                 {
-                                    id: "text2"
+                                    id: "text2",
                                 },
                                 {
-                                    id: "bar"
+                                    id: "bar",
                                 },
                                 {
-                                    id: "foobar"
-                                }
-                            ]
-                        }
+                                    id: "foobar",
+                                },
+                            ],
+                        },
                     },
                     text1: {
                         schemaId: "text",
-                        data: "Hello world"
+                        data: "Hello world",
                     },
                     foo: {
                         schemaId: "div",
                         data: {
                             Slot: [
                                 {
-                                    id: "text3"
-                                }
-                            ]
-                        }
+                                    id: "text3",
+                                },
+                            ],
+                        },
                     },
                     text3: {
                         schemaId: "text",
-                        data: "Hello"
+                        data: "Hello",
                     },
                     text2: {
                         schemaId: "text",
-                        data: "Hello world"
+                        data: "Hello world",
                     },
                     bar: {
                         schemaId: "div",
                         data: {
                             Slot: [
                                 {
-                                    id: "text4"
-                                }
-                            ]
-                        }
+                                    id: "text4",
+                                },
+                            ],
+                        },
                     },
                     text4: {
                         schemaId: "text",
-                        data: "world"
+                        data: "world",
                     },
                     foobar: {
                         schemaId: "div",
                         data: {
                             Slot: [
                                 {
-                                    id: "text5"
-                                }
-                            ]
-                        }
+                                    id: "text5",
+                                },
+                            ],
+                        },
                     },
                     text5: {
                         schemaId: "text",
-                        data: "foobar"
-                    }
+                        data: "foobar",
+                    },
                 },
-                "root"
+                "root",
             ],
             {
                 div: divSchema,
-                text: textSchema
+                text: textSchema,
             },
             [
                 "<div>",
@@ -902,7 +894,7 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                 "    <div>Hello</div>",
                 "    Hello world",
                 "    <div>world</div><div>foobar</div>",
-                "</div>"
+                "</div>",
             ]
         );
 
@@ -919,26 +911,22 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
                         data: {
                             Slot: [
                                 {
-                                    id: "foo"
-                                }
-                            ]
-                        }
+                                    id: "foo",
+                                },
+                            ],
+                        },
                     },
                     foo: {
                         schemaId: "div",
-                        data: {}
-                    }
+                        data: {},
+                    },
                 },
-                "root"
+                "root",
             ],
             {
-                div: divSchema
+                div: divSchema,
             },
-            [
-                "<div>",
-                "    <div></div>",
-                "</div>"
-            ]
+            ["<div>", "    <div></div>", "</div>"]
         );
 
         expect(position.column).to.equal(0);
