@@ -14,9 +14,9 @@ export const htmlRenderLayerNavigationTemplate: (
                         ? " navigation-select__active"
                         : null}
                         ${x =>
-                    x.selectPosition.top === 0 ? " navigation-select__insetVert" : ""}
+                    x.selectPosition.top === 0 ? " navigation-select__insetY" : ""}
                         ${x =>
-                    x.selectPosition.left === 0 ? " navigation-select__insetHorz" : ""}"
+                    x.selectPosition.left === 0 ? " navigation-select__insetX" : ""}"
                 style="top:${x => x.selectPosition.top}px;left:${x =>
                     x.selectPosition.left}px;width:${x =>
                     x.selectPosition.left === 0

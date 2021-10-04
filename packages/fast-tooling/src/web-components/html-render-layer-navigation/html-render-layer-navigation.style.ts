@@ -30,10 +30,10 @@ export const htmlRenderLayerNavigationStyles = (context, definition) => css`
         margin: calc(${FocusOutlineWidthProperty} * -1px) 0 0
             calc(${FocusOutlineWidthProperty} * -1px);
     }
-    .navigation-select__insetVert {
+    .navigation-select__insetY {
         margin-top: 0;
     }
-    .navigation-select__insetHorz {
+    .navigation-select__insetX {
         margin-left: 0;
     }
     .navigation-select__active {
