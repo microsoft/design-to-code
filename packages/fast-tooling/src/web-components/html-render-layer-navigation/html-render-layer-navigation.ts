@@ -19,6 +19,8 @@ declare global {
     }
 }
 
+const defaultPillContent: string = "Untitled";
+
 export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
     /**
      * Specifies a query selector string for choosing the element to attach
@@ -36,25 +38,30 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
     public hoverPosition: OverlayPosition = new OverlayPosition(0, 0, 0, 0);
 
     @observable
-    public clickPosition: OverlayPosition = new OverlayPosition(0, 0, 0, 0);
+    public selectPosition: OverlayPosition = new OverlayPosition(0, 0, 0, 0);
 
     @observable
-    public hoverLayerActive: boolean = false;
+    public hoverLayerActive: boolean = true;
 
     @observable
-    public clickLayerActive: boolean = false;
+    public selectLayerActive: boolean = true;
 
     @observable
-    public clickLayerHide: boolean = false;
+    public selectLayerHide: boolean = false;
 
     @observable
     public hoverLayerHide: boolean = false;
 
     @observable
-    public clickPillContent: string = "";
+    public selectPillContent: string = defaultPillContent;
 
     @observable
-    public hoverPillContent: string = "";
+    public hoverPillContent: string = defaultPillContent;
+
+    public selectPillElement: HTMLElement;
+    public selectPillHeight: number;
+    public hoverPillElement: HTMLElement;
+    public hoverPillHeight: number;
 
     private timeoutRef: number = null;
     private currElementRef: HTMLElement = null;
@@ -79,6 +86,16 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
 
         window.addEventListener("scroll", this.handleWindowChange);
         window.addEventListener("resize", this.handleWindowChange);
+        this.selectPillHeight = this.selectPillElement
+            ? this.selectPillElement.getBoundingClientRect().height +
+              parseInt(getComputedStyle(this.selectPillElement).borderWidth) * 2
+            : 0;
+        this.hoverPillHeight = this.hoverPillElement
+            ? this.hoverPillElement.getBoundingClientRect().height +
+              parseInt(getComputedStyle(this.hoverPillElement).borderWidth) * 2
+            : 0;
+        this.selectLayerActive = false;
+        this.hoverLayerActive = false;
     }
 
     disconnectedCallback() {
@@ -94,23 +111,31 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
         if (this.hoverLayerActive) {
             this.handleUnHighlight();
         }
-        if (this.clickLayerActive && this.currElementRef !== null) {
-            this.clickLayerHide = true;
+        if (this.selectLayerActive && this.currElementRef !== null) {
+            this.selectLayerHide = true;
             if (this.timeoutRef !== null) {
                 window.clearTimeout(this.timeoutRef);
             }
             this.timeoutRef = window.setTimeout(() => {
-                if (this.clickLayerActive && this.currElementRef !== null) {
-                    this.clickPosition = this.GetPositionFromElement(this.currElementRef);
+                if (this.selectLayerActive && this.currElementRef !== null) {
+                    this.selectPosition = this.GetPositionFromElement(
+                        this.currElementRef
+                    );
                 }
-                this.clickLayerHide = false;
+                this.selectLayerHide = false;
             }, 40);
         }
     };
 
     private GetPositionFromElement(target: HTMLElement): OverlayPosition {
         const pos: DOMRect = target.getBoundingClientRect();
-        return new OverlayPosition(pos.top, pos.left, pos.width, pos.height);
+        const style: CSSStyleDeclaration = getComputedStyle(target);
+        return new OverlayPosition(
+            pos.top - parseInt(style.marginTop),
+            pos.left - parseInt(style.marginLeft),
+            pos.width + parseInt(style.marginLeft) + parseInt(style.marginRight),
+            pos.height + parseInt(style.marginTop) + parseInt(style.marginBottom)
+        );
     }
 
     private getTitleForDictionaryId(dataDictionaryId: string): string | null {
@@ -124,17 +149,17 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
 
     private handleSelect(dataDictionaryId: string, elementRef: HTMLElement) {
         const title = this.getTitleForDictionaryId(dataDictionaryId);
-        this.clickPosition = this.GetPositionFromElement(elementRef);
-        this.clickLayerActive = true;
+        this.selectPosition = this.GetPositionFromElement(elementRef);
+        this.selectLayerActive = true;
         this.currElementRef = elementRef;
-        this.clickPillContent = title || "Untitled";
+        this.selectPillContent = title || defaultPillContent;
         this.hoverLayerActive = false;
     }
 
     private handleHighlight(dataDictionaryId: string, elementRef: HTMLElement) {
         const title = this.getTitleForDictionaryId(dataDictionaryId);
         this.hoverPosition = this.GetPositionFromElement(elementRef);
-        this.hoverPillContent = title || "Untitled";
+        this.hoverPillContent = title || defaultPillContent;
         this.hoverLayerActive = true;
     }
     private handleUnHighlight() {
@@ -143,15 +168,15 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
     }
 
     private handleClear() {
-        this.clickLayerActive = false;
+        this.selectLayerActive = false;
         this.currElementRef = null;
-        this.clickLayerActive = false;
-        this.clickPillContent = "";
+        this.selectLayerActive = false;
+        this.selectPillContent = "";
     }
 
     private handleUpdate() {
-        if (this.clickLayerActive) {
-            this.clickPosition = this.GetPositionFromElement(this.currElementRef);
+        if (this.selectLayerActive) {
+            this.selectPosition = this.GetPositionFromElement(this.currElementRef);
         }
     }
 
