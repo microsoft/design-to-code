@@ -1,5 +1,4 @@
-import { observable } from "@microsoft/fast-element";
-import { isHTMLElement, keyArrowDown, keyArrowUp } from "@microsoft/fast-web-utilities";
+import { keyArrowDown, keyArrowUp } from "@microsoft/fast-web-utilities";
 import { TextField, TextFieldType } from "@microsoft/fast-foundation";
 
 export class IncrementTextField extends TextField {
