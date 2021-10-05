@@ -83,7 +83,7 @@ const adapter = new MonacoAdapter({
                 // trigger an update to the monaco value that
                 // also updates the DataDictionary which fires a
                 // postMessage to the MessageSystem
-                config.updateMonacoModelValue(monacoValue);
+                config.updateMonacoModelValue(monacoValue, true);
             },
         }),
     ],
