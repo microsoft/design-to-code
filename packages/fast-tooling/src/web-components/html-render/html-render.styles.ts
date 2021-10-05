@@ -7,12 +7,13 @@ export const htmlRenderStyles = (context, definition) => css`
         padding: 0;
         box-sizing: border-box;
     }
-    .container.interactive {
-        padding: 40px;
-    }
     .html-render {
         width: 100%;
         height: 100%;
         outline: none;
+        display: flow-root;
+    }
+    .html-render > * {
+        display: flow-root;
     }
 `;
