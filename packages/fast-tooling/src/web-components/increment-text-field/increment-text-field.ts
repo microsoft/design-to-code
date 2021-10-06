@@ -3,6 +3,9 @@ import { TextField, TextFieldType } from "@microsoft/fast-foundation";
 import { DOM } from "@microsoft/fast-element";
 
 export class IncrementTextField extends TextField {
+    // The word boundry is defined as any non-alphanumeric character and not a '.', '-', or '%'.
+    private wordBoundryRegex = new RegExp(/[^a-zA-Z0-9.-\\%]/g);
+
     /**
      * @internal
      */
@@ -56,10 +59,10 @@ export class IncrementTextField extends TextField {
             // Find the last index of a non-alphanumeric character, dot or minus before the start position
             const startIndex =
                 startPos > 0
-                    ? this.lastIndexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos) + 1
+                    ? this.lastIndexOf(origValue, this.wordBoundryRegex, startPos) + 1
                     : 0;
             // Find the first index of a non-alphanumeric character, dot or minus after the start position
-            let endIndex = this.indexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos);
+            let endIndex = this.indexOf(origValue, this.wordBoundryRegex, startPos);
 
             // Set end index to end of string if no matches
             endIndex = endIndex < 0 ? origValue.length : endIndex;
