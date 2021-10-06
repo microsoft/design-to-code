@@ -20,7 +20,7 @@ export class IncrementTextField extends TextField {
      * @param position An optional starting position.
      * @returns The first matching index within the string or -1 if it is not found.
      */
-    private indexOf(searchString: string, regex: RegExp, position: number) {
+    public indexOf(searchString: string, regex: RegExp, position?: number) {
         const str = position ? searchString.substring(position) : searchString;
         const match = str.match(regex);
         return match ? str.indexOf(match[0]) + position : -1;
@@ -33,7 +33,7 @@ export class IncrementTextField extends TextField {
      * @param position An optional starting position.
      * @returns The last matching index within the string or -1 if it is not found.
      */
-    private lastIndexOf(searchString: string, regex: RegExp, position: number) {
+    public lastIndexOf(searchString: string, regex: RegExp, position?: number) {
         const str = position ? searchString.substring(0, position) : searchString;
         const match = str.match(regex);
         return match ? str.lastIndexOf(match[match.length - 1]) : -1;
@@ -54,25 +54,24 @@ export class IncrementTextField extends TextField {
             // startPos is the cursor location and startPos === endPos when nothing is selected
 
             // Find the last index of a non-alphanumeric character, dot or minus before the start position
-            let startIndex =
+            const startIndex =
                 startPos > 0
                     ? this.lastIndexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos) + 1
                     : 0;
             // Find the first index of a non-alphanumeric character, dot or minus after the start position
             let endIndex = this.indexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos);
 
-            // Set indexes to beginning or end of string if no matches
-            startIndex = startIndex < 0 ? 0 : startIndex;
+            // Set end index to end of string if no matches
             endIndex = endIndex < 0 ? origValue.length : endIndex;
 
             // Get the substring that we are acting on
             replaceText = origValue.substring(startIndex, endIndex);
 
             // Parse the substring into a number ignoring non-numeric characters
-            let origNum = parseFloat(replaceText);
+            const origNum = parseFloat(replaceText);
 
             // Adjust the value
-            let newNum = origNum + amount;
+            const newNum = origNum + amount;
 
             // Replace the original text with the new number value
             const newValue =
