@@ -1,5 +1,6 @@
 import { keyArrowDown, keyArrowUp } from "@microsoft/fast-web-utilities";
 import { TextField, TextFieldType } from "@microsoft/fast-foundation";
+import { DOM } from "@microsoft/fast-element";
 
 export class IncrementTextField extends TextField {
     /**
@@ -57,8 +58,9 @@ export class IncrementTextField extends TextField {
                 startPos > 0
                     ? this.lastIndexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos) + 1
                     : 0;
-            // Find the first inde xof a non-alphanumeric character, dot or minus after the start position
+            // Find the first index of a non-alphanumeric character, dot or minus after the start position
             let endIndex = this.indexOf(origValue, /[^a-zA-Z0-9.-]/g, startPos);
+
             // Set indexes to beginning or end of string if no matches
             startIndex = startIndex < 0 ? 0 : startIndex;
             endIndex = endIndex < 0 ? origValue.length : endIndex;
@@ -82,23 +84,32 @@ export class IncrementTextField extends TextField {
             // If no change (likely because there was no numeric value present) do nothing
             if (newValue !== origValue) {
                 // Set the control to the new value
-                this.control.value = newValue;
+                this.value = newValue;
 
-                // Update the selected range to match the length of the new number
-                this.control.setSelectionRange(
-                    isSelected ? startIndex : startPos,
-                    isSelected
-                        ? endIndex + newNum.toString().length - origNum.toString().length
-                        : startPos
-                );
+                DOM.queueUpdate(() => {
+                    // Update the selected range to match the length of the new number
+                    this.control.setSelectionRange(
+                        isSelected ? startIndex : startPos,
+                        isSelected
+                            ? endIndex +
+                                  newNum.toString().length -
+                                  origNum.toString().length
+                            : startPos
+                    );
+                });
 
                 this.$emit("change");
             }
 
             // Prevent the default otherwise up and down arrow moves the cursor to the beginning or end of the text
-            ev.stopPropagation();
             ev.preventDefault();
             return false;
         }
     };
+
+    public handleTextInput() {
+        super.handleTextInput();
+        // override base class handleTextInput so we can emit a change event with every keypress and not just when it loses focus
+        this.$emit("change");
+    }
 }
