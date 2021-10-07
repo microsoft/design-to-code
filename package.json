@@ -22,8 +22,7 @@
   "scripts": {
     "publish:bump": "beachball bump",
     "publish:change": "beachball change",
-    "publish:check": "beachball check",
-    "publish:check-ci": "beachball check --changehint \"Run 'npm run publish:change' to generate a change file\"",
+    "publish:check": "beachball check --changehint \"Run 'npm run publish:change' to generate a change file\"",
     "publish:start": "beachball publish",
     "publish:start-ci": "beachball publish -y --access public",
     "test:diff:error": "echo \"Untracked files exist, try running npm prepare to identify the culprit.\" && exit 1",
