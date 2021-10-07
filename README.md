@@ -20,6 +20,29 @@ The `@microsoft/fast-tooling` package contains a web worker referred to as the M
 
 The `@microsoft/fast-tooling-react` package contains various React components that work with the message system provided by `@microsoft/fast-tooling` to edit data, render data as HTML, and navigate data. To learn more, check out the package [README](./packages/fast-tooling-react).
 
+### Publishing
+This project uses [Beachball](https://microsoft.github.io/beachball/) to publish packages to NPM. The process is controlled through a series of commands located in the root `package.json` file to check, change, and publish. When a change occurs within the configuration (`beachball.config.js`) parameters, Beachball will trigger interactive mode on the command line to capture additional details for generating the changelog file. The change instructions are saved to `./changes/*` folder and used during continuous delivery process on GitHub Actions (`.github/workflows/cd-publish-packages.yml`) to publish to NPM.
+
+#### Development process
+The development process must be enhanced to include Beachball prior to submitting new pull requests for review.
+
+1. Check for any changes per the configuration file, generally this is checking for patches and minor changes.
+```
+npm run publish:check
+```
+2. If changes are discovered, then this must be run to generate the change files.
+```
+npm run publish:change
+```
+3. Changes are now ready to be committed and pushed for review.
+
+#### Testing process
+Several commands are available for testing.
+
+Beachball `publish:bump` can be used to version locally without publishing to the remote Git repository or NPM registry. This runs the same logic as `publish:start` so it's good practice to bump things locally to verify what is being changed.
+
+
+
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in realtime? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/microsoft/fast-tooling/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fast-tooling/labels/community:good-first-issue).
