@@ -32,6 +32,7 @@ This process must be followed prior to submitting new pull requests for review.
 
 1. Check for any changes per the configuration file, this is checking for patches and minor changes. _Major changes are ignored, except when manually planning a Major release._
 
+Note: Optional, because the following step is default and includes checking.
   ```
   npm run publish:check
   ```
