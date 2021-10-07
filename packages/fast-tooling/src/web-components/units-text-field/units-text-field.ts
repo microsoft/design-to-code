@@ -2,9 +2,9 @@ import { keyArrowDown, keyArrowUp } from "@microsoft/fast-web-utilities";
 import { TextField, TextFieldType } from "@microsoft/fast-foundation";
 import { DOM } from "@microsoft/fast-element";
 
-export class IncrementTextField extends TextField {
-    // The word boundry is defined as any non-alphanumeric character and not a '.', '-', or '%'.
-    private wordBoundryRegex = new RegExp(/[^a-zA-Z0-9.-\\%]/g);
+export class UnitsTextField extends TextField {
+    // The word boundry is defined as any whitespace or comma.
+    private wordBoundryRegex: RegExp = new RegExp(/[\s,]/g);
 
     /**
      * @internal
@@ -70,8 +70,8 @@ export class IncrementTextField extends TextField {
             // Get the substring that we are acting on
             replaceText = origValue.substring(startIndex, endIndex);
 
-            // Parse the substring into a number ignoring non-numeric characters
-            const origNum = parseFloat(replaceText);
+            // Parse the substring into a number ignoring leading non-numeric characters
+            const origNum = parseInt(replaceText.replace(/^[^\d-]*/, ""));
 
             // Adjust the value
             const newNum = origNum + amount;

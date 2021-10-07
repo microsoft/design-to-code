@@ -17,15 +17,15 @@
     </head>
     <body>
         <div id="root">
-            <fast-tooling-increment-text-field
+            <fast-tooling-units-text-field
                 placeholder="placeholder text"
-                id="increment_text_field"
+                id="units_text_field"
             >
-                Increment Text Field
-            </fast-tooling-increment-text-field>
+                Units Text Field
+            </fast-tooling-units-text-field>
         </div>
         <script>
-            const textFieldElement = document.getElementById("increment_text_field");
+            const textFieldElement = document.getElementById("units_text_field");
 
             textFieldElement.addEventListener("change", e => {
                 console.log("OnChange", e.target.value);

@@ -2,9 +2,9 @@ import { expect } from "chai";
 import { DOM, html } from "@microsoft/fast-element";
 import { DesignSystem } from "@microsoft/fast-foundation";
 import { fixture } from "../../__test__/fixture";
-import { IncrementTextField } from "./increment-text-field";
-import { fastToolingIncrementTextField } from "./";
-import { keyArrowDown, keyArrowUp, keyCodeInsert } from "@microsoft/fast-web-utilities";
+import { UnitsTextField } from "./units-text-field";
+import { fastToolingUnitsTextField } from ".";
+import { keyArrowDown, keyArrowUp } from "@microsoft/fast-web-utilities";
 
 const fakeArrowUpEvent: KeyboardEvent = new KeyboardEvent("keydown", { key: keyArrowUp });
 const fakeArrowShiftUpEvent: KeyboardEvent = new KeyboardEvent("keydown", {
@@ -20,26 +20,26 @@ const fakeArrowShiftDownEvent: KeyboardEvent = new KeyboardEvent("keydown", {
 });
 
 async function setup() {
-    const { element, connect, disconnect } = await fixture<IncrementTextField>(
+    const { element, connect, disconnect } = await fixture<UnitsTextField>(
         html`
-            <fast-tooling-increment-text-field
+            <fast-tooling-units-text-field
                 placeholder="placeholder text"
-                id="increment_text_field"
+                id="units_text_field"
             >
-                Increment Text Field
-            </fast-tooling-increment-text-field>
+                Units Text Field
+            </fast-tooling-units-text-field>
         `,
         {
             designSystem: DesignSystem.getOrCreate()
                 .withPrefix("fast-tooling")
-                .register(fastToolingIncrementTextField()),
+                .register(fastToolingUnitsTextField()),
         }
     );
 
     return { element, connect, disconnect };
 }
 
-describe("IncrementTextField", () => {
+describe("UnitsTextField", () => {
     it("should initialize and render", async () => {
         const { element, connect, disconnect } = await setup();
         const event = new Event("input", {
@@ -49,7 +49,7 @@ describe("IncrementTextField", () => {
 
         await connect();
 
-        expect(element.id).to.equal("increment_text_field");
+        expect(element.id).to.equal("units_text_field");
 
         element.addEventListener("change", (e: Event) => {
             wasChanged = true;

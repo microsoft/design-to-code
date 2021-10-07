@@ -1,16 +1,16 @@
 import { textFieldTemplate as template } from "@microsoft/fast-foundation";
 import { textFieldStyles as styles } from "@microsoft/fast-components";
-import { IncrementTextField } from "./increment-text-field";
+import { UnitsTextField } from "./units-text-field";
 
 /**
  * A web component text field that increments / decrements numeric values mixed with text when up and down arrow keys are pressed.
  *
  * @alpha
  * @remarks
- * HTML Element: \<increment-text-field\>
+ * HTML Element: \<units-text-field\>
  */
-export const fastToolingIncrementTextField = IncrementTextField.compose({
-    baseName: "increment-text-field",
+export const fastToolingUnitsTextField = UnitsTextField.compose({
+    baseName: "units-text-field",
     template,
     styles,
 });

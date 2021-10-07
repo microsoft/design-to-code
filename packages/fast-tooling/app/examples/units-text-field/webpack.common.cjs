@@ -9,7 +9,7 @@ const appDir = path.resolve(__dirname, "./");
 const outDir = path.resolve(__dirname, "./www");
 
 module.exports = {
-    name: "increment-text-field",
+    name: "units-text-field",
     entry: {
         main: path.resolve(appDir, "index.ts"),
     },
