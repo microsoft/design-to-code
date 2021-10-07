@@ -4,6 +4,7 @@ import { linkedDataSchema } from "../schemas";
 import {
     mapDataDictionaryToMonacoEditorHTML,
     findMonacoEditorHTMLPositionByDictionaryId,
+    findDictionaryIdByMonacoEditorHTMLPosition,
 } from "./monaco";
 import { DataType, ReservedElementMappingKeyword } from "./types";
 
@@ -931,5 +932,391 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
 
         expect(position.column).to.equal(0);
         expect(position.lineNumber).to.equal(0);
+    });
+});
+
+describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
+    it("should find the root dictionary ID", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    lineNumber: 0,
+                    column: 0,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div></div>"]
+            )
+        ).to.equal("root");
+    });
+    it("should find a nested dictionary ID", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    lineNumber: 1,
+                    column: 5,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "foo",
+                                    },
+                                ],
+                            },
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div>", "    <div></div>", "</div>"]
+            )
+        ).to.equal("foo");
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    lineNumber: 1,
+                    column: 14,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "foo",
+                                    },
+                                ],
+                            },
+                        },
+                        foo: {
+                            parent: {
+                                id: "root",
+                                dataLocation: "Slot",
+                            },
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div>", "    <div></div>", "</div>"]
+            )
+        ).to.equal("foo");
+    });
+    it("should find a nested dictionary ID with adjacent dictionary IDs", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    lineNumber: 1,
+                    column: 5,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "foo",
+                                    },
+                                    {
+                                        id: "bar",
+                                    },
+                                ],
+                            },
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                        bar: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div>", "    <div></div>", "    <div></div>", "</div>"]
+            )
+        ).to.equal("foo");
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    lineNumber: 2,
+                    column: 5,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "foo",
+                                    },
+                                    {
+                                        id: "bar",
+                                    },
+                                ],
+                            },
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                        bar: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div>", "    <div></div>", "    <div></div>", "</div>"]
+            )
+        ).to.equal("bar");
+    });
+    it("should find a nested dictionary ID when there are text nodes", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    column: 5,
+                    lineNumber: 4,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text1",
+                                    },
+                                    {
+                                        id: "foo",
+                                    },
+                                    {
+                                        id: "text2",
+                                    },
+                                    {
+                                        id: "bar",
+                                    },
+                                ],
+                            },
+                        },
+                        text1: {
+                            schemaId: "text",
+                            data: "Hello world",
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text3",
+                                    },
+                                ],
+                            },
+                        },
+                        text3: {
+                            schemaId: "text",
+                            data: "Hello",
+                        },
+                        text2: {
+                            schemaId: "text",
+                            data: "Hello world",
+                        },
+                        bar: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text4",
+                                    },
+                                ],
+                            },
+                        },
+                        text4: {
+                            schemaId: "text",
+                            data: "world",
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                    text: textSchema,
+                },
+                [
+                    "<div>",
+                    "    Hello world",
+                    "    <div>Hello</div>",
+                    "    Hello world",
+                    "    <div>world</div>",
+                    "</div>",
+                ]
+            )
+        ).to.equal("bar");
+    });
+    it("should get a nested dictionary item when it is on the same line as another item", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    column: 21,
+                    lineNumber: 4,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text1",
+                                    },
+                                    {
+                                        id: "foo",
+                                    },
+                                    {
+                                        id: "text2",
+                                    },
+                                    {
+                                        id: "bar",
+                                    },
+                                    {
+                                        id: "foobar",
+                                    },
+                                ],
+                            },
+                        },
+                        text1: {
+                            schemaId: "text",
+                            data: "Hello world",
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text3",
+                                    },
+                                ],
+                            },
+                        },
+                        text3: {
+                            schemaId: "text",
+                            data: "Hello",
+                        },
+                        text2: {
+                            schemaId: "text",
+                            data: "Hello world",
+                        },
+                        bar: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text4",
+                                    },
+                                ],
+                            },
+                        },
+                        text4: {
+                            schemaId: "text",
+                            data: "world",
+                        },
+                        foobar: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "text5",
+                                    },
+                                ],
+                            },
+                        },
+                        text5: {
+                            schemaId: "text",
+                            data: "foobar",
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                    text: textSchema,
+                },
+                [
+                    "<div>",
+                    "    Hello world",
+                    "    <div>Hello</div>",
+                    "    Hello world",
+                    "    <div>world</div><div>foobar</div>",
+                    "</div>",
+                ]
+            )
+        ).to.equal("foobar");
+    });
+    it("should get the root location if the dictionary ID could not be found", () => {
+        expect(
+            findDictionaryIdByMonacoEditorHTMLPosition(
+                {
+                    column: 0,
+                    lineNumber: 0,
+                },
+                [
+                    {
+                        root: {
+                            schemaId: "div",
+                            data: {
+                                Slot: [
+                                    {
+                                        id: "foo",
+                                    },
+                                ],
+                            },
+                        },
+                        foo: {
+                            schemaId: "div",
+                            data: {},
+                        },
+                    },
+                    "root",
+                ],
+                {
+                    div: divSchema,
+                },
+                ["<div>", "    <div></div>", "</div>"]
+            )
+        ).to.equal("root");
     });
 });

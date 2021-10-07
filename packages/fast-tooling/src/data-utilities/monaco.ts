@@ -176,13 +176,14 @@ export function mapDataDictionaryToMonacoEditorHTML(
 
 /**
  * Find all linked data for a single data item, assuming it is an object and
- * ignore all text children
+ * ignore all text children since the parse does not include text nodes only
+ * elements.
  */
 function findAllNonTextLinkedDataInData(
     schema: any,
     data: any,
     schemaDictionary: SchemaDictionary,
-    dataDictionary: DataDictionary<unknown>
+    dataDictionaryItems: { [key: string]: Data<unknown> }
 ): LinkedData[] {
     const linkedData: LinkedData[] = [];
 
@@ -194,7 +195,7 @@ function findAllNonTextLinkedDataInData(
             linkedData.push(
                 ...data[propertyName].filter((linkedData: LinkedData) => {
                     return (
-                        schemaDictionary[dataDictionary[0][linkedData.id].schemaId]
+                        schemaDictionary[dataDictionaryItems[linkedData.id].schemaId]
                             .type === DataType.object
                     );
                 })
@@ -368,7 +369,7 @@ function findMonacoEditorPositionOfTheDictionaryId(
                         schemaDictionary[dataDictionary[0][currentDictionaryId].schemaId],
                         dataDictionary[0][currentDictionaryId].data,
                         schemaDictionary,
-                        dataDictionary
+                        dataDictionary[0]
                     );
 
                     return getPositionFromParsedChildren(
@@ -438,4 +439,97 @@ export function findMonacoEditorHTMLPositionByDictionaryId(
         column: 0,
         lineNumber: 0,
     };
+}
+
+/**
+ * Gets the position if this were a parsed and combined value
+ */
+function getParsedPosition(position: IPosition, monacoEditorValue: string[]): number {
+    let parsedStartPosition = position.column;
+
+    for (
+        let lineNumber = 0, lineNumberLength = position.lineNumber;
+        lineNumber < lineNumberLength;
+        lineNumber++
+    ) {
+        parsedStartPosition = parsedStartPosition + monacoEditorValue[lineNumber].length;
+    }
+
+    return parsedStartPosition;
+}
+
+function findDictionaryIdFromTheMonacoEditorHTML(
+    startPosition: number,
+    monacoEditorParsed: Node,
+    dataDictionaryItems: { [key: string]: Data<unknown> },
+    schemaDictionary: SchemaDictionary,
+    currentDictionaryId: string
+): string {
+    // Return the dictionary ID corresponding to this parsed location if it is
+    // inbetween the start and end location
+    if (
+        startPosition > monacoEditorParsed.start &&
+        startPosition < monacoEditorParsed.end
+    ) {
+        let dictionaryId = currentDictionaryId;
+
+        // the children of this current dictionary item, without text children
+        // which the parsed value ignores
+        const childrenOfCurrentDictionaryId: LinkedData[] = findAllNonTextLinkedDataInData(
+            schemaDictionary[dataDictionaryItems[currentDictionaryId].schemaId],
+            dataDictionaryItems[currentDictionaryId].data,
+            schemaDictionary,
+            dataDictionaryItems
+        );
+
+        // Go through the parsed values children attempting to match them to
+        // the position
+        for (
+            let childIndex = 0,
+                childIndexLength = monacoEditorParsed.children?.length || 0;
+            childIndex < childIndexLength;
+            childIndex++
+        ) {
+            dictionaryId = findDictionaryIdFromTheMonacoEditorHTML(
+                startPosition,
+                monacoEditorParsed.children[childIndex],
+                dataDictionaryItems,
+                schemaDictionary,
+                childrenOfCurrentDictionaryId[childIndex].id
+            );
+
+            if (typeof dictionaryId === "string") {
+                return dictionaryId;
+            }
+        }
+
+        return currentDictionaryId;
+    }
+}
+
+/**
+ * Find a dictionary ID from a Monaco Editor position
+ *
+ * @alpha
+ */
+export function findDictionaryIdByMonacoEditorHTMLPosition(
+    position: IPosition,
+    dataDictionary: DataDictionary<unknown>,
+    schemaDictionary: SchemaDictionary,
+    monacoEditorValue: string[]
+): string {
+    // Go through the monaco editor value, count until we find the character location on a
+    // joined monaco editor value
+    const parsedPosition: number = getParsedPosition(position, monacoEditorValue);
+    const monacoEditorParsed = parse(monacoEditorValue.join("")).roots[0];
+
+    const dictionaryId: string = findDictionaryIdFromTheMonacoEditorHTML(
+        parsedPosition,
+        monacoEditorParsed,
+        dataDictionary[0],
+        schemaDictionary,
+        dataDictionary[1]
+    );
+
+    return typeof dictionaryId === "string" ? dictionaryId : dataDictionary[1];
 }
