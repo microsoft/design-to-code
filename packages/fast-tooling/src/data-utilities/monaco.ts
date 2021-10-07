@@ -5,8 +5,11 @@
  */
 
 import { get } from "lodash-es";
-import { Data, DataDictionary, SchemaDictionary } from "../message-system";
-import { ReservedElementMappingKeyword } from "./types";
+import { IPosition } from "monaco-editor";
+import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser";
+import { Data, DataDictionary, LinkedData, SchemaDictionary } from "../message-system";
+import { dictionaryLink } from "../schemas";
+import { DataType, ReservedElementMappingKeyword } from "./types";
 import { Delimiter, voidElements } from "./html-element";
 
 const whiteSpace = " ";
@@ -169,4 +172,364 @@ export function mapDataDictionaryToMonacoEditorHTML(
         schemaDictionary[dataDictionary[0][dataDictionary[1]].schemaId],
         schemaDictionary
     ).join(newline);
+}
+
+/**
+ * Find all linked data for a single data item, assuming it is an object and
+ * ignore all text children since the parse does not include text nodes only
+ * elements.
+ */
+function findAllNonTextLinkedDataInData(
+    schema: any,
+    data: any,
+    schemaDictionary: SchemaDictionary,
+    dataDictionaryItems: { [key: string]: Data<unknown> }
+): LinkedData[] {
+    const linkedData: LinkedData[] = [];
+
+    Object.keys(schema.properties).map((propertyName: string) => {
+        if (
+            schema.properties[propertyName][dictionaryLink] &&
+            Array.isArray(data[propertyName])
+        ) {
+            linkedData.push(
+                ...data[propertyName].filter((linkedData: LinkedData) => {
+                    return (
+                        schemaDictionary[dataDictionaryItems[linkedData.id].schemaId]
+                            .type === DataType.object
+                    );
+                })
+            );
+        }
+    });
+
+    return linkedData;
+}
+
+interface StartAndEndPosition {
+    start: IPosition;
+    end: IPosition;
+}
+
+interface Position extends StartAndEndPosition {
+    matchTargetDictionaryId: boolean;
+}
+
+/**
+ * This function returns a position for each child Node.
+ */
+function getPositionFromParsedChildren(
+    parsedValue: Node,
+    dataDictionary: DataDictionary<unknown>,
+    schemaDictionary: SchemaDictionary,
+    monacoEditorLineNumberLengths: number[],
+    lineNumberLength: number,
+    targetDictionaryId: string,
+    column: number,
+    lineNumber: number,
+    childrenOfCurrentDictionaryId: LinkedData[]
+): Position {
+    // The position to be used may be updated during the following loop for any children found
+    // to account for adjacent children
+    let previousChildEnd: IPosition = {
+        lineNumber,
+        column,
+    };
+    let newPosition: Position;
+
+    // Go through the parsed values children attempting to match them to
+    // the data dictionary children
+    for (
+        let childIndex = 0, childIndexLength = parsedValue.children?.length || 0;
+        childIndex < childIndexLength;
+        childIndex++
+    ) {
+        // for each parsed value, check that item for data dictionary child items that match
+        /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+        newPosition = findMonacoEditorPositionOfTheDictionaryId(
+            parsedValue.children[childIndex],
+            dataDictionary,
+            schemaDictionary,
+            monacoEditorLineNumberLengths,
+            lineNumberLength,
+            previousChildEnd.column,
+            previousChildEnd.lineNumber,
+            childrenOfCurrentDictionaryId[childIndex].id,
+            targetDictionaryId
+        );
+
+        if (newPosition?.matchTargetDictionaryId === false) {
+            previousChildEnd = {
+                column: newPosition.end.column,
+                lineNumber: newPosition.end.lineNumber,
+            };
+        } else if (newPosition?.matchTargetDictionaryId) {
+            return newPosition;
+        }
+    }
+}
+
+/**
+ * This function takes an array of numbers representing the columns of each line number,
+ * based off this and the parsed value start (or beginning of the node), the column and line number
+ * will be returned.
+ *
+ * @param monacoEditorLineNumberLengths - example [10, 20, 23]
+ * @param lineNumberLength - example 3 (see above)
+ * @param parsedValueStart - example 21
+ * @returns IPosition - example { column: 1, lineNumber: 2 }
+ */
+function getPositionFromSingleLine(
+    monacoEditorLineNumberLengths: number[],
+    lineNumberLength: number, // total lines
+    parsedValueStart: number // the start location if the HTML was on a single line
+): IPosition {
+    let totalColumns = 0; // the total number of columns so far
+
+    // go through each line
+    for (let lineNumberIndex = 0; lineNumberIndex < lineNumberLength; lineNumberIndex++) {
+        const remainingColumns = parsedValueStart - totalColumns;
+
+        // check to see if the parsedValueStart exists on this line number
+        if (
+            remainingColumns <= monacoEditorLineNumberLengths[lineNumberIndex] &&
+            remainingColumns + monacoEditorLineNumberLengths[lineNumberIndex] >
+                monacoEditorLineNumberLengths[lineNumberIndex]
+        ) {
+            return {
+                column: remainingColumns,
+                lineNumber: lineNumberIndex,
+            };
+        }
+
+        totalColumns += monacoEditorLineNumberLengths[lineNumberIndex];
+    }
+
+    return {
+        column: 0,
+        lineNumber: 0,
+    };
+}
+
+function findMonacoEditorPositionOfTheDictionaryId(
+    parsedValue: Node,
+    dataDictionary: DataDictionary<unknown>,
+    schemaDictionary: SchemaDictionary,
+    monacoEditorLineNumberLengths: number[],
+    lineNumberLength: number,
+    currentColumn: number,
+    currentLineNumber: number,
+    currentDictionaryId: string,
+    targetDictionaryId: string
+): Position {
+    const parsedValueTag = parsedValue.tag;
+    const startAndEndPositionOfDictionaryId: StartAndEndPosition = {
+        start: getPositionFromSingleLine(
+            monacoEditorLineNumberLengths,
+            lineNumberLength,
+            parsedValue.start
+        ),
+        end: getPositionFromSingleLine(
+            monacoEditorLineNumberLengths,
+            lineNumberLength,
+            parsedValue.end
+        ),
+    };
+
+    // From the current dictionary ID, determine where it is in the Monaco Editors value
+    // starting from the current column and line number
+    for (
+        let lineNumber = currentLineNumber;
+        lineNumber < lineNumberLength;
+        lineNumber++
+    ) {
+        for (
+            let column = currentLineNumber === lineNumber ? currentColumn : 0,
+                columnLength = monacoEditorLineNumberLengths[lineNumber];
+            column < columnLength;
+            column++
+        ) {
+            // match the node to the parsedValue tag
+            if (
+                schemaDictionary[dataDictionary[0][currentDictionaryId].schemaId][
+                    ReservedElementMappingKeyword.mapsToTagName
+                ] === parsedValueTag
+            ) {
+                // This is the current target dictionary id
+                if (targetDictionaryId === currentDictionaryId) {
+                    return {
+                        matchTargetDictionaryId: true,
+                        ...startAndEndPositionOfDictionaryId,
+                    };
+                    // This node has children to be parsed
+                } else if (parsedValue?.children) {
+                    // the children of this current dictionary item, without text children
+                    // which the parsed value ignores
+                    const childrenOfCurrentDictionaryId: LinkedData[] = findAllNonTextLinkedDataInData(
+                        schemaDictionary[dataDictionary[0][currentDictionaryId].schemaId],
+                        dataDictionary[0][currentDictionaryId].data,
+                        schemaDictionary,
+                        dataDictionary[0]
+                    );
+
+                    return getPositionFromParsedChildren(
+                        parsedValue,
+                        dataDictionary,
+                        schemaDictionary,
+                        monacoEditorLineNumberLengths,
+                        lineNumberLength,
+                        targetDictionaryId,
+                        startAndEndPositionOfDictionaryId.start.column + 1,
+                        startAndEndPositionOfDictionaryId.start.lineNumber,
+                        childrenOfCurrentDictionaryId
+                    );
+                    // This is an unmatched end node
+                } else {
+                    return {
+                        matchTargetDictionaryId: false,
+                        ...startAndEndPositionOfDictionaryId,
+                    };
+                }
+            }
+        }
+    }
+
+    return {
+        matchTargetDictionaryId: false,
+        ...startAndEndPositionOfDictionaryId,
+    };
+}
+
+/**
+ * Find a Monaco Editor position from a provided dictionary ID
+ *
+ * @alpha
+ */
+export function findMonacoEditorHTMLPositionByDictionaryId(
+    dictionaryId: string,
+    dataDictionary: DataDictionary<unknown>,
+    schemaDictionary: SchemaDictionary,
+    monacoEditorValue: string[]
+): IPosition {
+    // The below numbered array represents the monaco editor column and line numbers.
+    // The parsed value will be relied on for traversing the Nodes, which only uses a single line,
+    // this numbered array will be used to re-interpret the line number and columns for the position.
+    const monacoEditorLineNumberLengths: number[] = monacoEditorValue.map(
+        (monacoEditorLine: string) => {
+            return monacoEditorLine.length;
+        }
+    );
+    const position = findMonacoEditorPositionOfTheDictionaryId(
+        parse(monacoEditorValue.join("")).roots[0],
+        dataDictionary,
+        schemaDictionary,
+        monacoEditorLineNumberLengths,
+        monacoEditorValue.length,
+        0,
+        0,
+        dataDictionary[1],
+        dictionaryId
+    );
+
+    if (position?.matchTargetDictionaryId) {
+        return position.start;
+    }
+
+    return {
+        column: 0,
+        lineNumber: 0,
+    };
+}
+
+/**
+ * Gets the position if this were a parsed and combined value
+ */
+function getParsedPosition(position: IPosition, monacoEditorValue: string[]): number {
+    let parsedStartPosition = position.column;
+
+    for (
+        let lineNumber = 0, lineNumberLength = position.lineNumber;
+        lineNumber < lineNumberLength;
+        lineNumber++
+    ) {
+        parsedStartPosition = parsedStartPosition + monacoEditorValue[lineNumber].length;
+    }
+
+    return parsedStartPosition;
+}
+
+function findDictionaryIdFromTheMonacoEditorHTML(
+    startPosition: number,
+    monacoEditorParsed: Node,
+    dataDictionaryItems: { [key: string]: Data<unknown> },
+    schemaDictionary: SchemaDictionary,
+    currentDictionaryId: string
+): string {
+    // Return the dictionary ID corresponding to this parsed location if it is
+    // inbetween the start and end location
+    if (
+        startPosition > monacoEditorParsed.start &&
+        startPosition < monacoEditorParsed.end
+    ) {
+        let dictionaryId = currentDictionaryId;
+
+        // the children of this current dictionary item, without text children
+        // which the parsed value ignores
+        const childrenOfCurrentDictionaryId: LinkedData[] = findAllNonTextLinkedDataInData(
+            schemaDictionary[dataDictionaryItems[currentDictionaryId].schemaId],
+            dataDictionaryItems[currentDictionaryId].data,
+            schemaDictionary,
+            dataDictionaryItems
+        );
+
+        // Go through the parsed values children attempting to match them to
+        // the position
+        for (
+            let childIndex = 0,
+                childIndexLength = monacoEditorParsed.children?.length || 0;
+            childIndex < childIndexLength;
+            childIndex++
+        ) {
+            dictionaryId = findDictionaryIdFromTheMonacoEditorHTML(
+                startPosition,
+                monacoEditorParsed.children[childIndex],
+                dataDictionaryItems,
+                schemaDictionary,
+                childrenOfCurrentDictionaryId[childIndex].id
+            );
+
+            if (typeof dictionaryId === "string") {
+                return dictionaryId;
+            }
+        }
+
+        return currentDictionaryId;
+    }
+}
+
+/**
+ * Find a dictionary ID from a Monaco Editor position
+ *
+ * @alpha
+ */
+export function findDictionaryIdByMonacoEditorHTMLPosition(
+    position: IPosition,
+    dataDictionary: DataDictionary<unknown>,
+    schemaDictionary: SchemaDictionary,
+    monacoEditorValue: string[]
+): string {
+    // Go through the monaco editor value, count until we find the character location on a
+    // joined monaco editor value
+    const parsedPosition: number = getParsedPosition(position, monacoEditorValue);
+    const monacoEditorParsed = parse(monacoEditorValue.join("")).roots[0];
+
+    const dictionaryId: string = findDictionaryIdFromTheMonacoEditorHTML(
+        parsedPosition,
+        monacoEditorParsed,
+        dataDictionary[0],
+        schemaDictionary,
+        dataDictionary[1]
+    );
+
+    return typeof dictionaryId === "string" ? dictionaryId : dataDictionary[1];
 }
