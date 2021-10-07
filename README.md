@@ -23,9 +23,11 @@ The `@microsoft/fast-tooling-react` package contains various React components th
 ### Publishing
 This project uses [Beachball](https://microsoft.github.io/beachball/) to publish packages to NPM. The process is controlled through a series of commands located in the root `package.json` file to check, change, and publish. 
 
-When a change occurs within the configuration (`beachball.config.js`) parameters, Beachball will trigger interactive mode on the command line to capture additional details for generating the changelog file. The change instructions are saved to `./changes/*` folder and used during continuous delivery process on GitHub Actions (`.github/workflows/cd-publish-packages.yml`) to publish to NPM.
+When a change occurs within the configuration (`beachball.config.js`) parameters, Beachball will trigger interactive mode on the command line to capture additional details for generating the changelog file. The change instructions are saved to `./changes/*` folder and used during continuous delivery process on GitHub Actions (`.github/workflows/cd-publish-packages.yml`) to publish to NPM. 
 
 Beachball `publish:bump` can be used to version locally without publishing to the remote Git repository or NPM registry. This runs the same logic as `publish:start` so it's good practice to bump things locally to verify what's being changed.
+
+Publishing is made possible to the NPM registry using a GitHub Secret `NPM_TOKEN` which can be found on the NPM User account for the "Access Tokens" page.
 
 #### Development & Testing process
 This process must be followed prior to submitting new pull requests for review.
@@ -51,7 +53,7 @@ Note: Optional, because the following step is default and includes checking.
 
 4. Changes are now ready to be committed and pushed to the the repository for review. 
 
-5. Once merged to main, the continuous delivery process will automatically publish to NPM every Sunday through Thursday night. Including an on-demand option for repository owners and maintainers directly from the GitHub Action "CD - FAST Tooling Publisher" workflow page.
+5. Once merged to main, the continuous delivery process will automatically publish to NPM every Sunday through Thursday night. Including an on-demand option for repository owners and maintainers directly from the GitHub Action "CD - FAST Tooling Publisher" workflow page. Beachball failures on GitHub Actions trigger a notification to the private Discord channel named `#ms-internal-notifications`. This requires two GitHub Secrets where the values can be found within the Discord channel's Webhook URL `https://discord.com/api/webhooks/{DISCORD_NOTIFICATION_WEBHOOK_ID}/{DISCORD_NOTIFICATION_WEBHOOK_TOKEN}`. These GitHub Secret key names are DISCORD_NOTIFICATION_WEBHOOK_ID and DISCORD_NOTIFICATION_WEBHOOK_TOKEN.
 
 ## Joining the Community
 

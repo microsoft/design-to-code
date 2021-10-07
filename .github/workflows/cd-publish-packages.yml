@@ -46,11 +46,11 @@ jobs:
         NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npm run publish:start-ci -n $NPM_SECRET_TOKEN
     
-    - name: send notification message on failure
-      if: failure()
+    - name: Notify on Discord
       uses: appleboy/discord-action@master
       with:
-        webhook_id: ${{ secrets.WEBHOOK_ID }}
-        webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-        username: "GitHub Automated notification"
-        message: "FAST publishing failed"
+        webhook_id: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_ID }}
+        webhook_token: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_TOKEN }}
+        color: "DE2D6D"
+        username: "FAST DevOps Bot"
+        message: "Publish was triggered by ${{ github.actor }} located at https://github.com/microsoft/fast-tooling/actions"
