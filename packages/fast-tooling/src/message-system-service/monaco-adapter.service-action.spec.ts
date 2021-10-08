@@ -18,6 +18,7 @@ describe("MonacoAdapterAction", () => {
     it("should add config items to an instance of the action", () => {
         const callback1: any = () => {};
         const callback2: any = () => {};
+        const callback3: any = () => {};
         const monacoAdapterAction = new MonacoAdapterAction({
             action: () => {},
             id: "foo",
@@ -26,6 +27,7 @@ describe("MonacoAdapterAction", () => {
         monacoAdapterAction.addConfig({
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
 
@@ -38,6 +40,7 @@ describe("MonacoAdapterAction", () => {
     it("should invoke an action with config items", () => {
         const callback1: any = chai.spy(() => {});
         const callback2: any = chai.spy(() => {});
+        const callback3: any = chai.spy(() => {});
         const action: any = chai.spy(() => {});
         const monacoAdapterAction = new MonacoAdapterAction({
             action,
@@ -47,6 +50,7 @@ describe("MonacoAdapterAction", () => {
         monacoAdapterAction.addConfig({
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
 
@@ -59,12 +63,14 @@ describe("MonacoAdapterAction", () => {
             id: "foo",
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
     });
     it("should return the MessageSystemType when using the getMessageSystemType", () => {
         const callback1: any = () => {};
         const callback2: any = () => {};
+        const callback3: any = () => {};
         const action: any = () => {};
         const monacoAdapterAction = new MonacoAdapterAction({
             action,
@@ -74,6 +80,7 @@ describe("MonacoAdapterAction", () => {
         monacoAdapterAction.addConfig({
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
 
@@ -84,6 +91,7 @@ describe("MonacoAdapterAction", () => {
     it("should return true if the MessageSystemType matches", () => {
         const callback1: any = () => {};
         const callback2: any = () => {};
+        const callback3: any = () => {};
         const action: any = () => {};
         const monacoAdapterAction = new MonacoAdapterAction({
             action,
@@ -93,6 +101,7 @@ describe("MonacoAdapterAction", () => {
         monacoAdapterAction.addConfig({
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
 
@@ -101,6 +110,7 @@ describe("MonacoAdapterAction", () => {
     it("should return false if the MessageSystemType does not match", () => {
         const callback1: any = () => {};
         const callback2: any = () => {};
+        const callback3: any = () => {};
         const action: any = () => {};
         const monacoAdapterAction = new MonacoAdapterAction({
             action,
@@ -110,6 +120,7 @@ describe("MonacoAdapterAction", () => {
         monacoAdapterAction.addConfig({
             getMonacoModelValue: callback1,
             updateMonacoModelValue: callback2,
+            updateMonacoModelPosition: callback3,
             messageSystemType: MessageSystemType.custom,
         });
 
