@@ -79,17 +79,17 @@ export class UnitsTextField extends TextField {
             replaceText = originalValue.substring(startIndex, endIndex);
 
             // Parse the substring into a number ignoring leading non-numeric characters
-            const origNum = parseInt(replaceText.replace(/^[^\d-]*/, ""), 10);
+            const originalNumber = parseInt(replaceText.replace(/^[^\d-]*/, ""), 10);
 
             // Adjust the value
-            const newNum = origNum + step;
+            const newNum = originalNumber + step;
 
             // Replace the original text with the new number value
             const newValue =
                 originalValue.substring(0, startIndex) +
                 originalValue
                     .substring(startIndex)
-                    .replace(origNum.toString(), newNum.toString());
+                    .replace(originalNumber.toString(), newNum.toString());
 
             // If no change (likely because there was no numeric value present) do nothing
             if (newValue !== originalValue) {
@@ -103,7 +103,7 @@ export class UnitsTextField extends TextField {
                         isSelected
                             ? endIndex +
                                   newNum.toString().length -
-                                  origNum.toString().length
+                                  originalNumber.toString().length
                             : startPosition
                     );
                 });
