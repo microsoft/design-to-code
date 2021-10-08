@@ -1,0 +1,53 @@
+name: CD - Publisher
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * 0-4'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_SERVICE_USER: "FAST DevOps"
+  GITHUB_SERVICE_EMAIL: "fastsvc@microsoft.com"
+      
+jobs:
+  build_linux:
+    runs-on: ubuntu-latest
+    if: contains('janechu,williamw2,awentzel,eisenbergeffect', github.actor)
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        token: ${{ env.GITHUB_TOKEN }}
+
+    - name: Set Git User
+      run: |
+        git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
+        git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
+   
+    - name: Install package dependencies / prepare workspaces
+      run: npm ci
+
+    - name: Check for the presence of changed files inside ./change
+      run: npm run check
+
+    - name: Build
+      run: npm run build --if-present
+
+    - name: Test
+      run: npm run test --if-present
+   
+    - name: Publish NPM packages
+      env:
+        NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm run publish-ci -n $NPM_SECRET_TOKEN
+    
+    - name: Notify on Discord
+      uses: appleboy/discord-action@master
+      with:
+        webhook_id: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_ID }}
+        webhook_token: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_TOKEN }}
+        color: "#DE2D6D"
+        username: "FAST DevOps Bot"
+        message: "Publish was triggered by ${{ github.actor }} located at https://github.com/microsoft/fast-tooling/actions"
