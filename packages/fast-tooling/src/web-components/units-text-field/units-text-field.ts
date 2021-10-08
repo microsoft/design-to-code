@@ -44,59 +44,67 @@ export class UnitsTextField extends TextField {
 
     public handleKeyDown = (ev: KeyboardEvent): boolean => {
         if (ev.key === keyArrowUp || ev.key === keyArrowDown) {
-            const amount: number =
+            const step: number =
                 (ev.shiftKey ? 10 : 1) * (ev.key === keyArrowUp ? 1 : -1);
-            const startPos: number = this.control.selectionStart;
-            const endPos: number = this.control.selectionEnd;
-            const origValue: string = this.control.value;
-            const isSelected: boolean = startPos !== endPos;
+            const startPosition: number = this.control.selectionStart;
+            const endPosition: number = this.control.selectionEnd;
+            const originalValue: string = this.control.value;
+            const isSelected: boolean = startPosition !== endPosition;
 
             let replaceText: string = "";
 
             // Find the "word" closest to the cursor or selected area
-            // startPos is the cursor location and startPos === endPos when nothing is selected
+            // startPosition is the cursor location and startPosition === endPosition when nothing is selected
 
             // Find the last index of a non-alphanumeric character, dot or minus before the start position
             const startIndex =
-                startPos > 0
-                    ? this.lastIndexOf(origValue, this.wordBoundryRegex, startPos) + 1
+                startPosition > 0
+                    ? this.lastIndexOf(
+                          originalValue,
+                          this.wordBoundryRegex,
+                          startPosition
+                      ) + 1
                     : 0;
             // Find the first index of a non-alphanumeric character, dot or minus after the start position
-            let endIndex = this.indexOf(origValue, this.wordBoundryRegex, startPos);
+            let endIndex = this.indexOf(
+                originalValue,
+                this.wordBoundryRegex,
+                startPosition
+            );
 
             // Set end index to end of string if no matches
-            endIndex = endIndex < 0 ? origValue.length : endIndex;
+            endIndex = endIndex < 0 ? originalValue.length : endIndex;
 
             // Get the substring that we are acting on
-            replaceText = origValue.substring(startIndex, endIndex);
+            replaceText = originalValue.substring(startIndex, endIndex);
 
             // Parse the substring into a number ignoring leading non-numeric characters
-            const origNum = parseInt(replaceText.replace(/^[^\d-]*/, ""));
+            const origNum = parseInt(replaceText.replace(/^[^\d-]*/, ""), 10);
 
             // Adjust the value
-            const newNum = origNum + amount;
+            const newNum = origNum + step;
 
             // Replace the original text with the new number value
             const newValue =
-                origValue.substring(0, startIndex) +
-                origValue
+                originalValue.substring(0, startIndex) +
+                originalValue
                     .substring(startIndex)
                     .replace(origNum.toString(), newNum.toString());
 
             // If no change (likely because there was no numeric value present) do nothing
-            if (newValue !== origValue) {
+            if (newValue !== originalValue) {
                 // Set the control to the new value
                 this.value = newValue;
 
                 DOM.queueUpdate(() => {
                     // Update the selected range to match the length of the new number
                     this.control.setSelectionRange(
-                        isSelected ? startIndex : startPos,
+                        isSelected ? startIndex : startPosition,
                         isSelected
                             ? endIndex +
                                   newNum.toString().length -
                                   origNum.toString().length
-                            : startPos
+                            : startPosition
                     );
                 });
 
