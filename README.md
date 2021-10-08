@@ -20,41 +20,6 @@ The `@microsoft/fast-tooling` package contains a web worker referred to as the M
 
 The `@microsoft/fast-tooling-react` package contains various React components that work with the message system provided by `@microsoft/fast-tooling` to edit data, render data as HTML, and navigate data. To learn more, check out the package [README](./packages/fast-tooling-react).
 
-### Publishing
-This project uses [Beachball](https://microsoft.github.io/beachball/) to publish packages to NPM. The process is controlled through a series of commands located in the root `package.json` file to check, change, and publish. 
-
-When a change occurs within the configuration (`beachball.config.js`) parameters, Beachball will trigger interactive mode on the command line to capture additional details for generating the changelog file. The change instructions are saved to `./changes/*` folder and used during continuous delivery process on GitHub Actions (`.github/workflows/cd-publish-packages.yml`) to publish to NPM. 
-
-Beachball `publish:bump` can be used to version locally without publishing to the remote Git repository or NPM registry. This runs the same logic as `publish:start` so it's good practice to bump things locally to verify what's being changed.
-
-Publishing is made possible to the NPM registry using a GitHub Secret `NPM_TOKEN` which can be found on the NPM User account for the "Access Tokens" page.
-
-#### Development & Testing process
-This process must be followed prior to submitting new pull requests for review.
-
-1. Check for any changes per the configuration file, this is checking for patches and minor changes. _Major changes are ignored, except when manually planning a Major release._
-
-Note: Optional, because the following step is default and includes checking.
-  ```
-  npm run publish:check
-  ```
-
-2. Check for changes, if found, generate the change files located in `./change`.
-
-  ```
-  npm run publish:change
-  ```
-
-3. Check for changelog generation within each package named `CHANGELOG.json` and `CHANGELOG.md`.
-
-  ```
-  npm run publish:bump
-  ``` 
-
-4. Changes are now ready to be committed and pushed to the the repository for review. 
-
-5. Once merged to main, the continuous delivery process will automatically publish to NPM every Sunday through Thursday night. Including an on-demand option for repository owners and maintainers directly from the GitHub Action "CD - FAST Tooling Publisher" workflow page. Beachball failures on GitHub Actions trigger a notification to the private Discord channel named `#ms-internal-notifications`. This requires two GitHub Secrets where the values can be found within the Discord channel's Webhook URL `https://discord.com/api/webhooks/{DISCORD_NOTIFICATION_WEBHOOK_ID}/{DISCORD_NOTIFICATION_WEBHOOK_TOKEN}`. These GitHub Secret key names are DISCORD_NOTIFICATION_WEBHOOK_ID and DISCORD_NOTIFICATION_WEBHOOK_TOKEN.
-
 ## Joining the Community
 
 Looking to get answers to questions or engage with us in realtime? Our community is most active [on Discord](https://discord.gg/FcSNfg4). Submit requests and issues on [GitHub](https://github.com/microsoft/fast-tooling/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fast-tooling/labels/community:good-first-issue).
