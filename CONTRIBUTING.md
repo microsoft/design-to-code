@@ -1,5 +1,7 @@
 # Contributing to FAST Tooling
 
+Contributions are welcome! You can submit a pull request to fix a bug, implementing a feature, or even correcting simple documentation typos.
+
 ## Getting started
 
 ### Machine setup
@@ -57,35 +59,18 @@ Packages are located within the `packages` folder of the repository. Each packag
 
 ### Submitting a pull request
 
-If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Ensure that your changes adhere to the standards defined in the [style guide](./STYLE_GUIDE.md). Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from `main` or use the *merge* button provided by GitHub.
-When submitting your pull request please make the title clear and concise, provide a description of the change, and specify any issues that will be closed.
+Prior to submitting a pull request please follow the following steps.
 
-#### Change Files
-Any pull request which includes changes within the `packages/*` directory requires a corresponding change file. Before pushing your changes to create a pull request, be sure you have included the necessary change file(s). To generate a change file, run `npm change` in the root of the repository. The generated file will be checked into the repo automatically for you as part of the process.
-
-:::note
-When working across feature branches, you'll need to target the branch using the following command: `npm change --branch origin/{branch-name}`.
-:::
-
-**Example: Generated change file:**
-```json
-{
-  "type": "minor",
-  "comment": "Add fancy new feature for components.",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "name@example.com",
-  "dependentChangeType": "minor",
-  "date": "2021-03-01T19:10:06.323Z"
-}
-```
-
-Running `npm change` will walk you through a CLI process for generating change files. The process will walk you through selecting the type of change as well as ask you to provide a description of any changes. As a convenience, the utility looks to provide recent commit messages for use in the description. *For changes which do not affect the published package(s), please use "none" when selecting the change type*.
-
-More information on the change process and change types can be found on the [beachball website](https://microsoft.github.io/beachball/cli/change.html#change).
+1. Review and adhere to the standards defined in the [style guide](./STYLE_GUIDE.md).
+2. Rebase your branch from `main` or use the *merge* button provided by GitHub. If you're new to rebasing checkout [Merging vs Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
+3. Generate a change file(s) using `npm run change` located in `./change/*` and used for continuous delivery. As a convenience, the interactive prompt looks to provide recent commit messages for use in the description. *For changes which do not affect the published package(s), please use "none" when selecting the change type*.
+4. Finally, when submitting your pull request please make the title clear and concise, provide a description of the change, and specify any issues that will be closed.
 
 :::note
 If you are addressing multiple issues which are unrelated, consider either doing multiple pull requests, or generate separate change files to ensure accurate generation of changelogs and versioning of packages.
 :::
+
+For additional details on package versioning and changelog generation read the [Publishing](./PUBLISHING.md) documentation.
 
 ### Documenting breaking changes
 
@@ -102,7 +87,7 @@ Example of how to format `MIGRATION.md`:
 - `Bat` has been updated to use the new API [`BatConfig`](link/to/api).
 ```
 
-### Recommended Settings for Visual Studio Code
+### Recommended settings for Visual Studio Code
 
 You can use any code editor you like when working with the FAST Tooling monorepo. One of our favorites is [Visual Studio Code](https://code.visualstudio.com/). VS Code has great autocomplete support for TypeScript and JavaScript APIs, as well as a rich ecosystem of plugins.
 
