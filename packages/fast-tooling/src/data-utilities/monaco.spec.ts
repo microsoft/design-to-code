@@ -653,8 +653,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ["<div></div>"]
         );
 
-        expect(position.column).to.equal(0);
-        expect(position.lineNumber).to.equal(0);
+        expect(position.column).to.equal(1);
+        expect(position.lineNumber).to.equal(1);
     });
     it("should find a nested dictionary ID", () => {
         const position: IPosition = findMonacoEditorHTMLPositionByDictionaryId(
@@ -684,8 +684,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ["<div>", "    <div></div>", "</div>"]
         );
 
-        expect(position.column).to.equal(4);
-        expect(position.lineNumber).to.equal(1);
+        expect(position.column).to.equal(6);
+        expect(position.lineNumber).to.equal(2);
     });
     it("should find a nested dictionary ID with adjacent dictionary IDs", () => {
         const position: IPosition = findMonacoEditorHTMLPositionByDictionaryId(
@@ -722,8 +722,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ["<div>", "    <div></div>", "    <div></div>", "</div>"]
         );
 
-        expect(position.column).to.equal(4);
-        expect(position.lineNumber).to.equal(2);
+        expect(position.column).to.equal(6);
+        expect(position.lineNumber).to.equal(3);
     });
     it("should find a nested dictionary ID when there are text nodes", () => {
         const position: IPosition = findMonacoEditorHTMLPositionByDictionaryId(
@@ -802,8 +802,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ]
         );
 
-        expect(position.column).to.equal(4);
-        expect(position.lineNumber).to.equal(4);
+        expect(position.column).to.equal(6);
+        expect(position.lineNumber).to.equal(5);
     });
     it("should get a nested dictionary item when it is on the same line as another item", () => {
         const position: IPosition = findMonacoEditorHTMLPositionByDictionaryId(
@@ -899,8 +899,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ]
         );
 
-        expect(position.column).to.equal(20);
-        expect(position.lineNumber).to.equal(4);
+        expect(position.column).to.equal(22);
+        expect(position.lineNumber).to.equal(5);
     });
     it("should get the root location if the dictionary ID could not be found", () => {
         const position: IPosition = findMonacoEditorHTMLPositionByDictionaryId(
@@ -930,8 +930,8 @@ describe("findMonacoEditorHTMLPositionByDictionaryId", () => {
             ["<div>", "    <div></div>", "</div>"]
         );
 
-        expect(position.column).to.equal(0);
-        expect(position.lineNumber).to.equal(0);
+        expect(position.column).to.equal(1);
+        expect(position.lineNumber).to.equal(1);
     });
 });
 
@@ -963,8 +963,8 @@ describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
         expect(
             findDictionaryIdByMonacoEditorHTMLPosition(
                 {
-                    lineNumber: 1,
-                    column: 5,
+                    lineNumber: 2,
+                    column: 6,
                 },
                 [
                     {
@@ -1031,8 +1031,8 @@ describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
         expect(
             findDictionaryIdByMonacoEditorHTMLPosition(
                 {
-                    lineNumber: 1,
-                    column: 5,
+                    lineNumber: 2,
+                    column: 6,
                 },
                 [
                     {
@@ -1069,8 +1069,8 @@ describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
         expect(
             findDictionaryIdByMonacoEditorHTMLPosition(
                 {
-                    lineNumber: 2,
-                    column: 5,
+                    lineNumber: 3,
+                    column: 6,
                 },
                 [
                     {
@@ -1109,8 +1109,8 @@ describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
         expect(
             findDictionaryIdByMonacoEditorHTMLPosition(
                 {
-                    column: 5,
-                    lineNumber: 4,
+                    column: 6,
+                    lineNumber: 5,
                 },
                 [
                     {
@@ -1191,8 +1191,8 @@ describe("findDictionaryIdByMonacoEditorHTMLPosition", () => {
         expect(
             findDictionaryIdByMonacoEditorHTMLPosition(
                 {
-                    column: 21,
-                    lineNumber: 4,
+                    column: 22,
+                    lineNumber: 5,
                 },
                 [
                     {
