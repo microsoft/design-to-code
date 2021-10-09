@@ -1,8 +1,7 @@
 {
-    "type": "minor",
-    "comment": "Add a utility to identify the dictionary ID from Monaco Editor position (#102)",
-    "packageName": "@microsoft/fast-tooling",
-    "email": "7559015+janechu@users.noreply.github.com",
-    "dependentChangeType": "patch"
-  }
-  
+  "type": "minor",
+  "comment": "Add a utility to identify the dictionary ID from Monaco Editor position",
+  "packageName": "@microsoft/fast-tooling",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

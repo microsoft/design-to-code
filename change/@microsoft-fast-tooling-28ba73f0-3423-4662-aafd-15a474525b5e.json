@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add a text field component for units based values (#104)",
+  "comment": "Add a text field component for units based values",
   "packageName": "@microsoft/fast-tooling",
   "email": "44823142+williamw2@users.noreply.github.com",
   "dependentChangeType": "patch"
