@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Add a utility to identify the position of a dictionary item in Monaco Editor",
+  "packageName": "@microsoft/fast-tooling",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
