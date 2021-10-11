@@ -4,7 +4,11 @@ import {
     MessageSystemDataTypeAction,
     MessageSystemType,
 } from "../../../src";
-import { mapDataDictionaryToMonacoEditorHTML } from "../../../src/data-utilities/monaco";
+import {
+    findMonacoEditorHTMLPositionByDictionaryId,
+    mapDataDictionaryToMonacoEditorHTML,
+    findDictionaryIdByMonacoEditorHTMLPosition,
+} from "../../../src/data-utilities/monaco";
 import {
     MonacoAdapter,
     monacoAdapterId,
@@ -13,12 +17,24 @@ import { MonacoAdapterAction } from "../../../src/message-system-service/monaco-
 import monacoEditorConfig from "./monaco-editor-config";
 import dataDictionaryConfig from "./data-dictionary-config";
 import schemaDictionary from "./schema-dictionary";
+import { html_beautify } from "vscode-html-languageservice/lib/esm/beautify/beautify-html";
+import { XOR } from "../../../src/data-utilities/type.utilities";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
 
 document.body.setAttribute("style", "margin: 0");
 const root = document.getElementById("root");
+const setPosition = document.getElementById("setPosition");
+const setPositionInput: HTMLSelectElement = document.getElementById(
+    "setPositionValue"
+) as HTMLSelectElement;
+const currentDictionaryIdInput: HTMLInputElement = document.getElementById(
+    "currentDictionaryId"
+) as HTMLInputElement;
+const currentPosition: HTMLInputElement = document.getElementById(
+    "currentPosition"
+) as HTMLInputElement;
 root.setAttribute("style", "height: 100vh");
 const textInput = document.getElementById("foo") as HTMLInputElement;
 const boolInput = document.getElementById("bar") as HTMLInputElement;
@@ -37,7 +53,9 @@ function updateFormInputs() {
 function updateMonacoEditor() {
     /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
     editor.setValue(
-        mapDataDictionaryToMonacoEditorHTML(dataDictionary, schemaDictionary)
+        html_beautify(
+            mapDataDictionaryToMonacoEditorHTML(dataDictionary, schemaDictionary)
+        )
     );
 }
 
@@ -83,7 +101,16 @@ const adapter = new MonacoAdapter({
                 // trigger an update to the monaco value that
                 // also updates the DataDictionary which fires a
                 // postMessage to the MessageSystem
-                config.updateMonacoModelValue(monacoValue, true);
+                config.updateMonacoModelValue(
+                    [html_beautify(monacoValue.join(""))],
+                    true
+                );
+            },
+        }),
+        new MonacoAdapterAction({
+            id: "monaco.setPosition",
+            action: config => {
+                editor.setPosition(config.updateMonacoModelPosition());
             },
         }),
     ],
@@ -98,7 +125,7 @@ monaco.editor.onDidCreateModel((listener: monaco.editor.ITextModel) => {
          * Sets the value to be used by monaco
          */
         const modelValue = monacoEditorModel.getValue();
-        monacoValue = Array.isArray(modelValue) ? modelValue : [modelValue];
+        monacoValue = Array.isArray(modelValue) ? modelValue : modelValue.split("\n");
 
         if (!firstRun) {
             adapter.action("monaco.setValue").run();
@@ -109,6 +136,75 @@ monaco.editor.onDidCreateModel((listener: monaco.editor.ITextModel) => {
 });
 
 const editor = monaco.editor.create(root, monacoEditorConfig as any);
+
+enum PositionInHTML {
+    top = "top",
+    middle = "middle",
+    bottom = "bottom",
+}
+
+/**
+ * When cursor position changed, fire an event that will update the active dictionary id after identifying from the event
+ * where the dictionary id is, this should not affect the monaco editor motion as this is an external event
+ */
+editor.onDidChangeCursorPosition((e: monaco.editor.ICursorPositionChangedEvent): void => {
+    if (monacoValue?.length) {
+        const dictionaryId = findDictionaryIdByMonacoEditorHTMLPosition(
+            e.position,
+            dataDictionary,
+            schemaDictionary,
+            monacoValue
+        );
+        currentDictionaryIdInput.value = dictionaryId;
+        currentPosition.value = JSON.stringify(e.position);
+    } else {
+        currentDictionaryIdInput.value = dataDictionary[1];
+        currentPosition.value = JSON.stringify({
+            lineNumber: 1,
+            column: 1,
+        });
+    }
+});
+
+/**
+ * Set the position to an active dictionary id
+ */
+setPosition.addEventListener("click", (e: MouseEvent) => {
+    e.preventDefault();
+
+    const value: PositionInHTML =
+        (setPositionInput.value as XOR<PositionInHTML, void>) || PositionInHTML.bottom;
+
+    switch (value) {
+        case PositionInHTML.top:
+            // set position to active dictionary id div1
+            currentDictionaryIdInput.value = "div1";
+            break;
+        case PositionInHTML.middle:
+            // set position to active dictionary id div10
+            currentDictionaryIdInput.value = "div10";
+            break;
+        case PositionInHTML.bottom:
+            // set position to active dictionary id div20
+            currentDictionaryIdInput.value = "div20";
+            break;
+    }
+
+    const changeEvent = new Event("change");
+    currentDictionaryIdInput.dispatchEvent(changeEvent);
+});
+
+currentDictionaryIdInput.addEventListener("change", (e: Event) => {
+    const position = findMonacoEditorHTMLPositionByDictionaryId(
+        (e.target as HTMLInputElement).value,
+        dataDictionary,
+        schemaDictionary,
+        monacoValue
+    );
+    editor.setPosition(position);
+
+    editor.revealPositionInCenter(position, 0); // 0 means smooth scroll
+});
 
 function handleTextInputOnKeyUp() {
     fastMessageSystem.postMessage({
