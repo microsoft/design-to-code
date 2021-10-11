@@ -1,3 +1,4 @@
+import { IPosition } from "monaco-editor";
 import {
     InitializeMessageIncoming,
     MessageSystemType,
@@ -5,7 +6,10 @@ import {
 } from "../message-system";
 import { DataDictionary } from "../message-system";
 import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice";
-import { mapDataDictionaryToMonacoEditorHTML } from "../data-utilities/monaco";
+import {
+    findMonacoEditorHTMLPositionByDictionaryId,
+    mapDataDictionaryToMonacoEditorHTML,
+} from "../data-utilities/monaco";
 import {
     MessageSystemService,
     MessageSystemServiceConfig,
@@ -99,6 +103,7 @@ export class MonacoAdapter extends MessageSystemService<
         return {
             getMonacoModelValue: this.getMonacoModelValue,
             updateMonacoModelValue: this.updateMonacoModelValue,
+            updateMonacoModelPosition: this.updateMonacoModelPosition,
             messageSystemType,
         };
     };
@@ -111,6 +116,7 @@ export class MonacoAdapter extends MessageSystemService<
             registeredAction.addConfig({
                 getMonacoModelValue: this.getMonacoModelValue,
                 updateMonacoModelValue: this.updateMonacoModelValue,
+                updateMonacoModelPosition: this.updateMonacoModelPosition,
                 messageSystemType: registeredAction.getMessageSystemType(),
             });
         });
@@ -144,12 +150,7 @@ export class MonacoAdapter extends MessageSystemService<
          * Normalize values by converting all new lines into an array
          * and remove the leading spaces
          */
-        this.monacoModelValue = value
-            .join("")
-            .split("\n")
-            .map((lineValue: string) => {
-                return lineValue.replace(/^\s*/g, "");
-            });
+        this.monacoModelValue = value.join("").split("\n");
 
         if (!isExternal) {
             const dataDictionary = mapVSCodeHTMLAndDataDictionaryToDataDictionary(
@@ -173,6 +174,18 @@ export class MonacoAdapter extends MessageSystemService<
                 dictionaryId: this.dictionaryId,
             } as InitializeMessageIncoming);
         }
+    };
+
+    /**
+     * Get the position inside the monaco model by dictionary id
+     */
+    private updateMonacoModelPosition = (dictionaryId?: string): IPosition => {
+        return findMonacoEditorHTMLPositionByDictionaryId(
+            typeof dictionaryId === "string" ? dictionaryId : this.dictionaryId,
+            this.dataDictionary,
+            this.schemaDictionary,
+            this.monacoModelValue
+        );
     };
 }
 

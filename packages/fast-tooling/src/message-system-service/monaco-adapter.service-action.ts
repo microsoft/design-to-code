@@ -1,3 +1,4 @@
+import { IPosition } from "monaco-editor";
 import { MessageSystemType } from "../message-system";
 import {
     MessageSystemServiceAction,
@@ -14,6 +15,11 @@ export interface MonacoAdapterActionCallbackConfig {
      * Update the Monaco Model value
      */
     updateMonacoModelValue: (value: string[], isExternal: boolean) => void;
+
+    /**
+     * Update the Monaco editors position
+     */
+    updateMonacoModelPosition: (dictionaryId?: string) => IPosition;
 
     /**
      * The message system type to run on
@@ -38,6 +44,7 @@ export class MonacoAdapterAction extends MessageSystemServiceAction<
 > {
     private getMonacoModelValue: () => string[];
     private updateMonacoModelValue: (value: string[], isExternal: boolean) => void;
+    private updateMonacoModelPosition: (dictionaryId?: string) => IPosition;
     private messageSystemType: MessageSystemType;
 
     constructor(
@@ -58,6 +65,7 @@ export class MonacoAdapterAction extends MessageSystemServiceAction<
         this.getAction({
             getMonacoModelValue: this.getMonacoModelValue,
             updateMonacoModelValue: this.updateMonacoModelValue,
+            updateMonacoModelPosition: this.updateMonacoModelPosition,
             messageSystemType: this.messageSystemType,
         })();
     };
@@ -68,6 +76,7 @@ export class MonacoAdapterAction extends MessageSystemServiceAction<
     public addConfig(config: MonacoAdapterActionCallbackConfig): void {
         this.getMonacoModelValue = config.getMonacoModelValue;
         this.updateMonacoModelValue = config.updateMonacoModelValue;
+        this.updateMonacoModelPosition = config.updateMonacoModelPosition;
         this.messageSystemType = config.messageSystemType;
     }
 
