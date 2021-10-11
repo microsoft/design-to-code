@@ -1,4 +1,4 @@
-import { observable } from "@microsoft/fast-element";
+import { attr, observable } from "@microsoft/fast-element";
 import { isHTMLElement } from "@microsoft/fast-web-utilities";
 import { FoundationElement } from "@microsoft/fast-foundation";
 import {
@@ -47,6 +47,9 @@ export class HTMLRender extends FoundationElement {
     private activeDictionaryId: string = "";
 
     private renderLayers: HTMLRenderLayer[] = [];
+
+    @attr({ attribute: "scroll-into-view", mode: "boolean" })
+    public scrollIntoViewOnNavigation: boolean;
 
     @observable
     public interactiveMode: boolean = true;
@@ -210,6 +213,9 @@ export class HTMLRender extends FoundationElement {
         }
         if (el) {
             this.currentElement = el;
+            if (this.scrollIntoViewOnNavigation) {
+                this.currentElement.scrollIntoView({ block: "center", inline: "center" });
+            }
             if (this.interactiveMode) {
                 this.updateLayers(
                     this.layerActivityId,
