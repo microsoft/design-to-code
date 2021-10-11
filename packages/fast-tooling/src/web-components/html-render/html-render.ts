@@ -213,10 +213,14 @@ export class HTMLRender extends FoundationElement {
         }
         if (el) {
             this.currentElement = el;
-            if (this.scrollIntoViewOnNavigation) {
-                this.currentElement.scrollIntoView({ block: "center", inline: "center" });
-            }
             if (this.interactiveMode) {
+                if (this.scrollIntoViewOnNavigation) {
+                    this.currentElement.scrollIntoView({
+                        block: "center",
+                        inline: "center",
+                    });
+                }
+
                 this.updateLayers(
                     this.layerActivityId,
                     ActivityType.click,
