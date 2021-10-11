@@ -287,27 +287,28 @@ function getPositionFromSingleLine(
     let totalColumns = 0; // the total number of columns so far
 
     // go through each line
-    for (let lineNumberIndex = 0; lineNumberIndex < lineNumberLength; lineNumberIndex++) {
+    for (let lineNumber = 1; lineNumber < lineNumberLength; lineNumber++) {
         const remainingColumns = parsedValueStart - totalColumns;
+        const monacoEditorIndex = lineNumber - 1;
 
         // check to see if the parsedValueStart exists on this line number
         if (
-            remainingColumns <= monacoEditorLineNumberLengths[lineNumberIndex] &&
-            remainingColumns + monacoEditorLineNumberLengths[lineNumberIndex] >
-                monacoEditorLineNumberLengths[lineNumberIndex]
+            remainingColumns < monacoEditorLineNumberLengths[monacoEditorIndex] &&
+            remainingColumns + monacoEditorLineNumberLengths[monacoEditorIndex] >
+                monacoEditorLineNumberLengths[monacoEditorIndex] + 1
         ) {
             return {
-                column: remainingColumns,
-                lineNumber: lineNumberIndex,
+                lineNumber,
+                column: remainingColumns + 2,
             };
         }
 
-        totalColumns += monacoEditorLineNumberLengths[lineNumberIndex];
+        totalColumns += monacoEditorLineNumberLengths[monacoEditorIndex];
     }
 
     return {
-        column: 0,
-        lineNumber: 0,
+        lineNumber: 1,
+        column: 1,
     };
 }
 
@@ -344,7 +345,7 @@ function findMonacoEditorPositionOfTheDictionaryId(
         lineNumber++
     ) {
         for (
-            let column = currentLineNumber === lineNumber ? currentColumn : 0,
+            let column = currentLineNumber === lineNumber ? currentColumn : 1,
                 columnLength = monacoEditorLineNumberLengths[lineNumber];
             column < columnLength;
             column++
@@ -425,8 +426,8 @@ export function findMonacoEditorHTMLPositionByDictionaryId(
         schemaDictionary,
         monacoEditorLineNumberLengths,
         monacoEditorValue.length,
-        0,
-        0,
+        1,
+        1,
         dataDictionary[1],
         dictionaryId
     );
@@ -436,8 +437,8 @@ export function findMonacoEditorHTMLPositionByDictionaryId(
     }
 
     return {
-        column: 0,
-        lineNumber: 0,
+        column: 1,
+        lineNumber: 1,
     };
 }
 
@@ -448,11 +449,12 @@ function getParsedPosition(position: IPosition, monacoEditorValue: string[]): nu
     let parsedStartPosition = position.column;
 
     for (
-        let lineNumber = 0, lineNumberLength = position.lineNumber;
+        let lineNumber = 1, lineNumberLength = position.lineNumber;
         lineNumber < lineNumberLength;
         lineNumber++
     ) {
-        parsedStartPosition = parsedStartPosition + monacoEditorValue[lineNumber].length;
+        parsedStartPosition =
+            parsedStartPosition + monacoEditorValue[lineNumber - 1].length;
     }
 
     return parsedStartPosition;
@@ -468,8 +470,8 @@ function findDictionaryIdFromTheMonacoEditorHTML(
     // Return the dictionary ID corresponding to this parsed location if it is
     // inbetween the start and end location
     if (
-        startPosition > monacoEditorParsed.start &&
-        startPosition < monacoEditorParsed.end
+        startPosition > monacoEditorParsed.start + 1 &&
+        startPosition <= monacoEditorParsed.end
     ) {
         let dictionaryId = currentDictionaryId;
 

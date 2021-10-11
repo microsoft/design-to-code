@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     if: contains('janechu,williamw2,awentzel,eisenbergeffect', github.actor)
 
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
     steps:
     - uses: actions/checkout@v2
       with:
@@ -26,6 +30,23 @@ jobs:
         git config --global user.name "${{ env.GITHUB_SERVICE_USER }}"
         git config --global user.email "${{ env.GITHUB_SERVICE_EMAIL }}"
    
+    - name: Cache multiple paths
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
     - name: Install package dependencies / prepare workspaces
       run: npm ci
 
