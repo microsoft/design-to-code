@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updates to remove npmrc and move registry into workflow action",
-  "packageName": "@microsoft/fast-tooling-react",
-  "email": "16669785+awentzel@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
