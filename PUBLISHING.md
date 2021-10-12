@@ -46,3 +46,14 @@ npm run change
 ```bash
 npm run bump
 ```
+
+## NPM Authentication Best Practices
+1. Publishing with an NPM Token should be configured to "Require two-factor authentication or automation tokens from the `fastsvc@microsoft.com` service account which uses the Authenticator App for 2FA, if needed for manual publishing, otherwise automation skips 2FA.
+2. When creating the new NPM Access Token select the "Automation" type which will then bypass 2FA from the workflow.
+3. Add this token to GitHub Secrets as `NPM_TOKEN`.
+4. Always include `registry-url: 'https://registry.npmjs.org'` on `actions/setup-node@v1` runner, in the YAML workflow file, even though it feels like it should be the default.
+5. Always set `NODE_AUTH_TOKEN: $ {{ secrets.NPM_TOKEN }}` to minimize authentication issues. This will automatically create the correct `.npmrc` configuration for the workflow.
+
+## Publishing Resources
+- [Hackernoon](https://hackernoon.com/publish-npm-packages-using-github-actions-a-how-to-guide-q31c34fg)
+- [GitHub](https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages)

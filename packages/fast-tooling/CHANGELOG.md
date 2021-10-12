@@ -1,8 +1,25 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Tue, 14 Sep 2021 07:16:47 GMT and should not be manually modified.
+This log was last generated on Tue, 12 Oct 2021 02:04:42 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.30.0
+
+Tue, 12 Oct 2021 02:04:42 GMT
+
+### Minor changes
+
+- Add a utility to identify the dictionary ID from Monaco Editor position (7559015+janechu@users.noreply.github.com)
+- Add a text field component for units based values (44823142+williamw2@users.noreply.github.com)
+- Add a utility to identify the position of a dictionary item in Monaco Editor (7559015+janechu@users.noreply.github.com)
+- Add scroll-into-view attribute to HTMLRender component. (44823142+williamw2@users.noreply.github.com)
+- Remove the HTMLRender padding (44823142+williamw2@users.noreply.github.com)
+- Update the Monaco Adapter service to include the ability to update the position inside the Monaco Editors value (7559015+janechu@users.noreply.github.com)
+
+### Patches
+
+- Change the line number and column number so that they start at 1 for Monaco Editor (7559015+janechu@users.noreply.github.com)
 
 ## 0.29.0
 
