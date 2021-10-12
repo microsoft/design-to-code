@@ -2,6 +2,29 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Tue, 12 Oct 2021 02:05:29 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.11.5",
+      "version": "2.11.5",
+      "comments": {
+        "none": [
+          {
+            "author": "16669785+awentzel@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "reconciling change files for npm registry change",
+            "commit": "3a33ecc6ae61df87ff8a0b48b692e840c366036f"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.0",
+            "commit": "3a33ecc6ae61df87ff8a0b48b692e840c366036f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 07:16:47 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.11.4",
       "version": "2.11.4",
