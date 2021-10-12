@@ -62,7 +62,7 @@ jobs:
     - name: Publish NPM packages
       env:
         NPM_SECRET_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npm run publish-ci -n $NPM_SECRET_TOKEN --workspaces
+      run: npm run publish-ci -n $NPM_SECRET_TOKEN
     
     - name: Notify on Discord
       uses: appleboy/discord-action@master
