@@ -23,6 +23,7 @@ export interface NavigationTestPageState {
     activeDictionaryId: string;
     defaultLinkedDataDroppableDataLocation: boolean;
     droppableBlocklist: string[];
+    scrollIntoView: boolean;
 }
 
 const CSSpropertyOverrides = {
@@ -63,6 +64,7 @@ class NavigationTestPage extends React.Component<{}, NavigationTestPageState> {
             activeDictionaryId: children[1],
             defaultLinkedDataDroppableDataLocation: false,
             droppableBlocklist: [],
+            scrollIntoView: false,
         };
     }
 
@@ -168,16 +170,28 @@ class NavigationTestPage extends React.Component<{}, NavigationTestPageState> {
                     </label>
                 </fieldset>
                 {this.renderAllLinkedData()}
-                <ModularNavigation
-                    messageSystem={fastMessageSystem}
-                    types={this.state.types}
-                    defaultLinkedDataDroppableDataLocation={
-                        this.state.defaultLinkedDataDroppableDataLocation
-                            ? "children"
-                            : void 0
-                    }
-                    droppableBlocklist={this.state.droppableBlocklist}
+                <input
+                    id={"scrollIntoView"}
+                    type={"checkbox"}
+                    value={this.state.scrollIntoView.toString()}
+                    onChange={this.handleScrollIntoView}
                 />
+                <label htmlFor={"scrollIntoView"}>
+                    Scroll active dictionary items into view
+                </label>
+                <div style={this.state.scrollIntoView ? { height: "100px" } : {}}>
+                    <ModularNavigation
+                        messageSystem={fastMessageSystem}
+                        types={this.state.types}
+                        defaultLinkedDataDroppableDataLocation={
+                            this.state.defaultLinkedDataDroppableDataLocation
+                                ? "children"
+                                : void 0
+                        }
+                        droppableBlocklist={this.state.droppableBlocklist}
+                        scrollIntoView={this.state.scrollIntoView}
+                    />
+                </div>
 
                 <pre>{JSON.stringify(this.state.types, null, 2)}</pre>
                 <pre>{JSON.stringify(this.state.navigation, null, 2)}</pre>
@@ -284,6 +298,12 @@ class NavigationTestPage extends React.Component<{}, NavigationTestPageState> {
     private handleCSSOverrideUpdate = (): void => {
         this.setState({
             cssPropertyOverrides: !this.state.cssPropertyOverrides,
+        });
+    };
+
+    private handleScrollIntoView = (): void => {
+        this.setState({
+            scrollIntoView: !this.state.scrollIntoView,
         });
     };
 }

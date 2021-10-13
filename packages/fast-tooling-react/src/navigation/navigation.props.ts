@@ -170,6 +170,12 @@ export interface NavigationHandledProps {
      * @alpha
      */
     droppableBlocklist?: string[];
+
+    /**
+     * Scroll the navigation so that the active dictionary comes into view during
+     * navigation updates
+     */
+    scrollIntoView?: boolean;
 }
 
 export type NavigationProps = NavigationHandledProps;
