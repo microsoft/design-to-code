@@ -6,7 +6,7 @@ on:
     - cron: '0 7 * * 0-4'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   GITHUB_SERVICE_USER: "FAST DevOps"
   GITHUB_SERVICE_EMAIL: "fastsvc@microsoft.com"
       
@@ -24,7 +24,6 @@ jobs:
       with:
         fetch-depth: 0
         token: ${{ env.GITHUB_TOKEN }}
-        persist-credentials: false
 
     - name: Set Git User
       run: |
