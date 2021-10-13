@@ -9,7 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   GITHUB_SERVICE_USER: "FAST DevOps"
   GITHUB_SERVICE_EMAIL: "fastsvc@microsoft.com"
-      
+
 jobs:
   build_linux:
     runs-on: ubuntu-latest
