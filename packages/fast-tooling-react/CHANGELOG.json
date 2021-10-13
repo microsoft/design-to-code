@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 07:05:00 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.11.6",
+      "version": "2.11.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Update the package json file to point to the new repository",
+            "commit": "a7ae99824c91fc75a27957764d8e202615888e63"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.1",
+            "commit": "a7ae99824c91fc75a27957764d8e202615888e63"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 12 Oct 2021 02:04:42 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.11.5",
       "version": "2.11.5",

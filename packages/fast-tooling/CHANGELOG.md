@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Tue, 12 Oct 2021 02:04:42 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 07:05:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.30.1
+
+Wed, 13 Oct 2021 07:05:00 GMT
+
+### Patches
+
+- Update the package json file to point to the new repository (7559015+janechu@users.noreply.github.com)
 
 ## 0.30.0
 
