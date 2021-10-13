@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Tue, 12 Oct 2021 02:04:42 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 07:04:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.11.6
+
+Wed, 13 Oct 2021 07:04:21 GMT
+
+### Patches
+
+- Update the package json file to point to the new repository (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.30.1
 
 ## 2.11.5
 
