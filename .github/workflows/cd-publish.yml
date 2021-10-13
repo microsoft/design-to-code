@@ -24,6 +24,7 @@ jobs:
       with:
         fetch-depth: 0
         token: ${{ env.GITHUB_TOKEN }}
+        persist-credentials: false
 
     - name: Set Git User
       run: |
