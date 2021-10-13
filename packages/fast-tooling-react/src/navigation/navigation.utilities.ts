@@ -17,6 +17,18 @@ import {
 } from "./navigation.props";
 import { DragDropItemType } from "./navigation-tree-item.props";
 
+export function isActiveItem(
+    activeDictionaryId: string,
+    dictionaryId: string,
+    activeNavigationConfigId: string,
+    navigationConfigId: string
+): boolean {
+    return (
+        activeDictionaryId === dictionaryId &&
+        activeNavigationConfigId === navigationConfigId
+    );
+}
+
 export function getDraggableItemClassName(
     isCollapsible: boolean,
     isDraggable: boolean,
@@ -43,8 +55,12 @@ export function getDraggableItemClassName(
     }
 
     if (
-        activeDictionaryId === dictionaryId &&
-        activeNavigationConfigId === navigationConfigId
+        isActiveItem(
+            activeDictionaryId,
+            dictionaryId,
+            activeNavigationConfigId,
+            navigationConfigId
+        )
     ) {
         className += ` ${navigationItemActive}`;
     }
