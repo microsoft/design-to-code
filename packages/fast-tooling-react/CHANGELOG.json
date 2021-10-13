@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Wed, 13 Oct 2021 18:49:35 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.0",
+      "version": "2.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Allow the Navigation to scroll an active item into view when an external update is received",
+            "commit": "1612fcca6a37fda184e5c39926e9fa25936424aa"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 07:04:21 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.11.6",
       "version": "2.11.6",

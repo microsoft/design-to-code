@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Allow the Navigation to scroll an active item into view when an external update is received",
-  "packageName": "@microsoft/fast-tooling-react",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

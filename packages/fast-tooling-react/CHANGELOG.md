@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 13 Oct 2021 07:04:21 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Oct 2021 18:49:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.12.0
+
+Wed, 13 Oct 2021 18:49:35 GMT
+
+### Minor changes
+
+- Allow the Navigation to scroll an active item into view when an external update is received (7559015+janechu@users.noreply.github.com)
 
 ## 2.11.6
 
