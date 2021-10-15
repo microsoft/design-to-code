@@ -55,7 +55,7 @@ npm run bump
 5. Always set `NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}` to minimize authentication issues. This will automatically create the correct `.npmrc` configuration for the workflow.
 
 ## GIT Authentication Best Practices
-1. Automated committing to a protected branch such as `main` requires a PAT (Personal Access Token) from a user with 'workflow' and 'write:packages' security permissions.
+1. Automated committing to a protected branch such as `main` requires a PAT (Personal Access Token) from a user with 'git' security permissions specifying 'repo' during the creation of the PAT.
 2. This token should be added to the repositories GitHub Secrets as `GH_TOKEN`.
 3. The token can then be referred to in GitHub workflows as `GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}`.
 
