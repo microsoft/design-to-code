@@ -72,4 +72,4 @@ jobs:
         webhook_token: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_TOKEN }}
         color: "#DE2D6D"
         username: "FAST DevOps Bot"
-        message: "Publish was triggered by ${{ github.actor }} located at https://github.com/microsoft/fast-tooling/actions"
+        message: "Publishing has completed on https://github.com/microsoft/fast-tooling/actions"
