@@ -1,7 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
-
 const appDir = path.resolve(__dirname, "./app");
 const outDir = path.resolve(__dirname, "./www");
 
@@ -23,10 +21,6 @@ module.exports = {
         filename: "[name].js",
     },
     mode: process.env.NODE_ENV || "development",
-    node: {
-        fs: "empty",
-        module: "empty",
-    },
     module: {
         rules: [
             {
@@ -45,18 +39,6 @@ module.exports = {
         ],
     },
     plugins: [
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve(__dirname, "./permutator/permutator.wasm"),
-                    to: outDir,
-                },
-                {
-                    from: path.resolve(__dirname, "./permutator/permutator.js"),
-                    to: outDir,
-                },
-            ],
-        }),
         new HtmlWebpackPlugin({
             title: "FAST Tooling WASM Test Application",
             inject: "body",
