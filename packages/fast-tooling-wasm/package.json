@@ -18,7 +18,8 @@
   "scripts": {
     "build": "npm run build:permutator",
     "build:permutator": "cd src && cd permutator && wasm-pack build",
-    "test:permutator": "cd src && cd permutator && wasm-pack test --headless --firefox",
+    "test:permutator:web": "cd src && cd permutator && wasm-pack test --headless --firefox",
+    "test:permutator": "cd src && cd permutator && cargo test",
     "start": "webpack-dev-server"
   },
   "devDependencies": {

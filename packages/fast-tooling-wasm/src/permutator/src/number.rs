@@ -96,3 +96,105 @@ fn get_number(json: &JsonValue) -> String {
 pub fn permutate_number(json: &JsonValue) -> String {
     return get_number(json);
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn minimum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "minimum": 99
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        assert_eq!(permutate_number(&parsed).parse::<i32>().unwrap() as i32 >= 99, true);
+    }
+
+    #[test]
+    fn exclusive_minimum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "exclusiveMinimum": 99
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        assert_eq!(permutate_number(&parsed).parse::<i32>().unwrap() as i32 > 99, true);
+    }
+
+    #[test]
+    fn maximum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "maximum": 1
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        assert_eq!(permutate_number(&parsed).parse::<i32>().unwrap() as i32 <= 1, true);
+    }
+
+    #[test]
+    fn exclusive_maximum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "exclusiveMaximum": 1
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        assert_eq!((permutate_number(&parsed).parse::<i32>().unwrap() as i32) < 1, true);
+    }
+
+    #[test]
+    fn minimum_and_maximum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "minimum": 6,
+                "maximum": 7
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        let permutated_outcome = permutate_number(&parsed).parse::<i32>().unwrap() as i32;
+        assert_eq!(permutated_outcome >= 6, true);
+        assert_eq!(permutated_outcome <= 7, true);
+    }
+
+    #[test]
+    fn exclusive_minimum_and_maximum() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "exclusiveMinimum": 6,
+                "exclusiveMaximum": 8
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        let permutated_outcome = permutate_number(&parsed).parse::<i32>().unwrap() as i32;
+        assert_eq!(permutated_outcome > 6, true);
+        assert_eq!(permutated_outcome < 8, true);
+    }
+
+    #[test]
+    fn multiple_of() {
+        let parsed = json::parse(r#"
+        {
+            "schema": {
+                "multipleOf": 10
+            },
+            "iteration": 1
+        }
+        "#).unwrap();
+        assert_eq!(permutate_number(&parsed).parse::<i32>().unwrap() as i32 % 10, 0);
+    }
+}
