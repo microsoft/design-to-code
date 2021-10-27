@@ -23,7 +23,6 @@
     "clean:dist": "node ../../build/clean.js dist",
     "coverage": "jest --coverage",
     "prepublishOnly": "npm run clean:dist && npm run build",
-    "postinstall": "npm run clean:dist && npm run build",
     "prettier": "prettier --config ../../.prettierrc --write \"**/*.{ts,tsx,html}\"",
     "prettier:diff": "prettier --config ../../.prettierrc \"**/*.{ts,tsx,html}\" --list-different",
     "start": "webpack-dev-server --history-api-fallback --progress --config webpack.config.cjs",
