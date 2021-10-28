@@ -2,6 +2,33 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Thu, 28 Oct 2021 07:06:12 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.1",
+      "version": "2.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Updates to package scripts to prevent needing to use --ignore-scripts to install the package",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Update TypeScript dependency to 4.3.x",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.2",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Oct 2021 18:49:35 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.12.0",
       "version": "2.12.0",

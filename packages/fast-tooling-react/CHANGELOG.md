@@ -1,8 +1,18 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 13 Oct 2021 18:49:35 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Oct 2021 07:06:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.12.1
+
+Thu, 28 Oct 2021 07:06:12 GMT
+
+### Patches
+
+- Updates to package scripts to prevent needing to use --ignore-scripts to install the package (7559015+janechu@users.noreply.github.com)
+- Update TypeScript dependency to 4.3.x (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.30.2
 
 ## 2.12.0
 
