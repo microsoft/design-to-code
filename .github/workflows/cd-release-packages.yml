@@ -1,4 +1,4 @@
-name: CD - Publisher
+name: Release Packages
 
 on:
   workflow_dispatch:
@@ -11,13 +11,12 @@ env:
   GITHUB_SERVICE_EMAIL: "fastsvc@microsoft.com"
 
 jobs:
-  build_linux:
+  build:
     runs-on: ubuntu-latest
     if: contains('janechu,williamw2,awentzel,eisenbergeffect', github.actor)
-
     strategy:
       matrix:
-        node-version: [16.x]
+        node: [16.x]
     
     steps:
     - uses: actions/checkout@v2
@@ -42,10 +41,10 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ matrix.node }}
         registry-url: https://registry.npmjs.org/
 
     - name: Install package dependencies / prepare workspaces
