@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 13 Oct 2021 07:04:21 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Oct 2021 07:06:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.30.2
+
+Thu, 28 Oct 2021 07:06:12 GMT
+
+### Patches
+
+- Update TypeScript dependency to 4.3.x (7559015+janechu@users.noreply.github.com)
 
 ## 0.30.1
 

@@ -2,7 +2,7 @@
   "name": "@microsoft/fast-tooling",
   "description": "A set of utilities to assist in creating web UI",
   "sideEffects": false,
-  "version": "0.30.1",
+  "version": "0.30.2",
   "type": "module",
   "author": {
     "name": "Microsoft",
@@ -21,8 +21,8 @@
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs && npm run build:message-system",
     "build:app": "npm run build:message-system && webpack --progress --mode=production",
-    "build:esm": "tsc -p ./tsconfig.esm.json",
-    "build:cjs": "tsc -p ./tsconfig.cjs.json",
+    "build:esm": "tsc --project ./tsconfig.esm.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
     "build:message-system": "webpack --config webpack.message-system.config.cjs",
     "clean:dist": "node ../../build/clean.js dist && node ../../build/clean.js .tmp",
     "convert:mdn-data": "node -r esm ./build/generate-mdn-data-files",
@@ -90,7 +90,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.2.1",
     "ts-loader": "^4.0.1",
-    "typescript": "^3.9.0",
+    "typescript": "~4.3.0",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.11.0",
