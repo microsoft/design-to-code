@@ -76,6 +76,7 @@ For additional details on package versioning and changelog generation read the [
 
 If you are merging a pull request, be sure to use the pull request title as the commit title. It is recommended that if you are merging in pull requests regularly that you add a browser extension that will auto-correct the title for you. A few that should do this are [Refined GitHub](https://github.com/sindresorhus/refined-github) and [Squashed Merge Message](https://github.com/zachwhaley/squashed-merge-message).
 
+For further reading on how commits are created through the GitHub interface during pull request merging, read this [article](https://docs.github.com/en/github/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request).
 ### Documenting breaking changes
 
 Make sure to document the migration strategy in a `MIGRATION.md` file in the package(s) that has breaking changes, eg. `packages/fast-tooling/MIGRATION.md`.
