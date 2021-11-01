@@ -32,6 +32,7 @@ import {
     Register,
     TreeNavigationItem,
     DataType,
+    MessageSystemIncoming,
 } from "@microsoft/fast-tooling";
 import manageJss, { ManagedClasses } from "@microsoft/fast-jss-manager-react";
 import styles, { NavigationClassNameContract } from "./navigation.style";
@@ -41,6 +42,7 @@ import {
     getDragStartState,
     getDragEndMessage,
     getDragHoverState,
+    isActiveItem,
 } from "./navigation.utilities";
 
 export const navigationId = "fast-tooling-react::navigation";
@@ -60,6 +62,7 @@ class Navigation extends Foundation<
         ManagedClasses<NavigationClassNameContract> = {
         managedClasses: {},
         messageSystem: void 0,
+        scrollIntoView: false,
     };
 
     protected handledProps: HandledProps<NavigationHandledProps> = {
@@ -71,6 +74,8 @@ class Navigation extends Foundation<
     private rootElement: React.RefObject<HTMLDivElement>;
 
     private editableElement: React.RefObject<HTMLInputElement>;
+
+    private activeItem: React.RefObject<HTMLElement>;
 
     constructor(props: NavigationProps) {
         super(props);
@@ -100,6 +105,7 @@ class Navigation extends Foundation<
 
         this.rootElement = React.createRef();
         this.editableElement = React.createRef();
+        this.activeItem = React.createRef();
     }
 
     public render(): React.ReactNode {
@@ -150,48 +156,71 @@ class Navigation extends Foundation<
         return updatedDictionaryItemConfigItems;
     }
 
+    private scrollActiveItemIntoView = (e: MessageEvent): void => {
+        if (
+            this.props.scrollIntoView &&
+            e.data.options?.originatorId !== navigationId &&
+            e.data.activeDictionaryId
+        ) {
+            this.activeItem?.current?.scrollIntoView({
+                block: "center",
+                inline: "center",
+                behavior: "smooth",
+            });
+        }
+    };
+
     /**
      * Handle messages from the message system
      */
     private handleMessageSystem = (e: MessageEvent): void => {
         switch (e.data.type) {
             case MessageSystemType.initialize:
-                this.setState({
-                    navigationDictionary: e.data.navigationDictionary,
-                    dataDictionary: e.data.dataDictionary,
-                    activeDictionaryId: e.data.activeDictionaryId
-                        ? e.data.activeDictionaryId
-                        : e.data.navigationDictionary[1],
-                    activeNavigationConfigId: e.data.activeNavigationConfigId
-                        ? e.data.activeNavigationConfigId
-                        : e.data.navigationDictionary[0][
-                              e.data.navigationDictionary[1]
-                          ][1],
-                });
+                this.setState(
+                    {
+                        navigationDictionary: e.data.navigationDictionary,
+                        dataDictionary: e.data.dataDictionary,
+                        activeDictionaryId: e.data.activeDictionaryId
+                            ? e.data.activeDictionaryId
+                            : e.data.navigationDictionary[1],
+                        activeNavigationConfigId: e.data.activeNavigationConfigId
+                            ? e.data.activeNavigationConfigId
+                            : e.data.navigationDictionary[0][
+                                  e.data.navigationDictionary[1]
+                              ][1],
+                    },
+                    this.scrollActiveItemIntoView.bind(this, e)
+                );
 
                 break;
             case MessageSystemType.data:
-                this.setState({
-                    navigationDictionary: e.data.navigationDictionary,
-                    dataDictionary: e.data.dataDictionary,
-                    activeDictionaryId: e.data.activeDictionaryId
-                        ? e.data.activeDictionaryId
-                        : this.state.activeDictionaryId,
-                    activeNavigationConfigId: e.data.activeNavigationConfigId
-                        ? e.data.activeNavigationConfigId
-                        : this.state.activeNavigationConfigId,
-                });
+                this.setState(
+                    {
+                        navigationDictionary: e.data.navigationDictionary,
+                        dataDictionary: e.data.dataDictionary,
+                        activeDictionaryId: e.data.activeDictionaryId
+                            ? e.data.activeDictionaryId
+                            : this.state.activeDictionaryId,
+                        activeNavigationConfigId: e.data.activeNavigationConfigId
+                            ? e.data.activeNavigationConfigId
+                            : this.state.activeNavigationConfigId,
+                    },
+                    this.scrollActiveItemIntoView.bind(this, e)
+                );
 
                 break;
             case MessageSystemType.navigation:
-                this.setState({
-                    activeDictionaryId: e.data.activeDictionaryId,
-                    activeNavigationConfigId: e.data.activeNavigationConfigId,
-                    expandedNavigationConfigItems: this.getUpdatedElementsExpanded(
-                        e.data.activeDictionaryId,
-                        e.data.activeNavigationConfigId
-                    ),
-                });
+                this.setState(
+                    {
+                        activeDictionaryId: e.data.activeDictionaryId,
+                        activeNavigationConfigId: e.data.activeNavigationConfigId,
+                        expandedNavigationConfigItems: this.getUpdatedElementsExpanded(
+                            e.data.activeDictionaryId,
+                            e.data.activeNavigationConfigId
+                        ),
+                    },
+                    this.scrollActiveItemIntoView.bind(this, e)
+                );
                 break;
         }
     };
@@ -307,6 +336,16 @@ class Navigation extends Foundation<
                 isCollapsible={isCollapsible}
                 isEditing={this.isEditing(dictionaryId, navigationConfigId)}
                 inputRef={this.editableElement}
+                itemRef={
+                    isActiveItem(
+                        this.state.activeDictionaryId,
+                        dictionaryId,
+                        this.state.activeNavigationConfigId,
+                        navigationConfigId
+                    )
+                        ? this.activeItem
+                        : null
+                }
                 className={getDraggableItemClassName(
                     isCollapsible,
                     isDraggable,

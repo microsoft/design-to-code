@@ -9,8 +9,9 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "./packages/fast-tooling",
     "./packages/fast-tooling-react",
-    "./packages/fast-tooling"
+    "./packages/fast-tooling-wasm"
   ],
   "repository": {
     "type": "git",

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Change the line number and column number so that they start at 1 for Monaco Editor",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

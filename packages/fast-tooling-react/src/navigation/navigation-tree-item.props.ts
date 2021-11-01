@@ -1,3 +1,5 @@
+import { XOR } from "@microsoft/fast-tooling/dist/dts/data-utilities/type.utilities";
+import React from "react";
 import { HoverLocation } from "./navigation.props";
 
 export enum VerticalDragDirection {
@@ -72,6 +74,11 @@ export interface NavigationTreeItemProps
      * The React ref for the input element
      */
     inputRef: React.RefObject<HTMLInputElement>;
+
+    /**
+     * The React ref for the navigation element
+     */
+    itemRef: XOR<React.RefObject<HTMLElement>, null>;
 
     /**
      * The text content

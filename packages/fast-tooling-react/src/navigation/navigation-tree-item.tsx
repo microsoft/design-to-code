@@ -12,6 +12,7 @@ import {
     useDrop,
 } from "react-dnd";
 import { getHoverLocation, refNode } from "./navigation-tree-item.utilities";
+import { XOR } from "@microsoft/fast-tooling/dist/dts/data-utilities/type.utilities";
 
 function editableOverlay(
     className: string,
@@ -51,6 +52,7 @@ function treeItem(
     dictionaryId: string,
     navigationConfigId: string,
     inputRef: React.RefObject<HTMLInputElement>,
+    itemRef: XOR<React.RefObject<HTMLElement>, null>,
     ref?: (node: HTMLAnchorElement) => React.ReactElement<any>
 ): React.ReactElement {
     const displayText: React.ReactNode = isEditing
@@ -83,7 +85,7 @@ function treeItem(
           );
 
     return (
-        <span className={className}>
+        <span ref={itemRef} className={className}>
             <span className={expandTriggerClassName} onClick={handleExpandClick} />
             {displayText}
         </span>
@@ -155,6 +157,7 @@ export const NavigationTreeItem: React.FC<NavigationTreeItemProps> = ({
     dictionaryId,
     navigationConfigId,
     inputRef,
+    itemRef,
 }: React.PropsWithChildren<NavigationTreeItemProps>): React.ReactElement => {
     return treeItem(
         handleClick,
@@ -172,7 +175,8 @@ export const NavigationTreeItem: React.FC<NavigationTreeItemProps> = ({
         text,
         dictionaryId,
         navigationConfigId,
-        inputRef
+        inputRef,
+        itemRef
     );
 };
 
@@ -192,6 +196,7 @@ export const DraggableNavigationTreeItem: React.FC<NavigationTreeItemProps> = ({
     isCollapsible,
     isEditing,
     inputRef,
+    itemRef,
     dragStart,
     dragEnd,
     dragHover,
@@ -262,6 +267,7 @@ export const DraggableNavigationTreeItem: React.FC<NavigationTreeItemProps> = ({
         dictionaryId,
         navigationConfigId,
         inputRef,
+        itemRef,
         (node: HTMLSpanElement): React.ReactElement => {
             ref = node;
             return refNode(node, type, dragSource, dropTarget);

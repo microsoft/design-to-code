@@ -7,59 +7,66 @@ import NumberMinimumSchema from "./schemas/number.minimum.schema.json";
 import NumberExclusiveMaximumSchema from "./schemas/number.exclusive-maximum.schema.json";
 import NumberMaximumSchema from "./schemas/number.maximum.schema.json";
 import NumberMultipleOfSchema from "./schemas/number.multiple-of.schema.json";
-import permutate, { PermutatorConfig } from "../permutator";
+
+export interface PermutatorConfig {
+    schema: any;
+    iteration: number;
+}
 
 const content = document.getElementById("number");
 
 const configs: PermutatorConfig[] = [
     {
         schema: NumberSchema,
-        setSize: 10,
+        iteration: 2,
     },
     {
         schema: NumberDefaultSchema,
-        setSize: 10,
+        iteration: 1,
     },
     {
         schema: NumberExamplesSchema,
-        setSize: 10,
+        iteration: 2,
     },
     {
         schema: NumberEnumSchema,
-        setSize: 10,
+        iteration: 11,
     },
     {
         schema: NumberExclusiveMinimumSchema,
-        setSize: 10,
+        iteration: 4,
     },
     {
         schema: NumberMinimumSchema,
-        setSize: 10,
+        iteration: 1,
     },
     {
         schema: NumberExclusiveMaximumSchema,
-        setSize: 10,
+        iteration: 1,
     },
     {
         schema: NumberMaximumSchema,
-        setSize: 10,
+        iteration: 1,
     },
     {
         schema: NumberMultipleOfSchema,
-        setSize: 10,
+        iteration: 1,
     },
 ];
 
-function createNumberButton(config: PermutatorConfig) {
+function createNumberButton(config: PermutatorConfig, permutate: (s: string) => any) {
     const button = document.createElement("button");
     button.innerText = `Get Permutation: ${(config.schema as any).$id}`;
-    button.onclick = callNumberPermutationFactory(config);
+    button.onclick = callNumberPermutationFactory(config, permutate);
     content.appendChild(button);
 }
 
-function callNumberPermutationFactory(config: PermutatorConfig) {
+function callNumberPermutationFactory(
+    config: PermutatorConfig,
+    permutate: (s: string) => any
+) {
     return () => {
-        permutate(JSON.stringify(config));
+        console.log(permutate(JSON.stringify(config)));
     };
 }
 
@@ -69,11 +76,9 @@ function createJSONSchemaPreview(config: PermutatorConfig) {
     content.appendChild(pre);
 }
 
-function createNumberButtonFactory() {
+export function createNumberButtonFactory(permutate: (s: string) => any) {
     configs.forEach(config => {
-        createNumberButton(config);
+        createNumberButton(config, permutate);
         createJSONSchemaPreview(config);
     });
 }
-
-createNumberButtonFactory();

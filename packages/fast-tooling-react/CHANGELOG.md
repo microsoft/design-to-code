@@ -1,8 +1,43 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Tue, 14 Sep 2021 07:16:47 GMT and should not be manually modified.
+This log was last generated on Thu, 28 Oct 2021 07:06:12 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.12.1
+
+Thu, 28 Oct 2021 07:06:12 GMT
+
+### Patches
+
+- Updates to package scripts to prevent needing to use --ignore-scripts to install the package (7559015+janechu@users.noreply.github.com)
+- Update TypeScript dependency to 4.3.x (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.30.2
+
+## 2.12.0
+
+Wed, 13 Oct 2021 18:49:35 GMT
+
+### Minor changes
+
+- Allow the Navigation to scroll an active item into view when an external update is received (7559015+janechu@users.noreply.github.com)
+
+## 2.11.6
+
+Wed, 13 Oct 2021 07:04:21 GMT
+
+### Patches
+
+- Update the package json file to point to the new repository (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.30.1
+
+## 2.11.5
+
+Tue, 12 Oct 2021 02:04:42 GMT
+
+### Patches
+
+- Bump @microsoft/fast-tooling to v0.30.0
 
 ## 2.11.4
 

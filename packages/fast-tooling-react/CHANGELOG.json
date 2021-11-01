@@ -2,6 +2,92 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Thu, 28 Oct 2021 07:06:12 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.1",
+      "version": "2.12.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Updates to package scripts to prevent needing to use --ignore-scripts to install the package",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Update TypeScript dependency to 4.3.x",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.2",
+            "commit": "8d1cd0bbf677389df5c86e0c6cbb9762de5cffe7"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 18:49:35 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.0",
+      "version": "2.12.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Allow the Navigation to scroll an active item into view when an external update is received",
+            "commit": "1612fcca6a37fda184e5c39926e9fa25936424aa"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 13 Oct 2021 07:04:21 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.11.6",
+      "version": "2.11.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Update the package json file to point to the new repository",
+            "commit": "a7ae99824c91fc75a27957764d8e202615888e63"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.1",
+            "commit": "a7ae99824c91fc75a27957764d8e202615888e63"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 12 Oct 2021 02:04:42 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.11.5",
+      "version": "2.11.5",
+      "comments": {
+        "none": [
+          {
+            "author": "16669785+awentzel@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "reconciling change files for npm registry change",
+            "commit": "3a33ecc6ae61df87ff8a0b48b692e840c366036f"
+          }
+        ],
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.30.0",
+            "commit": "3a33ecc6ae61df87ff8a0b48b692e840c366036f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 14 Sep 2021 07:16:47 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.11.4",
       "version": "2.11.4",
