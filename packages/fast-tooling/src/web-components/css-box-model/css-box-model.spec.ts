@@ -279,7 +279,9 @@ describe("CSSBoxModel", () => {
         rightInput.value = "10px";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("padding-top:10px;padding-left:10px;padding-right:10px;");
+        expect(newValue).to.equal(
+            "padding-top:10px;padding-left:10px;padding-right:10px;"
+        );
 
         bottomInput.value = "10px";
         bottomInput.dispatchEvent(event);
@@ -309,7 +311,9 @@ describe("CSSBoxModel", () => {
         rightInput.value = "";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("padding-top:10px;padding-bottom:40px;padding-left:20px;");
+        expect(newValue).to.equal(
+            "padding-top:10px;padding-bottom:40px;padding-left:20px;"
+        );
 
         await disconnect();
     });
@@ -317,9 +321,7 @@ describe("CSSBoxModel", () => {
     it("should correctly parse width and height values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
-        const widthInput = element.shadowRoot.getElementById(
-            "width"
-        ) as HTMLInputElement;
+        const widthInput = element.shadowRoot.getElementById("width") as HTMLInputElement;
         const heightInput = element.shadowRoot.getElementById(
             "height"
         ) as HTMLInputElement;
@@ -357,9 +359,7 @@ describe("CSSBoxModel", () => {
             newValue = (e.target as HTMLInputElement).value;
         });
 
-        const widthInput = element.shadowRoot.getElementById(
-            "width"
-        ) as HTMLInputElement;
+        const widthInput = element.shadowRoot.getElementById("width") as HTMLInputElement;
         const heightInput = element.shadowRoot.getElementById(
             "height"
         ) as HTMLInputElement;
@@ -489,7 +489,9 @@ describe("CSSBoxModel", () => {
         rightInput.value = "10px";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("border-top-width:10px;border-left-width:10px;border-right-width:10px;");
+        expect(newValue).to.equal(
+            "border-top-width:10px;border-left-width:10px;border-right-width:10px;"
+        );
 
         bottomInput.value = "10px";
         bottomInput.dispatchEvent(event);
@@ -519,7 +521,9 @@ describe("CSSBoxModel", () => {
         rightInput.value = "";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("border-top-width:10px;border-bottom-width:40px;border-left-width:20px;");
+        expect(newValue).to.equal(
+            "border-top-width:10px;border-bottom-width:40px;border-left-width:20px;"
+        );
 
         await disconnect();
     });
@@ -649,7 +653,9 @@ describe("CSSBoxModel", () => {
         leftInput.value = "10px";
         leftInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("border:1px solid red;border-width:10px 1px 10px 10px;");
+        expect(newValue).to.equal(
+            "border:1px solid red;border-width:10px 1px 10px 10px;"
+        );
         rightInput.value = "10px";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
@@ -658,7 +664,9 @@ describe("CSSBoxModel", () => {
         rightInput.value = "";
         rightInput.dispatchEvent(event);
         await DOM.nextUpdate();
-        expect(newValue).to.equal("border:1px solid red;border-top-width:10px;border-bottom-width:10px;border-left-width:10px;border-right-width:initial;");
+        expect(newValue).to.equal(
+            "border:1px solid red;border-top-width:10px;border-bottom-width:10px;border-left-width:10px;border-right-width:initial;"
+        );
 
         element.initialValue = "border-top-width:20px;border:1px solid red";
         await DOM.nextUpdate();
@@ -739,5 +747,4 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-
 });
