@@ -2,12 +2,23 @@ import { expect } from "chai";
 import { fastTextField } from "@microsoft/fast-components";
 import { DesignSystem } from "@microsoft/fast-foundation";
 import { fixture } from "../../__test__/fixture";
+import { ColorPicker } from "./color-picker";
 import { fastToolingColorPicker } from "./";
+import { html } from "@microsoft/fast-element";
+
+DesignSystem.getOrCreate().register(fastTextField());
 
 async function setup() {
-    const { element, connect, disconnect } = await fixture(fastToolingColorPicker(), {
-        designSystem: DesignSystem.getOrCreate().register(fastTextField()),
-    });
+    const { element, connect, disconnect } = await fixture<ColorPicker>(
+        html`
+            <fast-tooling-color-picker></fast-tooling-color-picker>
+        `,
+        {
+            designSystem: DesignSystem.getOrCreate()
+                .withPrefix("fast-tooling")
+                .register(fastToolingColorPicker()),
+        }
+    );
 
     return { element, connect, disconnect };
 }
@@ -64,6 +75,8 @@ describe("ColorPicker", () => {
         element.addEventListener("change", (e: Event) => {
             wasChanged = true;
         });
+
+        console.log(element);
 
         const mainTextField = element.shadowRoot?.querySelectorAll(
             ".root > fast-text-field"

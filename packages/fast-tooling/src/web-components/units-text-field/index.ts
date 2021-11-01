@@ -13,4 +13,7 @@ export const fastToolingUnitsTextField = UnitsTextField.compose({
     baseName: "units-text-field",
     template,
     styles,
+    shadowOptions: {
+        delegatesFocus: true,
+    },
 });
