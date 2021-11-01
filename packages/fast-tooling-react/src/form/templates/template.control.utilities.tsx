@@ -35,7 +35,11 @@ abstract class ControlTemplateUtilities<P, S> extends React.Component<
     }
 
     public renderSoftRemove(className: string): React.ReactNode {
-        if (!this.props.required && this.props.softRemove) {
+        if (
+            !this.props.required &&
+            this.props.softRemove &&
+            this.props.type !== ControlType.linkedData
+        ) {
             return (
                 <SoftRemove
                     className={className}
