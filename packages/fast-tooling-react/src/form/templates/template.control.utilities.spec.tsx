@@ -1,9 +1,11 @@
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
+import "../../__tests__/mocks/match-media";
 import { configure, mount, shallow } from "enzyme";
 import ControlTemplateUtilities from "./template.control.utilities";
 import { BadgeType } from "./types";
 import defaultStrings from "../form.strings";
+import { ControlType } from "../";
 
 /*
  * Configure Enzyme
@@ -38,6 +40,17 @@ describe("ControlPlugin", () => {
         );
 
         expect(renderSoftRemove.find("SoftRemove")).toHaveLength(1);
+    });
+    test("should not render a soft remove trigger if the data type is linkedData", () => {
+        const testClass: TestClass = new TestClass({
+            ...config,
+            softRemove: true,
+            type: ControlType.linkedData,
+        });
+
+        const renderSoftRemove: any = testClass.renderSoftRemove("foo");
+
+        expect(renderSoftRemove).toEqual(void 0);
     });
     test("should render a badge if the badge prop is passed", () => {
         const testClass: TestClass = new TestClass({
