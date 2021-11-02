@@ -22,11 +22,6 @@ export const cssBoxModelStyles = css`
         padding: 2px;
     }
 
-    .item-text {
-        min-width: 25px;
-        max-width: 60px;
-    }
-
     .item-label {
         overflow: visible;
         justify-content: start;
