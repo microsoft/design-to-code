@@ -1,15 +1,9 @@
-import { provideFASTDesignSystem } from "@microsoft/fast-components";
 import { observable } from "@microsoft/fast-element";
-import { fastToolingUnitsTextField } from "../units-text-field";
 import {
     CSSDeclarationDictionary,
     mapCSSInlineStyleToCSSPropertyDictionary,
 } from "../../data-utilities/mapping.mdn-data";
 import { FormAssociatedCSSBoxModel } from "./css-box-model.form-associated";
-
-provideFASTDesignSystem()
-    .withPrefix("fast-tooling")
-    .register(fastToolingUnitsTextField());
 
 /**
  * Regular expression for identifying the length part of a shorthand CSS statement.
@@ -20,38 +14,38 @@ const cssLengthRegExp: RegExp = new RegExp(
 );
 
 enum valueType {
-    shortQuad = "shortQuad",
-    singleVal = "singleVal",
-    shortMixed = "shortMixed",
-    singleOverride = "singleOverride",
+    shorthandWithFourValues = "shorthand-with-four-values",
+    oneValue = "one-value",
+    shorthandWithMixedTypes = "shorthand-with-mixed-types",
+    override = "override",
 }
 
 /**
  * Mapping of CSS style names to properties of the BoxModelValues class.
  */
 const CSSToUIValueMapping = {
-    margin: [valueType.shortQuad, "margin"],
-    "margin-top": [valueType.singleVal, "margin", "top"],
-    "margin-bottom": [valueType.singleVal, "margin", "bottom"],
-    "margin-left": [valueType.singleVal, "margin", "left"],
-    "margin-right": [valueType.singleVal, "margin", "right"],
-    padding: [valueType.shortQuad, "padding"],
-    "padding-top": [valueType.singleVal, "padding", "top"],
-    "padding-bottom": [valueType.singleVal, "padding", "bottom"],
-    "padding-left": [valueType.singleVal, "padding", "left"],
-    "padding-right": [valueType.singleVal, "padding", "right"],
-    width: [valueType.singleVal, "width"],
-    height: [valueType.singleVal, "height"],
-    border: [valueType.shortMixed, "border"],
-    "border-width": [valueType.shortQuad, "borderWidth"],
-    "border-top": [valueType.shortMixed, "borderTop"],
-    "border-top-width": [valueType.singleOverride, "borderWidth", "top"],
-    "border-bottom": [valueType.shortMixed, "borderBottom"],
-    "border-bottom-width": [valueType.singleOverride, "borderWidth", "bottom"],
-    "border-left": [valueType.shortMixed, "borderLeft"],
-    "border-left-width": [valueType.singleOverride, "borderWidth", "left"],
-    "border-right": [valueType.shortMixed, "borderRight"],
-    "border-right-width": [valueType.singleOverride, "borderWidth", "right"],
+    width: [valueType.oneValue, "width"],
+    height: [valueType.oneValue, "height"],
+    margin: [valueType.shorthandWithFourValues, "margin"],
+    "margin-top": [valueType.oneValue, "margin", "top"],
+    "margin-bottom": [valueType.oneValue, "margin", "bottom"],
+    "margin-left": [valueType.oneValue, "margin", "left"],
+    "margin-right": [valueType.oneValue, "margin", "right"],
+    padding: [valueType.shorthandWithFourValues, "padding"],
+    "padding-top": [valueType.oneValue, "padding", "top"],
+    "padding-bottom": [valueType.oneValue, "padding", "bottom"],
+    "padding-left": [valueType.oneValue, "padding", "left"],
+    "padding-right": [valueType.oneValue, "padding", "right"],
+    border: [valueType.shorthandWithMixedTypes, "border"],
+    "border-width": [valueType.shorthandWithFourValues, "borderWidth"],
+    "border-top": [valueType.shorthandWithMixedTypes, "borderTop"],
+    "border-top-width": [valueType.override, "borderWidth", "top"],
+    "border-bottom": [valueType.shorthandWithMixedTypes, "borderBottom"],
+    "border-bottom-width": [valueType.override, "borderWidth", "bottom"],
+    "border-left": [valueType.shorthandWithMixedTypes, "borderLeft"],
+    "border-left-width": [valueType.override, "borderWidth", "left"],
+    "border-right": [valueType.shorthandWithMixedTypes, "borderRight"],
+    "border-right-width": [valueType.override, "borderWidth", "right"],
 };
 
 /**
@@ -113,7 +107,7 @@ class CSSBox {
      * @returns A string containing the the 1 to 4 parts of a margin, padding, border-width type style or an empty string
      * if the values can not be correctly represented (one of the values is empty).
      */
-    public getCSSQuadValue(): string {
+    public getCSSShorthandFourValues(): string {
         const top = this.top.trim();
         const bottom = this.bottom.trim();
         const left = this.left.trim();
@@ -209,7 +203,9 @@ class CSSBoxModelValues {
     }
     private getBorderValue(side: string) {
         const newVal: string =
-            side === "all" ? this.borderWidth.getCSSQuadValue() : this.borderWidth[side];
+            side === "all"
+                ? this.borderWidth.getCSSShorthandFourValues()
+                : this.borderWidth[side];
         if (
             this.borderValues[side].originalValue !== "" &&
             newVal !== "" &&
@@ -345,7 +341,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
         // check each style that we care about and update the dictionary if it has changed
         for (const styleName in CSSToUIValueMapping) {
             const mapping = CSSToUIValueMapping[styleName];
-            if (mapping[0] === valueType.shortQuad) {
+            if (mapping[0] === valueType.shorthandWithFourValues) {
                 // this is a quad value shorthand (padding or margin)
                 // clear previous shorthand if any
                 useShortHand = false;
@@ -353,7 +349,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
                 // get value
                 const shortValue: string = (this.uiValues[
                     mapping[1]
-                ] as CSSBox).getCSSQuadValue();
+                ] as CSSBox).getCSSShorthandFourValues();
 
                 // check for shortmixed
                 const splitName: Array<string> = styleName.split("-");
@@ -378,14 +374,14 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
                     // existing shorthand instead of this one
                     newPropertyDictionary[styleName] = "";
                 }
-            } else if (mapping[0] === valueType.singleVal) {
+            } else if (mapping[0] === valueType.oneValue) {
                 // set the dictionary with the new value unless we have already used the shorthand for this style
                 newPropertyDictionary[styleName] = !useShortHand
                     ? mapping.length > 2
                         ? this.uiValues[mapping[1]][mapping[2]]
                         : this.uiValues[mapping[1]]
                     : "";
-            } else if (mapping[0] === valueType.shortMixed) {
+            } else if (mapping[0] === valueType.shorthandWithMixedTypes) {
                 // border shorthand style
                 if (
                     newPropertyDictionary[styleName] !== undefined &&
@@ -406,7 +402,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
                         return true;
                     });
                 }
-            } else if (mapping[0] === valueType.singleOverride) {
+            } else if (mapping[0] === valueType.override) {
                 if (useShortHand) {
                     newPropertyDictionary[styleName] = "";
                 } else {
@@ -422,7 +418,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
                             // if shorthand is a shortmixed and value is empty we need to set value to 'initial'
                             if (
                                 CSSToUIValueMapping[shortName][0] ===
-                                    valueType.shortMixed &&
+                                    valueType.shorthandWithMixedTypes &&
                                 value === ""
                             ) {
                                 value = "initial";

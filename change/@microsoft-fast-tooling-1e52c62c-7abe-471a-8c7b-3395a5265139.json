@@ -1,6 +1,6 @@
 {
   "type": "minor",
-  "comment": "Add Box Model web component",
+  "comment": "Added CSS box model web component",
   "packageName": "@microsoft/fast-tooling",
   "email": "44823142+williamw2@users.noreply.github.com",
   "dependentChangeType": "patch"

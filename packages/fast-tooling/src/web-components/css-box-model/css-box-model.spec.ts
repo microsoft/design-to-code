@@ -4,6 +4,7 @@ import { DesignSystem } from "@microsoft/fast-foundation";
 import { fixture } from "../../__test__/fixture";
 import { CSSBoxModel } from "./css-box-model";
 import { fastToolingCSSBoxModel } from ".";
+import { fastToolingUnitsTextField } from "../units-text-field";
 
 async function setup() {
     const { element, connect, disconnect } = await fixture<CSSBoxModel>(
@@ -13,7 +14,7 @@ async function setup() {
         {
             designSystem: DesignSystem.getOrCreate()
                 .withPrefix("fast-tooling")
-                .register(fastToolingCSSBoxModel()),
+                .register(fastToolingUnitsTextField(), fastToolingCSSBoxModel()),
         }
     );
 
@@ -46,7 +47,7 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-    it("should correctly parse margin values", async () => {
+    it("should parse margin values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const marginTopInput = element.shadowRoot.getElementById(
@@ -106,7 +107,7 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-    it("should correctly produce margin values", async () => {
+    it("should produce margin values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const event = new Event("change", {} as Event);
@@ -180,7 +181,7 @@ describe("CSSBoxModel", () => {
         await disconnect();
     });
 
-    it("should correctly parse padding values", async () => {
+    it("should parse padding values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const topInput = element.shadowRoot.getElementById(
@@ -240,7 +241,7 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-    it("should correctly produce padding values", async () => {
+    it("should produce padding values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const event = new Event("change", {} as Event);
@@ -318,7 +319,7 @@ describe("CSSBoxModel", () => {
         await disconnect();
     });
 
-    it("should correctly parse width and height values", async () => {
+    it("should parse width and height values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const widthInput = element.shadowRoot.getElementById("width") as HTMLInputElement;
@@ -349,7 +350,7 @@ describe("CSSBoxModel", () => {
         await disconnect();
     });
 
-    it("should correctly produce width and height values", async () => {
+    it("should produce width and height values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const event = new Event("change", {} as Event);
@@ -390,7 +391,7 @@ describe("CSSBoxModel", () => {
         await disconnect();
     });
 
-    it("should correctly parse border-width values", async () => {
+    it("should parse border-width values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const topInput = element.shadowRoot.getElementById(
@@ -450,7 +451,7 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-    it("should correctly produce border-width values", async () => {
+    it("should produce border-width values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const event = new Event("change", {} as Event);
@@ -528,7 +529,7 @@ describe("CSSBoxModel", () => {
         await disconnect();
     });
 
-    it("should correctly parse border values", async () => {
+    it("should parse border values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const topInput = element.shadowRoot.getElementById(
@@ -610,7 +611,7 @@ describe("CSSBoxModel", () => {
 
         await disconnect();
     });
-    it("should correctly produce border-width values", async () => {
+    it("should produce border-width values", async () => {
         const { element, connect, disconnect } = await setup();
         await connect();
         const event = new Event("change", {} as Event);

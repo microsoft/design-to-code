@@ -76,8 +76,6 @@ describe("ColorPicker", () => {
             wasChanged = true;
         });
 
-        console.log(element);
-
         const mainTextField = element.shadowRoot?.querySelectorAll(
             ".root > fast-text-field"
         );

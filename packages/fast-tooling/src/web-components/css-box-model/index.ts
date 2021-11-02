@@ -7,7 +7,7 @@ import { CSSBoxModel } from "./css-box-model";
  *
  * @alpha
  * @remarks
- * HTML Element: \<box-model\>
+ * HTML Element: \<css-box-model\>
  */
 export const fastToolingCSSBoxModel = CSSBoxModel.compose({
     baseName: "css-box-model",
