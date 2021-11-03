@@ -47,6 +47,7 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
     private originalTextValue: string = null;
     private currentStyleTarget: HTMLElement;
     private currentTextNode: Node;
+    private currentMinimumSize: number = 0;
 
     connectedCallback() {
         super.connectedCallback();
@@ -93,7 +94,10 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
             return false;
         }
         const inputVal = (e.composedPath()[0] as HTMLInputElement).value;
-        this.currentTextNode.textContent = inputVal;
+
+        // Make sure the text node always has at least one character in it othewise we lose
+        // positioning and size.
+        this.currentTextNode.textContent = inputVal.length === 0 ? "W" : inputVal;
         this.applySizeAndPositionToTextbox();
         if (this.activityCallback) {
             this.activityCallback(this.layerActivityId, ActivityType.update);
@@ -107,7 +111,7 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
     }
 
     private getPositionFromElement(target: Node): OverlayPosition {
-        const range = document.createRange();
+        const range: Range = document.createRange();
         range.selectNode(target);
         const pos: DOMRect = range.getBoundingClientRect();
         return new OverlayPosition(pos.top, pos.left, pos.width, pos.height);
@@ -117,16 +121,14 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
         this.textPosition = this.getPositionFromElement(this.currentTextNode);
         this.textAreaRef.style.top = `${this.textPosition.top}px`;
         this.textAreaRef.style.left = `${this.textPosition.left}px`;
-        this.textAreaRef.style.width = "0";
-        this.textAreaRef.style.height = "0";
         this.textAreaRef.style.width = `${
-            this.textAreaRef.scrollWidth > this.textPosition.width
-                ? this.textAreaRef.scrollWidth
+            this.currentMinimumSize > this.textPosition.width
+                ? this.currentMinimumSize
                 : this.textPosition.width
         }px`;
         this.textAreaRef.style.height = `${
-            this.textAreaRef.scrollHeight > this.textPosition.height
-                ? this.textAreaRef.scrollHeight
+            this.currentMinimumSize > this.textPosition.height
+                ? this.currentMinimumSize
                 : this.textPosition.height
         }px`;
     }
@@ -138,6 +140,12 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
         this.textAreaRef.style.font = styles.font;
         this.textAreaRef.style.fontWeight = styles.fontWeight;
         this.textAreaRef.style.lineHeight = styles.lineHeight;
+        // Let's use the computed line height as a convenient minimum size for the text area.
+        // In some cases line height returns 'normal'. In this case use 1.5 * the font size.
+        const minimumSize: number = parseInt(styles.lineHeight, 10);
+        this.currentMinimumSize = isNaN(minimumSize)
+            ? parseInt(styles.fontSize, 10) * 1.5
+            : minimumSize;
     }
 
     private startEdit(datadictionaryId: string, elementRef: Node, event: MouseEvent) {
@@ -184,9 +192,9 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
 
         this.textAreaActive = false;
         const newValue = this.textAreaRef.value.replaceAll("\n", " ").trim();
+        this.currentTextNode.textContent = newValue;
         this.textValue = "";
         this.originalTextValue = "";
-
         // send the data update message
         this.messageSystem.postMessage({
             type: MessageSystemType.data,
