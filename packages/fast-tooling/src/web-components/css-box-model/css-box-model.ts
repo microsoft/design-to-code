@@ -264,7 +264,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
      * @param e The event object.
      * @returns false
      */
-    public handleInputChange(param: string, e: Event) {
+    public handleInputChange = (param: string, e: Event) => {
         // get the mapping and the new value
         const mapping = CSSToUIValueMapping[param];
         const inputVal = (e.composedPath()[0] as HTMLInputElement).value;
@@ -280,10 +280,11 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
         this.internalChange = true;
         // set the initialValue to the css string for the updated value
         this.initialValue = this.buildCSSStyles();
+        e.stopPropagation();
         // emit the change event
         this.$emit("change");
         return false;
-    }
+    };
 
     /**
      * Parses a css style string and sets the uiValues values.
