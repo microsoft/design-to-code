@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Thu, 28 Oct 2021 07:06:12 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Nov 2021 07:07:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.12.2
+
+Wed, 03 Nov 2021 07:07:37 GMT
+
+### Patches
+
+- Remove the soft remove UI for linked data as this should only be for regular JSON schema defined data types (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.31.0
 
 ## 2.12.1
 

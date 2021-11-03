@@ -1,8 +1,20 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Thu, 28 Oct 2021 07:06:12 GMT and should not be manually modified.
+This log was last generated on Wed, 03 Nov 2021 07:07:37 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.31.0
+
+Wed, 03 Nov 2021 07:07:37 GMT
+
+### Minor changes
+
+- Added CSS box model web component (44823142+williamw2@users.noreply.github.com)
+
+### Patches
+
+- Fixes change event propagation in CSSBoxModel (44823142+williamw2@users.noreply.github.com)
 
 ## 0.30.2
 
