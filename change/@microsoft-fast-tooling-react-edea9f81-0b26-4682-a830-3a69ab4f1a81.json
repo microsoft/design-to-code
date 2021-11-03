@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Added a missing originator ID broadcasted by the Form component",
+  "packageName": "@microsoft/fast-tooling-react",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

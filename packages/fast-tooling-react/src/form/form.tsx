@@ -603,6 +603,9 @@ class Form extends React.Component<
                         ? navigationConfigId
                         : this.state.navigationDictionary[0][dictionaryId][1],
                 activeDictionaryId: dictionaryId,
+                options: {
+                    originatorId: formId,
+                },
             });
         }
     };
