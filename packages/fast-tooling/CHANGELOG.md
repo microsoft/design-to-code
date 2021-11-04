@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 03 Nov 2021 07:07:37 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Nov 2021 07:07:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.31.1
+
+Thu, 04 Nov 2021 07:07:24 GMT
+
+### Patches
+
+- Fixed inline edit vanishing when text is empty (44823142+williamw2@users.noreply.github.com)
 
 ## 0.31.0
 

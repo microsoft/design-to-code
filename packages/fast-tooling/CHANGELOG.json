@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Thu, 04 Nov 2021 07:07:24 GMT",
+      "tag": "@microsoft/fast-tooling_v0.31.1",
+      "version": "0.31.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed inline edit vanishing when text is empty",
+            "commit": "9f1e18a2a9dbfe42ced20fdb8cc6fce620fc39d3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 03 Nov 2021 07:07:37 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.0",
       "version": "0.31.0",

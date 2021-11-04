@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 03 Nov 2021 07:07:37 GMT and should not be manually modified.
+This log was last generated on Thu, 04 Nov 2021 07:07:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.12.3
+
+Thu, 04 Nov 2021 07:07:24 GMT
+
+### Patches
+
+- Added a missing originator ID broadcasted by the Form component (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.31.1
 
 ## 2.12.2
 
