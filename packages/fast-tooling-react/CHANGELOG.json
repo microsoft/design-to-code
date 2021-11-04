@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Thu, 04 Nov 2021 07:07:24 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.3",
+      "version": "2.12.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Added a missing originator ID broadcasted by the Form component",
+            "commit": "9f1e18a2a9dbfe42ced20fdb8cc6fce620fc39d3"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.31.1",
+            "commit": "9f1e18a2a9dbfe42ced20fdb8cc6fce620fc39d3"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 03 Nov 2021 07:07:37 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.12.2",
       "version": "2.12.2",
