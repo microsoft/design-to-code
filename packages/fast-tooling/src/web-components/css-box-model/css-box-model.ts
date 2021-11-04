@@ -65,6 +65,12 @@ class CSSBox {
         this.top = this.bottom = this.left = this.right = "";
     }
 
+    public hasValues(): boolean {
+        return (
+            this.top !== "" || this.bottom !== "" || this.left !== "" || this.right !== ""
+        );
+    }
+
     /**
      * Sets the values based on a 1-4 part css value string
      * @param value A string value with 1 to 4 parts seperated by spaces (i.e: "10px 20px", "1em 2em 3em 4em")
@@ -245,15 +251,55 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
     @observable
     public uiValues: CSSBoxModelValues = new CSSBoxModelValues();
 
+    @observable
+    public marginOpen: boolean;
+
+    @observable
+    public borderOpen: boolean;
+
+    @observable
+    public paddingOpen: boolean;
+
     valueChanged(previous: any, next: any): void {
         if (!this.internalChange) {
             // reset values and attempt to parse the new value
             this.cssPropertyDictionary = {};
             this.parseCSSStyles(next);
+            this.marginOpen =
+                this.uiValues.margin.hasValues() &&
+                this.uiValues.margin.getCSSShorthandFourValues() === "";
+            this.borderOpen =
+                this.uiValues.borderWidth.hasValues() &&
+                this.uiValues.borderWidth.getCSSShorthandFourValues() === "";
+            this.paddingOpen =
+                this.uiValues.padding.hasValues() &&
+                this.uiValues.padding.getCSSShorthandFourValues() === "";
         }
         this.internalChange = false;
         super.valueChanged(previous, next);
     }
+
+    public handleOpenButtonClick = (section: string) => {
+        let uiVal = "";
+        switch (section) {
+            case "marginOpen":
+                uiVal = "margin";
+                break;
+            case "borderOpen":
+                uiVal = "borderWidth";
+                break;
+            case "paddingOpen":
+                uiVal = "padding";
+                break;
+        }
+        if (
+            !this.uiValues[uiVal].hasValues() ||
+            this.uiValues[uiVal].getCSSShorthandFourValues() !== ""
+        ) {
+            this[section] = !this[section];
+            this.uiValues = { ...this.uiValues } as CSSBoxModelValues;
+        }
+    };
 
     private cssPropertyDictionary: CSSDeclarationDictionary = {};
     private internalChange: boolean = false;
@@ -268,14 +314,15 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
         // get the mapping and the new value
         const mapping = CSSToUIValueMapping[param];
         const inputVal = (e.composedPath()[0] as HTMLInputElement).value;
-        if (mapping.length > 2) {
+        if (mapping[0] === valueType.shorthandWithFourValues) {
+            (this.uiValues[mapping[1]] as CSSBox).setFromCSSValue(inputVal);
+        } else if (mapping.length > 2) {
             // two part value (padding-top -> uiValues.padding.top)
             this.uiValues[mapping[1]][mapping[2]] = inputVal;
         } else {
             // one part value (width -> uiValues.width)
             this.uiValues[mapping[1]] = inputVal;
         }
-
         // set the internalChange to true so the UI isn't refreshed when we update the initialValue
         this.internalChange = true;
         // set the initialValue to the css string for the updated value
@@ -338,7 +385,6 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
             ...this.cssPropertyDictionary,
         };
         let useShortHand: boolean = false;
-
         // check each style that we care about and update the dictionary if it has changed
         for (const styleName in CSSToUIValueMapping) {
             const mapping = CSSToUIValueMapping[styleName];
@@ -390,7 +436,7 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
                 ) {
                     const value: string = this.uiValues[mapping[1]];
                     // border shorthand exists
-                    if (value !== "") {
+                    if (value !== undefined && value !== "") {
                         newPropertyDictionary[styleName] = value;
                     }
                     // remove all instances of border styles before this one as they are being overriden
