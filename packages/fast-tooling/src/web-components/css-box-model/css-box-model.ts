@@ -253,27 +253,33 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
 
     @observable
     public marginOpen: boolean;
+    private marginStick: boolean;
 
     @observable
     public borderOpen: boolean;
+    private borderStick: boolean;
 
     @observable
     public paddingOpen: boolean;
+    private paddingStick: boolean;
 
     valueChanged(previous: any, next: any): void {
         if (!this.internalChange) {
             // reset values and attempt to parse the new value
             this.cssPropertyDictionary = {};
             this.parseCSSStyles(next);
-            this.marginOpen =
-                this.uiValues.margin.hasValues() &&
-                this.uiValues.margin.getCSSShorthandFourValues() === "";
-            this.borderOpen =
-                this.uiValues.borderWidth.hasValues() &&
-                this.uiValues.borderWidth.getCSSShorthandFourValues() === "";
-            this.paddingOpen =
-                this.uiValues.padding.hasValues() &&
-                this.uiValues.padding.getCSSShorthandFourValues() === "";
+            this.marginOpen = this.marginStick
+                ? true
+                : this.uiValues.margin.hasValues() &&
+                  this.uiValues.margin.getCSSShorthandFourValues() === "";
+            this.borderOpen = this.borderStick
+                ? true
+                : this.uiValues.borderWidth.hasValues() &&
+                  this.uiValues.borderWidth.getCSSShorthandFourValues() === "";
+            this.paddingOpen = this.paddingStick
+                ? true
+                : this.uiValues.padding.hasValues() &&
+                  this.uiValues.padding.getCSSShorthandFourValues() === "";
         }
         this.internalChange = false;
         super.valueChanged(previous, next);
@@ -284,12 +290,15 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
         switch (section) {
             case "marginOpen":
                 uiVal = "margin";
+                this.marginStick = !this.marginStick;
                 break;
             case "borderOpen":
                 uiVal = "borderWidth";
+                this.borderStick = !this.borderStick;
                 break;
             case "paddingOpen":
                 uiVal = "padding";
+                this.paddingStick = !this.paddingStick;
                 break;
         }
         if (
