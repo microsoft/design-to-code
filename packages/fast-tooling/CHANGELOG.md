@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Thu, 04 Nov 2021 07:07:24 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Nov 2021 16:36:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.31.2
+
+Fri, 05 Nov 2021 16:36:26 GMT
+
+### Patches
+
+- Updated CSSBoxModel UI to better fit in narrow width contexts (44823142+williamw2@users.noreply.github.com)
 
 ## 0.31.1
 

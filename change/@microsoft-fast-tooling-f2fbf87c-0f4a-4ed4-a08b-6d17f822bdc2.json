@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Updated CSSBoxModel UI to better fit in narrow width contexts",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "44823142+williamw2@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
