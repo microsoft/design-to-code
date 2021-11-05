@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Fri, 05 Nov 2021 16:36:26 GMT and should not be manually modified.
+This log was last generated on Fri, 05 Nov 2021 21:03:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.31.3
+
+Fri, 05 Nov 2021 21:03:19 GMT
+
+### Patches
+
+- Fixed inline edit whitespace bug (44823142+williamw2@users.noreply.github.com)
+- Adds the dictionary ID of the dictionary item being edited to outgoing messages from the message system and the inline editing component (7559015+janechu@users.noreply.github.com)
 
 ## 0.31.2
 

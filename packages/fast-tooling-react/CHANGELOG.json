@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Fri, 05 Nov 2021 21:03:19 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.5",
+      "version": "2.12.5",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.31.3",
+            "commit": "28f41f452828773e6ce561d844fe448cb9eb195f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 05 Nov 2021 16:36:26 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.12.4",
       "version": "2.12.4",

@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Fri, 05 Nov 2021 21:03:19 GMT",
+      "tag": "@microsoft/fast-tooling_v0.31.3",
+      "version": "0.31.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed inline edit whitespace bug",
+            "commit": "28f41f452828773e6ce561d844fe448cb9eb195f"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Adds the dictionary ID of the dictionary item being edited to outgoing messages from the message system and the inline editing component",
+            "commit": "28f41f452828773e6ce561d844fe448cb9eb195f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 05 Nov 2021 16:36:26 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.2",
       "version": "0.31.2",
