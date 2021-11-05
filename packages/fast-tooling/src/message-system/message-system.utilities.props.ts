@@ -279,6 +279,7 @@ export interface UpdateDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.update;
+    dictionaryId: string;
     data: unknown;
     dataDictionary: DataDictionary<unknown>;
     navigation: NavigationConfig;

@@ -202,6 +202,7 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
             type: MessageSystemType.data,
             action: MessageSystemDataTypeAction.update,
             dataLocation: "",
+            dictionaryId: this.currentDataId,
             data: newValue,
             options: {
                 originatorId: htmlRenderOriginatorId,

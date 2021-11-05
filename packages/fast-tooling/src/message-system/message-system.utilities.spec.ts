@@ -401,6 +401,7 @@ describe("getMessage", () => {
             ) as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "venus" });
+            expect(message[0].dictionaryId).to.equal("data");
         });
         it("should return a data blob with updated values when a dictionaryId has been specified", () => {
             getMessage([
@@ -439,6 +440,7 @@ describe("getMessage", () => {
             ) as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "venus" });
+            expect(message[0].dictionaryId).to.equal("bar");
             expect(message[0].dataDictionary).to.deep.equal([
                 {
                     foo: {

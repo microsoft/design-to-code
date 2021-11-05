@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Adds the dictionary ID of the dictionary item being edited to outgoing messages from the message system and the inline editing component",
+  "packageName": "@microsoft/fast-tooling",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
