@@ -295,6 +295,7 @@ function getDataMessage(data: DataMessageIncoming): DataMessageOutgoing {
             return {
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.update,
+                dictionaryId,
                 data: dataDictionary[0][dictionaryId].data,
                 dataDictionary,
                 navigation: navigationDictionary[0][dictionaryId],
