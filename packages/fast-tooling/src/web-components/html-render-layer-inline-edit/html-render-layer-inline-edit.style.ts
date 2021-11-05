@@ -24,7 +24,6 @@ export const htmlRenderLayerInlineEditStyles = css`
         padding: 0;
         background: white;
         caret-color: black;
-        overflow: hidden;
         resize: none;
         outline: 1px solid black;
         white-space: pre-wrap;

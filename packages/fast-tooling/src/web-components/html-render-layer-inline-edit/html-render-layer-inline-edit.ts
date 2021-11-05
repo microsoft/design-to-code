@@ -97,7 +97,7 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
 
         // Make sure the text node always has at least one character in it othewise we lose
         // positioning and size.
-        this.currentTextNode.textContent = inputVal.length === 0 ? "W" : inputVal;
+        this.currentTextNode.textContent = inputVal.trim().length === 0 ? "W" : inputVal;
         this.applySizeAndPositionToTextbox();
         if (this.activityCallback) {
             this.activityCallback(this.layerActivityId, ActivityType.update);
@@ -124,12 +124,14 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
         this.textAreaRef.style.width = `${
             this.currentMinimumSize > this.textPosition.width
                 ? this.currentMinimumSize
-                : this.textPosition.width
+                : this.textPosition.width + 2
         }px`;
         this.textAreaRef.style.height = `${
             this.currentMinimumSize > this.textPosition.height
                 ? this.currentMinimumSize
-                : this.textPosition.height
+                : this.textAreaRef.scrollHeight > this.textPosition.height
+                ? this.textAreaRef.scrollHeight
+                : this.textPosition.height + 2
         }px`;
     }
 
@@ -159,7 +161,7 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
         this.currentDataId = datadictionaryId;
         this.currentTextNode = elementRef;
 
-        this.textValue = this.dataDictionary[0][datadictionaryId].data as string;
+        this.textValue = (this.dataDictionary[0][datadictionaryId].data as string).trim();
         this.originalTextValue = this.textValue;
         const path: EventTarget[] = event.composedPath();
         let i = 0;
