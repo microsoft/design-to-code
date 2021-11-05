@@ -20,6 +20,12 @@ enum valueType {
     override = "override",
 }
 
+export enum expandableSection {
+    margin = "marginOpen",
+    border = "borderOpen",
+    padding = "paddingOpen",
+}
+
 /**
  * Mapping of CSS style names to properties of the BoxModelValues class.
  */
@@ -253,14 +259,20 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
 
     @observable
     public marginOpen: boolean;
+
+    // setting to keep the margin grid section open when the user has clicked the button to expand it
     private marginStick: boolean;
 
     @observable
     public borderOpen: boolean;
+
+    // setting to keep the border grid section open when the user has clicked the button to expand it
     private borderStick: boolean;
 
     @observable
     public paddingOpen: boolean;
+
+    // setting to keep the padding grid section open when the user has clicked the button to expand it
     private paddingStick: boolean;
 
     valueChanged(previous: any, next: any): void {
@@ -285,18 +297,18 @@ export class CSSBoxModel extends FormAssociatedCSSBoxModel {
         super.valueChanged(previous, next);
     }
 
-    public handleOpenButtonClick = (section: string) => {
+    public handleOpenButtonClick = (section: expandableSection) => {
         let uiVal = "";
         switch (section) {
-            case "marginOpen":
+            case expandableSection.margin:
                 uiVal = "margin";
                 this.marginStick = !this.marginStick;
                 break;
-            case "borderOpen":
+            case expandableSection.border:
                 uiVal = "borderWidth";
                 this.borderStick = !this.borderStick;
                 break;
-            case "paddingOpen":
+            case expandableSection.padding:
                 uiVal = "padding";
                 this.paddingStick = !this.paddingStick;
                 break;

@@ -1,6 +1,6 @@
 import { html } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
-import { CSSBoxModel } from "./css-box-model";
+import { CSSBoxModel, expandableSection } from "./css-box-model";
 
 const sidesButton = html`
     <svg
@@ -42,7 +42,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 <fast-button
                     appearance="stealth"
                     class="sideButton"
-                    @click="${(x, c) => x.handleOpenButtonClick("marginOpen")}"
+                    @click="${(x, c) =>
+                        x.handleOpenButtonClick(expandableSection.margin)}"
                 >
                     ${sidesButton}
                 </fast-button>
@@ -61,7 +62,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     <fast-button
                         appearance="stealth"
                         class="sideButton sideButton_active"
-                        @click="${(x, c) => x.handleOpenButtonClick("marginOpen")}"
+                        @click="${(x, c) =>
+                            x.handleOpenButtonClick(expandableSection.margin)}"
                     >
                         ${sidesButton}
                     </fast-button>
@@ -114,7 +116,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 <fast-button
                     appearance="stealth"
                     class="sideButton"
-                    @click="${(x, c) => x.handleOpenButtonClick("borderOpen")}"
+                    @click="${(x, c) =>
+                        x.handleOpenButtonClick(expandableSection.border)}"
                 >
                     ${sidesButton}
                 </fast-button>
@@ -134,7 +137,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     <fast-button
                         appearance="stealth"
                         class="sideButton sideButton_active"
-                        @click="${(x, c) => x.handleOpenButtonClick("borderOpen")}"
+                        @click="${(x, c) =>
+                            x.handleOpenButtonClick(expandableSection.border)}"
                     >
                         ${sidesButton}
                     </fast-button>
@@ -188,7 +192,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 <fast-button
                     appearance="stealth"
                     class="sideButton"
-                    @click="${(x, c) => x.handleOpenButtonClick("paddingOpen")}"
+                    @click="${(x, c) =>
+                        x.handleOpenButtonClick(expandableSection.padding)}"
                 >
                     ${sidesButton}
                 </fast-button>
@@ -207,7 +212,8 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     <fast-button
                         appearance="stealth"
                         class="sideButton sideButton_active"
-                        @click="${(x, c) => x.handleOpenButtonClick("paddingOpen")}"
+                        @click="${(x, c) =>
+                            x.handleOpenButtonClick(expandableSection.padding)}"
                     >
                         ${sidesButton}
                     </fast-button>
