@@ -154,7 +154,12 @@ export class MonacoAdapter extends MessageSystemService<
 
         if (!isExternal) {
             const dataDictionary = mapVSCodeHTMLAndDataDictionaryToDataDictionary(
-                this.monacoModelValue.join("").replace(/\n/g, ""),
+                this.monacoModelValue
+                    .map((value: string): string => {
+                        return value.replace(/^\s+/g, ""); // replace leading spaces on each line
+                    })
+                    .join("")
+                    .replace(/\n/g, ""),
                 "text",
                 this.dataDictionary,
                 this.schemaDictionary
