@@ -469,9 +469,12 @@ export class HTMLRender extends FoundationElement {
 
     /// Render
 
-    private renderHtmlResolver = (config: ResolverConfig<any>): HTMLElement | Text => {
+    private renderHtmlResolver = (
+        config: ResolverConfig<any>
+    ): HTMLElement | Text | null => {
         htmlResolver(config);
         if (
+            config.dataDictionary[0][config.dictionaryId].data !== undefined &&
             (config.dataDictionary[0][config.dictionaryId].data as HTMLElement)
                 .setAttribute
         ) {
@@ -485,8 +488,10 @@ export class HTMLRender extends FoundationElement {
                 "taborder",
                 (this.tabCounter++).toString()
             );
+            return config.dataDictionary[0][config.dictionaryId].data;
+        } else {
+            return null;
         }
-        return config.dataDictionary[0][config.dictionaryId].data;
     };
 
     public renderMarkup(): void {
