@@ -12,7 +12,7 @@ export const htmlRenderLayerNavigationTemplate: (
                 class="navigation-select${x =>
                     x.selectLayerActive && !x.selectLayerHide
                         ? " navigation-select__active"
-                        : null}
+                        : ""}
                         ${x =>
                     x.selectPosition.top === 0 ? " navigation-select__insetY" : ""}
                         ${x =>
@@ -40,7 +40,7 @@ export const htmlRenderLayerNavigationTemplate: (
                 class="navigation-hover ${x =>
                     x.hoverLayerActive && !x.hoverLayerHide
                         ? "navigation-hover__active"
-                        : null}"
+                        : ""}"
                 style="top:${x => x.hoverPosition.top}px;left:${x =>
                     x.hoverPosition.left}px;width:${x =>
                     x.hoverPosition.width}px;height:${x => x.hoverPosition.height}px"
