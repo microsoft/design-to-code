@@ -1,8 +1,18 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Fri, 05 Nov 2021 21:03:19 GMT and should not be manually modified.
+This log was last generated on Tue, 09 Nov 2021 07:08:13 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.31.4
+
+Tue, 09 Nov 2021 07:08:13 GMT
+
+### Patches
+
+- Fixed Navigation pill preview bug (44823142+williamw2@users.noreply.github.com)
+- Fixed an issue where indenting whitespace was interpreted as a text node (7559015+janechu@users.noreply.github.com)
+- Fixed HTMLRender error on empty markup (44823142+williamw2@users.noreply.github.com)
 
 ## 0.31.3
 

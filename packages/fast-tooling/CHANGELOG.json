@@ -2,6 +2,33 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Tue, 09 Nov 2021 07:08:13 GMT",
+      "tag": "@microsoft/fast-tooling_v0.31.4",
+      "version": "0.31.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed Navigation pill preview bug",
+            "commit": "a4414355eac1d4fd345275bac87ddc35abe82ff8"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed an issue where indenting whitespace was interpreted as a text node",
+            "commit": "a4414355eac1d4fd345275bac87ddc35abe82ff8"
+          },
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed HTMLRender error on empty markup",
+            "commit": "a4414355eac1d4fd345275bac87ddc35abe82ff8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 05 Nov 2021 21:03:19 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.3",
       "version": "0.31.3",
