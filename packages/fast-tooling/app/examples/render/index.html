@@ -16,6 +16,13 @@
                 border: 1px solid black;
                 padding: 15px;
             }
+            #htmlRender {
+                display: block;
+                height: 200px;
+            }
+            #messageContainer span {
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -26,7 +33,12 @@
                 <fast-tooling-html-render-layer-navigation
                     role="htmlrenderlayer"
                 ></fast-tooling-html-render-layer-navigation>
+                <fast-tooling-html-render-layer-inline-edit
+                    role="htmlrenderlayer"
+                ></fast-tooling-html-render-layer-inline-edit>
             </fast-tooling-html-render>
+            <br />
+            <div id="messageContainer"></div>
         </div>
     </body>
 </html>

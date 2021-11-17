@@ -27,6 +27,7 @@ export default {
         $id: "span",
         id: "span",
         type: "object",
+        title: "span",
         [ReservedElementMappingKeyword.mapsToTagName]: "span",
         properties: {
             Slot: {

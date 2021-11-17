@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <style>
+            html,
+            body,
+            #root {
+                width: 100%;
+                height: 100%;
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: var(--fill-color);
+                padding: 20px;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <fast-tooling-color-picker id="color_picker"></fast-tooling-color-picker>
+            <br />
+            Output:
+            <input id="outputValue" type="text" style="width: 800px;" />
+        </div>
+        <script>
+            const colorPickerElement = document.getElementById("color_picker");
+            const outputVal = document.getElementById("outputValue");
+
+            colorPickerElement.addEventListener("change", e => {
+                outputVal.value = e.target.value;
+            });
+        </script>
+    </body>
+</html>

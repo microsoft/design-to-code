@@ -10,7 +10,7 @@ export default [
                         id: "span",
                     },
                 ],
-                style: "border:1px solid black;padding:15px;",
+                style: "border:1px solid black;padding:30px;",
             },
         },
         span: {
