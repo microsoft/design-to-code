@@ -1,7 +1,7 @@
 {
-  "type": "patch",
+  "type": "none",
   "comment": "Added example pages for components that didn't have one.",
   "packageName": "@microsoft/fast-tooling",
   "email": "44823142+williamw2@users.noreply.github.com",
-  "dependentChangeType": "patch"
+  "dependentChangeType": "none"
 }
