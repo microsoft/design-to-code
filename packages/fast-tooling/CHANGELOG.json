@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 17 Nov 2021 07:07:13 GMT",
+      "tag": "@microsoft/fast-tooling_v0.31.4",
+      "version": "0.31.4",
+      "comments": {
+        "none": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added example pages for components that didn't have one.",
+            "commit": "f3c92b810b88a5cc2f7d41e2ab1130374b4b96ca"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Nov 2021 07:08:13 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.4",
       "version": "0.31.4",
