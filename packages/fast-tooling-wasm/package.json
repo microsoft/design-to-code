@@ -21,6 +21,8 @@
     "test": "npm run test:permutator",
     "test:permutator:web": "cd src && cd permutator && wasm-pack test --headless --firefox",
     "test:permutator": "cd src && cd permutator && cargo test",
+    "test-playwright": "npx playwright test",
+    "test-playwright:webpack": "npx playwright test --config=playwright-webpack.config.ts",
     "start": "webpack-dev-server"
   },
   "devDependencies": {

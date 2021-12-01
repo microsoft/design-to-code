@@ -27,6 +27,8 @@
     "prettier:diff": "prettier --config ../../.prettierrc \"**/*.{ts,tsx,html}\" --list-different",
     "start": "webpack-dev-server --history-api-fallback --progress --config webpack.config.cjs",
     "test": "npm run eslint && npm run unit-tests && npm run build",
+    "test-playwright": "npx playwright test",
+    "test-playwright:webpack": "npx playwright test --config=playwright-webpack.config.ts",
     "eslint": "eslint . --ext .ts",
     "eslint:fix": "eslint . --ext .ts --fix",
     "unit-tests": "jest --runInBand",
