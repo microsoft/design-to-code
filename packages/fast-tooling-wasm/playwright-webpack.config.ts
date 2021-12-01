@@ -3,7 +3,7 @@ import { default as PlaywrightTestConfig } from "./playwright.config";
 const config = PlaywrightTestConfig;
 config.webServer = {
     command: "npm run start",
-    port: 7776,
+    port: 7003,
     timeout: 240 * 1000,
     reuseExistingServer: !process.env.CI,
 };
