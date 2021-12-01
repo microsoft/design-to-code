@@ -2,6 +2,8 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Color Picker", () => {
     test.beforeEach(async ({ page }) => {
+        // Playwright is configured to use http://localhost:7776 as the base URL for all tests
+        // so you can use a relative URL to navigate to a different page.
         await page.goto("/color-picker");
     });
 
@@ -15,6 +17,7 @@ test.describe("Color Picker", () => {
         await page.click('#control input[type="text"]');
         const colorUI = page.locator(".color-ui");
         await expect(colorUI).not.toBeNull();
+        // Couldn't get the .isVisible() test to work so looking directly at the css.
         await expect(colorUI).toHaveCSS("display", "flex");
     });
 
@@ -22,7 +25,7 @@ test.describe("Color Picker", () => {
         await expect(page.locator('#control input[type="text"]')).toHaveValue("");
         await page.click('#control input[type="text"]');
         await page.fill('#control input[type="text"]', "#AABBCC");
-        // Testing #outputValue ensures that the change event was fired.
+        // Also testing #outputValue ensures that the change event was fired.
         await expect(page.locator("#outputValue")).toHaveValue("#AABBCC");
 
         await expect(
