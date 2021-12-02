@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Thu, 02 Dec 2021 07:07:14 GMT",
+      "tag": "@microsoft/fast-tooling_v0.31.4",
+      "version": "0.31.4",
+      "comments": {
+        "none": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added Playwright and first test",
+            "commit": "ed754a542591ffe549a529ba0bb7159a9df320ee"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 17 Nov 2021 07:07:13 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.4",
       "version": "0.31.4",
