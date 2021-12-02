@@ -17,13 +17,7 @@ export default function ShortcutsActionDelete(
         name: "Delete",
         keys: [
             {
-                ctrlKey: true,
-            },
-            {
-                shiftKey: true,
-            },
-            {
-                value: "D",
+                value: "Delete",
             },
         ],
         action: () => {

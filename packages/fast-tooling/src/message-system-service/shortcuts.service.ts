@@ -9,7 +9,7 @@ import {
 } from "./message-system.service";
 
 export type shortcutsMessageSystemAction = "initialize";
-export type shortcutsMessageSystemListenerType = "keypress";
+export type shortcutsMessageSystemListenerType = "keydown";
 export type shortcutsMessageId = "fast-tooling::shortcuts-service";
 
 /**
@@ -100,11 +100,11 @@ export class Shortcuts extends MessageSystemService<
             config: {
                 target: config.target,
                 eventListener: this.listener,
-                eventListenerType: "keypress",
+                eventListenerType: "keydown",
             },
         });
 
-        config.target.addEventListener("keypress", this.listener);
+        config.target.addEventListener("keydown", this.listener);
     }
 
     /**
