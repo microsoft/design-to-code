@@ -130,7 +130,7 @@ export function getLinkedData(
 }
 
 /**
- * Gets a list of linked data ids from a single dictionary id
+ * Gets a list of child linked data ids from a single dictionary id
  */
 export function getLinkedDataList(
     dataDictionary: DataDictionary<unknown>,

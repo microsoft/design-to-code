@@ -35,6 +35,7 @@ import { getMessage } from "./message-system.utilities";
 import { Data, DataDictionary, LinkedData } from "./data.props";
 import { SchemaDictionary } from "./schema.props";
 import { getNavigationDictionary } from "./navigation";
+import { removeRootDataNodeErrorMessage } from "./errors";
 
 describe("getMessage", () => {
     describe("history", () => {
@@ -1023,6 +1024,131 @@ describe("getMessage", () => {
                 "data",
             ]);
             expect(message[0].linkedDataIds).to.deep.equal(["data2", "data3"]);
+        });
+        it("should remove the active dictionary ID as linked data if linked data is not supplied and if the active dictionary ID is not the root dictionary ID", () => {
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dictionaryId: "data2",
+                    data: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    linkedData: [
+                                        {
+                                            id: "data2",
+                                        },
+                                    ],
+                                },
+                            },
+                            data2: {
+                                parent: {
+                                    dataLocation: "linkedData",
+                                    id: "data",
+                                },
+                                schemaId: "foo",
+                                data: {
+                                    hello: "world",
+                                    linkedData: [
+                                        {
+                                            id: "data3",
+                                        },
+                                    ],
+                                },
+                            },
+                            data3: {
+                                parent: {
+                                    dataLocation: "linkedData",
+                                    id: "data2",
+                                },
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary: {
+                        foo: {
+                            id: "foo",
+                            type: "object",
+                            properties: {
+                                linkedData: linkedDataSchema,
+                            },
+                        },
+                    },
+                },
+                "",
+            ]);
+            const message: InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing> = getMessage(
+                [
+                    {
+                        type: MessageSystemType.data,
+                        action: MessageSystemDataTypeAction.removeLinkedData,
+                    },
+                    "",
+                ]
+            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+
+            expect((message[0].data as any).linkedData).to.deep.equal([]);
+            expect(message[0].dataDictionary).to.deep.equal([
+                {
+                    data: {
+                        schemaId: "foo",
+                        data: {
+                            linkedData: [],
+                        },
+                    },
+                },
+                "data",
+            ]);
+            expect(message[0].linkedDataIds).to.deep.equal(["data2", "data3"]);
+        });
+        it("should send an error if the active dictionary ID is the root dictionary ID, linked data has not been supplied, and a different dictionary ID has not been specified", () => {
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    data: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    linkedData: [
+                                        {
+                                            id: "data2",
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary: {
+                        foo: {
+                            id: "foo",
+                            type: "object",
+                            properties: {
+                                linkedData: linkedDataSchema,
+                            },
+                        },
+                    },
+                },
+                "",
+            ]);
+            const message: InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing> = getMessage(
+                [
+                    {
+                        type: MessageSystemType.data,
+                        action: MessageSystemDataTypeAction.removeLinkedData,
+                    },
+                    "",
+                ]
+            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+
+            expect(message[0].type).to.equal(MessageSystemType.error);
+            expect((message[0] as any).message).to.equal(removeRootDataNodeErrorMessage);
         });
         it("should reorder linkedData in the exist array of linkedData items", () => {
             getMessage([
