@@ -35,6 +35,7 @@ xdescribe("Shortcuts", () => {
 
             new Shortcuts({
                 messageSystem,
+                target: document.body,
             });
         }).not.to.throw();
     });
@@ -42,6 +43,7 @@ xdescribe("Shortcuts", () => {
         expect(() => {
             new Shortcuts({
                 messageSystem: undefined,
+                target: document.body,
             });
         }).not.to.throw();
     });
@@ -66,6 +68,7 @@ xdescribe("Shortcuts", () => {
 
         new Shortcuts({
             messageSystem,
+            target: document.body,
         });
 
         expect(messageSystem["register"].size).to.equal(1);
@@ -91,6 +94,7 @@ xdescribe("Shortcuts", () => {
 
         const shortcuts: Shortcuts = new Shortcuts({
             messageSystem,
+            target: document.body,
         });
 
         expect(messageSystem["register"].size).to.equal(1);
@@ -132,6 +136,7 @@ xdescribe("Shortcuts", () => {
         const shortcuts = new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
 
         expect(shortcuts["registeredActions"]).to.equal(actions);
@@ -163,6 +168,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -201,6 +207,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -238,6 +245,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -275,6 +283,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -312,6 +321,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -349,6 +359,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -386,6 +397,7 @@ xdescribe("Shortcuts", () => {
         new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
@@ -433,6 +445,7 @@ xdescribe("Shortcuts", () => {
         const shortcuts = new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
         shortcuts.action("foo").run();
         expect(shortcutAction).to.have.been.called.exactly(1);
@@ -471,6 +484,7 @@ xdescribe("Shortcuts", () => {
         const shortcuts = new Shortcuts({
             messageSystem,
             actions,
+            target: document.body,
         });
 
         expect(() => {

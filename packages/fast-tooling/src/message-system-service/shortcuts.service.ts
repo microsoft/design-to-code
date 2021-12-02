@@ -49,6 +49,11 @@ export interface ShortcutMessageOutgoing extends CustomMessage<{}, ShortcutOptio
  */
 export interface ShortcutsConfig {
     /**
+     * The HTML element to target for the event listener
+     */
+    target: HTMLElement;
+
+    /**
      * The shortcut event listener used to attach to a DOM node
      */
     eventListener: (e: KeyboardEvent) => void;
@@ -69,6 +74,14 @@ export interface ShortcutsRegisterConfig {
 }
 
 /**
+ * @alpha
+ */
+export interface ShortcutsMessageSystemServiceConfig
+    extends MessageSystemServiceConfig<ShortcutsActionCallbackConfig, ShortcutsConfig> {
+    target: HTMLElement;
+}
+
+/**
  *
  * @alpha
  * @remarks
@@ -78,19 +91,20 @@ export class Shortcuts extends MessageSystemService<
     ShortcutsActionCallbackConfig,
     ShortcutsConfig
 > {
-    constructor(
-        config: MessageSystemServiceConfig<ShortcutsActionCallbackConfig, ShortcutsConfig>
-    ) {
+    constructor(config: ShortcutsMessageSystemServiceConfig) {
         super();
 
         this.registerMessageSystem({
             ...config,
             id: shortcutsId,
             config: {
+                target: config.target,
                 eventListener: this.listener,
                 eventListenerType: "keypress",
             },
         });
+
+        config.target.addEventListener("keypress", this.listener);
     }
 
     /**
