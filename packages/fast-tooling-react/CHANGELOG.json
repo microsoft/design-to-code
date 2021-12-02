@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Thu, 02 Dec 2021 07:07:14 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.12.6",
+      "version": "2.12.6",
+      "comments": {
+        "none": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Added playwright",
+            "commit": "ed754a542591ffe549a529ba0bb7159a9df320ee"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 09 Nov 2021 07:08:13 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.12.6",
       "version": "2.12.6",
