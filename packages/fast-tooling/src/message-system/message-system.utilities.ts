@@ -5,6 +5,7 @@ import {
     getDataUpdatedWithSourceData,
     getNextActiveParentDictionaryId,
 } from "../data-utilities/relocate";
+import { XOR } from "../data-utilities/type.utilities";
 import { getLinkedDataDictionary, getLinkedDataList } from "./data";
 import { MessageSystemType } from "./types";
 import {
@@ -13,6 +14,7 @@ import {
     DataDictionaryMessageOutgoing,
     DataMessageIncoming,
     DataMessageOutgoing,
+    ErrorMessageOutgoing,
     HistoryMessageIncoming,
     HistoryMessageOutgoing,
     InitializeMessageOutgoing,
@@ -44,6 +46,7 @@ import { defaultHistoryLimit } from "./history";
 import { History } from "./history.props";
 import { SchemaDictionary } from "./schema.props";
 import { Validation } from "./validation.props";
+import { removeRootDataNodeErrorMessage } from "./errors";
 
 /**
  * The default name that the display text maps to
@@ -207,7 +210,9 @@ function getSchemaDictionaryMessage(
 /**
  * Handles all data manipulation messages
  */
-function getDataMessage(data: DataMessageIncoming): DataMessageOutgoing {
+function getDataMessage(
+    data: DataMessageIncoming
+): XOR<DataMessageOutgoing, ErrorMessageOutgoing> {
     switch (data.action) {
         case MessageSystemDataTypeAction.duplicate:
             dataDictionary[0][activeDictionaryId].data = getDataWithDuplicate(
@@ -378,21 +383,77 @@ function getDataMessage(data: DataMessageIncoming): DataMessageOutgoing {
             };
         }
         case MessageSystemDataTypeAction.removeLinkedData: {
-            const removeLinkedDataDictionaryId: string = data.dictionaryId
-                ? data.dictionaryId
-                : activeDictionaryId;
+            /**
+             * The removal of linked data can be done in 3 different ways:
+             *
+             * 1. If the dictionary ID is provided, this is the parent
+             * 2. If the dictionary ID is not provided, assume the active dictionary ID is the parent
+             * 3. If the dictionary ID is not provided and the linked data is not provided, assume the
+             *    active dictionary ID is the linked data to be removed and the parent is the active dictionary ID's parent
+             * 4. If in the case of 3. the active dictionary ID has no parent (is the root ID), send an error message
+             */
+            enum ParentType {
+                activeDictionaryId,
+                activeDictionaryIdParent,
+                suppliedDictionaryId,
+            }
+
+            const parentType: XOR<ParentType, null> = data.dictionaryId
+                ? ParentType.suppliedDictionaryId
+                : Array.isArray(data.linkedData)
+                ? ParentType.activeDictionaryId
+                : activeDictionaryId !== dataDictionary[1]
+                ? ParentType.activeDictionaryIdParent
+                : null;
+
             const linkedDataIds: string[] = [];
-            const removedLinkedData: unknown = dataDictionary[0][activeDictionaryId].data;
+            let linkedDataParentDictionaryId: string;
+            let linkedData: LinkedData[];
+            let dataLocation: string;
+
+            switch (parentType) {
+                case ParentType.suppliedDictionaryId: {
+                    linkedDataParentDictionaryId = data.dictionaryId;
+                    linkedData = data.linkedData;
+                    dataLocation = data.dataLocation;
+                    break;
+                }
+                case ParentType.activeDictionaryId: {
+                    linkedDataParentDictionaryId = activeDictionaryId;
+                    linkedData = data.linkedData;
+                    dataLocation = data.dataLocation;
+                    break;
+                }
+                case ParentType.activeDictionaryIdParent: {
+                    linkedDataParentDictionaryId =
+                        dataDictionary[0][activeDictionaryId].parent.id;
+                    linkedData = [{ id: activeDictionaryId }];
+                    dataLocation =
+                        dataDictionary[0][activeDictionaryId].parent.dataLocation;
+                    break;
+                }
+                case null:
+                    return {
+                        type: MessageSystemType.error,
+                        message: removeRootDataNodeErrorMessage,
+                    };
+            }
+
+            const removedLinkedData: unknown =
+                dataDictionary[0][linkedDataParentDictionaryId].data;
 
             // add linked data IDs to be removed
-            data.linkedData.forEach((linkedData: LinkedData) => {
-                linkedDataIds.push(linkedData.id);
+            linkedData.forEach((linkedDataItem: LinkedData) => {
+                linkedDataIds.push(linkedDataItem.id);
 
-                // add linked data IDs to be removed from other pieces of linked data
-                getLinkedDataList(dataDictionary, linkedData.id).forEach((id: string) => {
-                    linkedDataIds.push(id);
-                });
+                // add linked data IDs that are children of the linked data items being removed
+                getLinkedDataList(dataDictionary, linkedDataItem.id).forEach(
+                    (id: string) => {
+                        linkedDataIds.push(id);
+                    }
+                );
             });
+
             // get the active dictionary ID in case it is among those being removed
             activeDictionaryId = getNextActiveParentDictionaryId(
                 activeDictionaryId,
@@ -406,8 +467,8 @@ function getDataMessage(data: DataMessageIncoming): DataMessageOutgoing {
             });
 
             let filteredLinkedDataRefs: LinkedData[] = get(
-                dataDictionary[0][removeLinkedDataDictionaryId].data,
-                data.dataLocation,
+                dataDictionary[0][linkedDataParentDictionaryId].data,
+                dataLocation,
                 []
             );
 
@@ -416,18 +477,16 @@ function getDataMessage(data: DataMessageIncoming): DataMessageOutgoing {
             filteredLinkedDataRefs = filteredLinkedDataRefs.filter(
                 (filteredLinkedDataRef: LinkedData) => {
                     return (
-                        (data as RemoveLinkedDataDataMessageIncoming).linkedData.findIndex(
-                            (linkedData: LinkedData) => {
-                                return linkedData.id === filteredLinkedDataRef.id;
-                            }
-                        ) === -1
+                        linkedData.findIndex((linkedDataItem: LinkedData) => {
+                            return linkedDataItem.id === filteredLinkedDataRef.id;
+                        }) === -1
                     );
                 }
             );
 
             set(
-                dataDictionary[0][removeLinkedDataDictionaryId].data as object,
-                data.dataLocation,
+                dataDictionary[0][linkedDataParentDictionaryId].data as object,
+                dataLocation,
                 filteredLinkedDataRefs
             );
 

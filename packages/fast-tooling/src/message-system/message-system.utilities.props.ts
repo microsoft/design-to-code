@@ -334,8 +334,8 @@ export interface RemoveLinkedDataDataMessageIncoming<TConfig = {}>
      * active dictionary ID
      */
     dictionaryId?: string;
-    dataLocation: string;
-    linkedData: LinkedData[];
+    dataLocation?: string;
+    linkedData?: LinkedData[];
 }
 
 /**
@@ -573,6 +573,14 @@ export interface CustomMessageIncomingOutgoing<OConfig>
 }
 
 /**
+ * The message that an error occured when attempting to perform an action
+ */
+export interface ErrorMessageOutgoing {
+    type: MessageSystemType.error;
+    message: string;
+}
+
+/**
  * The custom message interface
  */
 export type CustomMessage<T, OConfig> = CustomMessageIncomingOutgoing<OConfig> & T;
@@ -688,6 +696,7 @@ export type InternalMessageSystemIncoming<C = {}, OConfig = {}> =
 export type MessageSystemOutgoing<C = {}, OConfig = {}> =
     | InitializeMessageOutgoing
     | DataMessageOutgoing
+    | ErrorMessageOutgoing
     | HistoryMessageOutgoing
     | SchemaDictionaryMessageOutgoing
     | NavigationMessageOutgoing
@@ -703,6 +712,7 @@ export type MessageSystemOutgoing<C = {}, OConfig = {}> =
 export type InternalMessageSystemOutgoing<C = {}, OConfig = {}> =
     | InternalOutgoingMessage<InitializeMessageOutgoing>
     | InternalOutgoingMessage<DataMessageOutgoing>
+    | InternalOutgoingMessage<ErrorMessageOutgoing>
     | InternalOutgoingMessage<HistoryMessageOutgoing>
     | InternalOutgoingMessage<SchemaDictionaryMessageOutgoing>
     | InternalOutgoingMessage<NavigationMessageOutgoing>
