@@ -1149,7 +1149,6 @@ describe("getMessage", () => {
 
             expect(message[0].type).to.equal(MessageSystemType.error);
             expect((message[0] as any).message).to.equal(removeRootDataNodeErrorMessage);
-            console.log("message", message);
         });
         it("should reorder linkedData in the exist array of linkedData items", () => {
             getMessage([
