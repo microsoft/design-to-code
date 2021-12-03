@@ -52,8 +52,8 @@ export type ShortcutsActionCallbackConfig = XOR<
 export function mapKeyboardEventToKeyConfig(e: KeyboardEvent): KeyConfig[] {
     const keys: KeyConfig[] = [];
 
-    // all keys larger than 1 are special keys
-    if (typeof e.key === "string" && e.key.length === 1) {
+    // all keys larger than length 1 are special keys
+    if (typeof e.key === "string") {
         keys.push({
             value: e.key,
         });

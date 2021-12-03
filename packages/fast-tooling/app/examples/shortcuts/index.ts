@@ -1,7 +1,8 @@
 import {
     MessageSystem,
-    MessageSystemDataTypeAction,
     MessageSystemType,
+    MessageSystemNavigationDictionaryTypeAction,
+    ShortcutsActionDelete,
 } from "../../../src";
 import {
     Shortcuts,
@@ -34,9 +35,7 @@ function handleMessageSystem(e: MessageEvent) {
         }
 
         if (e.data.type === MessageSystemType.initialize) {
-            const config: any = fastMessageSystem.getConfigById(shortcutsId) as any;
             inputElement.removeAttribute("disabled");
-            inputElement.addEventListener(config.eventListenerType, config.eventListener);
         }
     }
 }
@@ -50,36 +49,15 @@ if ((window as any).Worker) {
     fastMessageSystem.add({
         onMessage: handleMessageSystem,
     });
+    fastMessageSystem.postMessage({
+        type: MessageSystemType.navigationDictionary,
+        action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+        activeDictionaryId: "text",
+    });
 
     fastShortcuts = new Shortcuts({
         messageSystem: fastMessageSystem,
-        actions: [
-            new ShortcutsAction({
-                id: "foo",
-                name: "Foo",
-                keys: [
-                    {
-                        ctrlKey: true,
-                    },
-                    {
-                        shiftKey: true,
-                    },
-                    {
-                        value: "D",
-                    },
-                ],
-                action: () => {
-                    fastMessageSystem.postMessage({
-                        type: MessageSystemType.data,
-                        action: MessageSystemDataTypeAction.removeLinkedData,
-                        dataLocation: "text",
-                        linkedData: [{ id: "text" }],
-                        options: {
-                            originatorId: shortcutsId,
-                        },
-                    });
-                },
-            }),
-        ],
+        target: inputElement,
+        actions: [ShortcutsActionDelete(fastMessageSystem)],
     });
 }
