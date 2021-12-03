@@ -15,13 +15,20 @@ import schemaDictionary from "./__test__/schema-dictionary";
 
 chai.use(spies);
 
+/**
+ * These tests rely on some async functionality.
+ * They are therefore not included with the rest of the coverage
+ * and should be run only locally when making changes to the MonacoAdapter service.
+ *
+ * TODO: enable these tests #4602
+ */
 /* eslint-disable @typescript-eslint/no-empty-function */
-describe("ShortcutsActionDelete", () => {
+xdescribe("ShortcutsActionDelete", () => {
     it("should return an instance of a ShortcutAction", () => {
         expect(
             ShortcutsActionDelete(new MessageSystem({ webWorker: "" })) instanceof
                 ShortcutsAction
-        ).to.be.true;
+        ).to.equal(true);
     });
     it("should call an event to delete the active dictionary ID item when the keyboard event is used", () => {
         const inputElement = document.createElement("input");
