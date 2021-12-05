@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Tue, 09 Nov 2021 07:08:13 GMT and should not be manually modified.
+This log was last generated on Sun, 05 Dec 2021 07:08:17 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.32.0
+
+Sun, 05 Dec 2021 07:08:17 GMT
+
+### Minor changes
+
+- Updated shortcut service which now directly assigns the event listener to a provided HTML element and export an alpha release shortcut action for deleting an active dictionary ID (7559015+janechu@users.noreply.github.com)
+- Added behavior to the remove linked data messages to remove the current active dictionary ID when no other information is provided (7559015+janechu@users.noreply.github.com)
 
 ## 0.31.4
 

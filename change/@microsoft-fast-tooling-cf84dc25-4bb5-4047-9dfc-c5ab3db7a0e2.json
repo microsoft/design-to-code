@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Updated shortcut service which now directly assigns the event listener to a provided HTML element and export an alpha release shortcut action for deleting an active dictionary ID",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

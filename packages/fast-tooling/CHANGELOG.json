@@ -2,6 +2,35 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Sun, 05 Dec 2021 07:08:17 GMT",
+      "tag": "@microsoft/fast-tooling_v0.32.0",
+      "version": "0.32.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Update test app logic for window location",
+            "commit": "172ba1f5980b31ec7bbea1b3c27f330a44557d2f"
+          }
+        ],
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Updated shortcut service which now directly assigns the event listener to a provided HTML element and export an alpha release shortcut action for deleting an active dictionary ID",
+            "commit": "172ba1f5980b31ec7bbea1b3c27f330a44557d2f"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added behavior to the remove linked data messages to remove the current active dictionary ID when no other information is provided",
+            "commit": "172ba1f5980b31ec7bbea1b3c27f330a44557d2f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 02 Dec 2021 07:07:14 GMT",
       "tag": "@microsoft/fast-tooling_v0.31.4",
       "version": "0.31.4",
