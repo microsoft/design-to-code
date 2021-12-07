@@ -50,8 +50,8 @@ export const cssLayoutStyles = css`
     .control-numberfield-region .icon {
         position: relative;
         padding: 5px;
-        width: 18px;
-        height: 18px;
+        width: 12px;
+        height: 12px;
     }
 
     .control-numberfield-region input {
@@ -83,8 +83,8 @@ export const cssLayoutStyles = css`
         border-radius: ${borderRadius};
         border: 3px solid #1b1b1b;
         position: relative;
-        height: 26px;
-        max-width: 26px;
+        height: 24px;
+        max-width: 24px;
     }
 
     .control-radio-region .active {
@@ -93,8 +93,8 @@ export const cssLayoutStyles = css`
     }
 
     .control-radio-region > div > input {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         margin: 0;
         opacity: 0;
     }

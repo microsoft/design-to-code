@@ -8,8 +8,8 @@ import { CSSLayout } from "./css-layout";
  */
 const flexDirectionRow = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,8 @@ const flexDirectionRow = html`
 `;
 const flexDirectionRowReverse = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -36,8 +36,8 @@ const flexDirectionRowReverse = html`
 `;
 const flexDirectionColumn = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -50,8 +50,8 @@ const flexDirectionColumn = html`
 `;
 const flexDirectionColumnReverse = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +68,8 @@ const flexDirectionColumnReverse = html`
  */
 const justifyContentCenter = html`
     <svg
-        width="15"
-        height="18"
+        width="12"
+        height="14"
         viewBox="0 0 12 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -84,8 +84,8 @@ const justifyContentCenter = html`
 `;
 const justifyContentEnd = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +111,8 @@ const justifyContentEnd = html`
 `;
 const justifyContentStart = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -134,8 +134,8 @@ const justifyContentStart = html`
 `;
 const justifyContentSpaceAround = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -162,8 +162,8 @@ const justifyContentSpaceAround = html`
 `;
 const justifyContentSpaceBetween = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -190,8 +190,8 @@ const justifyContentSpaceBetween = html`
 `;
 const justifyContentSpaceEvenly = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -222,8 +222,8 @@ const justifyContentSpaceEvenly = html`
  */
 const alignContentStretch = html`
     <svg
-        width="18"
-        height="18"
+        width="14"
+        height="14"
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -248,8 +248,8 @@ const alignContentStretch = html`
 `;
 const alignContentSpaceEvenly = html`
     <svg
-        width="18"
-        height="18"
+        width="14"
+        height="14"
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -274,8 +274,8 @@ const alignContentSpaceEvenly = html`
 `;
 const alignContentSpaceBetween = html`
     <svg
-        width="18"
-        height="18"
+        width="14"
+        height="14"
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -294,8 +294,8 @@ const alignContentSpaceBetween = html`
 `;
 const alignContentSpaceAround = html`
     <svg
-        width="18"
-        height="18"
+        width="14"
+        height="14"
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -320,8 +320,8 @@ const alignContentSpaceAround = html`
 `;
 const alignContentStart = html`
     <svg
-        width="18"
-        height="11"
+        width="14"
+        height="9"
         viewBox="0 0 14 9"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -349,8 +349,8 @@ const alignContentStart = html`
 `;
 const alignContentEnd = html`
     <svg
-        width="18"
-        height="12"
+        width="14"
+        height="10"
         viewBox="0 0 14 10"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -371,8 +371,8 @@ const alignContentEnd = html`
 `;
 const alignContentCenter = html`
     <svg
-        width="18"
-        height="15"
+        width="14"
+        height="11"
         viewBox="0 0 14 11"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -400,8 +400,8 @@ const alignContentCenter = html`
  */
 const alignItemsStretch = html`
     <svg
-        width="18"
-        height="15"
+        width="14"
+        height="12"
         viewBox="0 0 14 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -414,8 +414,8 @@ const alignItemsStretch = html`
 `;
 const alignItemsStart = html`
     <svg
-        width="18"
-        height="15"
+        width="14"
+        height="12"
         viewBox="0 0 14 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -427,8 +427,8 @@ const alignItemsStart = html`
 `;
 const alignItemsEnd = html`
     <svg
-        width="18"
-        height="15"
+        width="14"
+        height="12"
         viewBox="0 0 14 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -440,8 +440,8 @@ const alignItemsEnd = html`
 `;
 const alignItemsCenter = html`
     <svg
-        width="18"
-        height="18"
+        width="16"
+        height="16"
         viewBox="0 0 16 16"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -456,42 +456,36 @@ const alignItemsCenter = html`
  * CSS flex-wrap icons
  */
 const flexWrapWrap = html`
-    <svg
-        width="20"
-        height="20"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="3" y="3" width="4" height="4" rx="1" fill="white" />
-        <rect x="9.5" y="3.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="3.5" y="9.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="1" width="5" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13 2h-3v4h3V2Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-3ZM6 10H3v4h3v-4ZM3 9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H3Z"
+        />
     </svg>
 `;
 const flexWrapWrapReverse = html`
-    <svg
-        width="20"
-        height="20"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="9" y="9" width="4" height="4" rx="1" fill="white" />
-        <rect x="9.5" y="3.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="3.5" y="9.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="9" width="5" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13 10h-3v4h3v-4Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-3ZM6 2H3v4h3V2ZM3 1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3Z"
+        />
     </svg>
 `;
 const flexWrapNoWrap = html`
-    <svg
-        width="20"
-        height="20"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="1" y="6" width="4" height="4" rx="1" fill="white" />
-        <rect x="11.5" y="6.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="6.5" y="6.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect y="5" width="4" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9 6H6v4h3V6ZM6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6ZM15 6h-3v4h3V6Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3Z"
+        />
     </svg>
 `;
 
@@ -500,8 +494,8 @@ const flexWrapNoWrap = html`
  */
 const rowGap = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -516,8 +510,8 @@ const rowGap = html`
 `;
 const columnGap = html`
     <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
