@@ -27,7 +27,7 @@ describe("ShortcutsAction", () => {
             action,
         });
         if (shortcutAction.matches({ metaKey: true } as KeyboardEvent)) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).not.to.have.been.called();
@@ -41,7 +41,7 @@ describe("ShortcutsAction", () => {
             action,
         });
         if (shortcutAction.matches({} as KeyboardEvent)) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);
@@ -63,7 +63,7 @@ describe("ShortcutsAction", () => {
                 shiftKey: true,
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).not.to.have.been.called();
@@ -85,7 +85,7 @@ describe("ShortcutsAction", () => {
                 metaKey: true,
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);
@@ -107,7 +107,7 @@ describe("ShortcutsAction", () => {
                 shiftKey: true,
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);
@@ -129,7 +129,7 @@ describe("ShortcutsAction", () => {
                 ctrlKey: true,
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);
@@ -151,7 +151,7 @@ describe("ShortcutsAction", () => {
                 altKey: true,
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);
@@ -173,7 +173,7 @@ describe("ShortcutsAction", () => {
                 key: "b",
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).not.to.have.been.called();
@@ -195,7 +195,7 @@ describe("ShortcutsAction", () => {
                 key: "a",
             } as KeyboardEvent)
         ) {
-            shortcutAction.invoke();
+            shortcutAction.invoke("foo", [{}, "root"]);
         }
 
         expect(action).to.have.been.called.exactly(1);

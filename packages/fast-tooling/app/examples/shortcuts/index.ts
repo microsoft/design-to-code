@@ -3,12 +3,9 @@ import {
     MessageSystemType,
     MessageSystemNavigationDictionaryTypeAction,
     ShortcutsActionDelete,
+    ShortcutsActionDuplicate,
 } from "../../../src";
-import {
-    Shortcuts,
-    shortcutsId,
-} from "../../../src/message-system-service/shortcuts.service";
-import { ShortcutsAction } from "../../../src/message-system-service/shortcuts.service-action";
+import { Shortcuts } from "../../../src/message-system-service/shortcuts.service";
 import dataDictionaryConfig from "./data-dictionary-config";
 import schemaDictionary from "./schema-dictionary";
 
@@ -58,6 +55,9 @@ if ((window as any).Worker) {
     fastShortcuts = new Shortcuts({
         messageSystem: fastMessageSystem,
         target: inputElement,
-        actions: [ShortcutsActionDelete(fastMessageSystem)],
+        actions: [
+            ShortcutsActionDelete(fastMessageSystem),
+            ShortcutsActionDuplicate(fastMessageSystem),
+        ],
     });
 }

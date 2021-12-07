@@ -1,4 +1,5 @@
 import { XOR } from "../data-utilities/type.utilities";
+import { DataDictionary } from "../message-system/data.props";
 import {
     MessageSystemServiceAction,
     MessageSystemServiceActionConfig,
@@ -44,8 +45,13 @@ export interface ShortcutsActionCallbackConfigSuccess {
     keys: KeyConfig[];
 }
 
+export interface ShortcutsActionCallbackConfigMessageSystemData {
+    dataDictionary: DataDictionary<unknown>;
+    activeDictionaryId: string;
+}
+
 export type ShortcutsActionCallbackConfig = XOR<
-    ShortcutsActionCallbackConfigSuccess,
+    ShortcutsActionCallbackConfigSuccess & ShortcutsActionCallbackConfigMessageSystemData,
     ActionNotFound
 >;
 
@@ -109,10 +115,15 @@ export class ShortcutsAction extends MessageSystemServiceAction<
     /**
      * Invokes the action
      */
-    public invoke = (): void => {
+    public invoke = (
+        activeDictionaryId: string,
+        dataDictionary: DataDictionary<unknown>
+    ): void => {
         this.getAction({
             keys: this.keys,
             name: this.name,
+            dataDictionary,
+            activeDictionaryId,
         })();
     };
 
