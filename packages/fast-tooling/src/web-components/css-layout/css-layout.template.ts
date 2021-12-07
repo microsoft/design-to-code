@@ -456,42 +456,36 @@ const alignItemsCenter = html`
  * CSS flex-wrap icons
  */
 const flexWrapWrap = html`
-    <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="3" y="3" width="4" height="4" rx="1" fill="white" />
-        <rect x="9.5" y="3.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="3.5" y="9.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="1" width="5" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13 2h-3v4h3V2Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-3ZM6 10H3v4h3v-4ZM3 9a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H3Z"
+        />
     </svg>
 `;
 const flexWrapWrapReverse = html`
-    <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="9" y="9" width="4" height="4" rx="1" fill="white" />
-        <rect x="9.5" y="3.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="3.5" y="9.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="9" width="5" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M13 10h-3v4h3v-4Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-3ZM6 2H3v4h3V2ZM3 1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3Z"
+        />
     </svg>
 `;
 const flexWrapNoWrap = html`
-    <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <rect x="1" y="6" width="4" height="4" rx="1" fill="white" />
-        <rect x="11.5" y="6.5" width="3" height="3" rx="0.5" stroke="white" />
-        <rect x="6.5" y="6.5" width="3" height="3" rx="0.5" stroke="white" />
+    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+        <rect y="5" width="4" height="6" rx="1" fill="white" />
+        <path
+            fill="white"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M9 6H6v4h3V6ZM6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6ZM15 6h-3v4h3V6Zm-3-1a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3Z"
+        />
     </svg>
 `;
 
