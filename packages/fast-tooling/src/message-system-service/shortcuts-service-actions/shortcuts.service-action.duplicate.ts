@@ -25,7 +25,7 @@ export default function ShortcutsActionDuplicate(
             },
         ],
         action: config => {
-            if (config?.dataDictionary[0]?.[config?.activeDictionaryId]?.parent.id) {
+            if (config?.dataDictionary?.[0]?.[config?.activeDictionaryId]?.parent.id) {
                 messageSystem.postMessage({
                     type: MessageSystemType.data,
                     action: MessageSystemDataTypeAction.addLinkedData,
