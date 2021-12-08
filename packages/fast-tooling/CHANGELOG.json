@@ -2,6 +2,29 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 08 Dec 2021 07:08:31 GMT",
+      "tag": "@microsoft/fast-tooling_v0.33.0",
+      "version": "0.33.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added the duplicate shortcut",
+            "commit": "6b0602e10d9d5563c2ab434bb327ab3fafc4f7f0"
+          }
+        ],
+        "patch": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Increased icon sizes in CSS Layout component",
+            "commit": "6b0602e10d9d5563c2ab434bb327ab3fafc4f7f0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 05 Dec 2021 07:08:17 GMT",
       "tag": "@microsoft/fast-tooling_v0.32.0",
       "version": "0.32.0",

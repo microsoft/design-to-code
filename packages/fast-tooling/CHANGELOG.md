@@ -1,8 +1,20 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Sun, 05 Dec 2021 07:08:17 GMT and should not be manually modified.
+This log was last generated on Wed, 08 Dec 2021 07:08:31 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.33.0
+
+Wed, 08 Dec 2021 07:08:31 GMT
+
+### Minor changes
+
+- Added the duplicate shortcut (7559015+janechu@users.noreply.github.com)
+
+### Patches
+
+- Increased icon sizes in CSS Layout component (44823142+williamw2@users.noreply.github.com)
 
 ## 0.32.0
 
