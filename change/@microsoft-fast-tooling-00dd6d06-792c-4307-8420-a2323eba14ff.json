@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Added the duplicate shortcut",
+  "packageName": "@microsoft/fast-tooling",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}

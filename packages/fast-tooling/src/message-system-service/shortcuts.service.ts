@@ -1,4 +1,5 @@
 import { CustomMessage, MessageSystemType } from "../message-system";
+import { DataDictionary } from "../message-system/data.props";
 import {
     ShortcutsAction,
     ShortcutsActionCallbackConfig,
@@ -91,6 +92,9 @@ export class Shortcuts extends MessageSystemService<
     ShortcutsActionCallbackConfig,
     ShortcutsConfig
 > {
+    private dataDictionary: DataDictionary<unknown>;
+    private dictionaryId: string;
+
     constructor(config: ShortcutsMessageSystemServiceConfig) {
         super();
 
@@ -113,7 +117,7 @@ export class Shortcuts extends MessageSystemService<
     private listener = (e: KeyboardEvent): void => {
         this.registeredActions.forEach((action: ShortcutsAction) => {
             if (action.matches(e)) {
-                action.invoke();
+                action.invoke(this.dictionaryId, this.dataDictionary);
             }
         });
     };
@@ -133,14 +137,33 @@ export class Shortcuts extends MessageSystemService<
                             return {
                                 name: shortcutAction.name,
                                 keys: shortcutAction.keys,
+                                activeDictionaryId: this.dictionaryId,
+                                dataDictionary: this.dataDictionary,
                             };
                         }
                     ),
                     options: {
-                        originatorId: "fast-tooling::shortcuts-service",
+                        originatorId: shortcutsId,
                     },
                 } as ShortcutMessageOutgoing);
+
+                this.dictionaryId = e.data.activeDictionaryId;
+                this.dataDictionary = e.data.dataDictionary;
                 break;
+            case MessageSystemType.dataDictionary:
+                this.dictionaryId = e.data.activeDictionaryId;
+                this.dataDictionary = e.data.dataDictionary;
+
+                break;
+            case MessageSystemType.data:
+                this.dataDictionary = e.data.dataDictionary;
+
+                break;
+            case MessageSystemType.navigation:
+                this.dictionaryId = e.data.activeDictionaryId;
+                break;
+            case MessageSystemType.navigationDictionary:
+                this.dictionaryId = e.data.activeDictionaryId;
         }
     };
 
@@ -150,6 +173,8 @@ export class Shortcuts extends MessageSystemService<
                 return {
                     name: action.name,
                     keys: action.keys,
+                    activeDictionaryId: this.dictionaryId,
+                    dataDictionary: this.dataDictionary,
                 };
             }
         });
