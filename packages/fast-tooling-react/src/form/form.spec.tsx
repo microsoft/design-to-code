@@ -189,6 +189,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -289,6 +293,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -389,6 +397,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -489,6 +501,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -589,6 +605,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -690,6 +710,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -790,6 +814,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -894,6 +922,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1028,6 +1060,10 @@ describe("Form", () => {
                     ],
                     schemaDictionary,
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1162,6 +1198,10 @@ describe("Form", () => {
                     ],
                     schemaDictionary,
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1275,6 +1315,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1386,6 +1430,10 @@ describe("Form", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1519,6 +1567,10 @@ describe("Form", () => {
                     ],
                     schemaDictionary,
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0"
                 } as InitializeMessageOutgoing,
             } as any);
         });
