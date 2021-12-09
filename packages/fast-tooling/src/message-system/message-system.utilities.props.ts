@@ -3,7 +3,7 @@ import { NavigationConfig, NavigationConfigDictionary } from "./navigation.props
 import { Data, DataDictionary, LinkedData } from "./data.props";
 import { SchemaDictionary } from "./schema.props";
 import { MessageSystemType } from "./types";
-import { ValidationError } from "./validation.props";
+import { Validation, ValidationError } from "./validation.props";
 import { History } from "./history.props";
 
 /**
@@ -62,6 +62,19 @@ interface ArbitraryMessageOutgoing<TConfig = {}> {
      * Additional arbitrary options to be passed with the message
      */
     options?: TConfig;
+
+    activeHistoryIndex: number;
+    dataDictionary: DataDictionary<unknown>;
+    navigationDictionary: NavigationConfigDictionary;
+    activeNavigationConfigId: string;
+    activeDictionaryId: string;
+    /**
+     * @deprecated
+     */
+    dictionaryId: string;
+    schemaDictionary: SchemaDictionary;
+    validation: Validation;
+    historyId: string;
 }
 
 export interface InternalIncomingMessage<Message> {
@@ -122,14 +135,21 @@ export interface InitializeMessageIncoming<TConfig = {}>
 export interface InitializeMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.initialize;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
-    activeDictionaryId: string;
-    activeNavigationConfigId: string;
+    /**
+     * @deprecated
+     */
     schema: any;
-    schemaDictionary: SchemaDictionary;
+    /**
+     * @deprecated
+     */
     historyLimit: number;
 }
 
@@ -149,8 +169,6 @@ export interface GetDataDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.dataDictionary;
     action: MessageSystemDataDictionaryTypeAction.get;
-    dataDictionary: DataDictionary<unknown>;
-    activeDictionaryId: string;
 }
 
 /**
@@ -171,7 +189,9 @@ export interface UpdateValidationMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.validation;
     action: MessageSystemValidationTypeAction.update;
-    dictionaryId: string;
+    /**
+     * @deprecated
+     */
     validationErrors: ValidationError[];
 }
 
@@ -192,7 +212,9 @@ export interface GetValidationMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.validation;
     action: MessageSystemValidationTypeAction.get;
-    dictionaryId: string;
+    /**
+     * @deprecated
+     */
     validationErrors: ValidationError[];
 }
 
@@ -212,8 +234,6 @@ export interface GetNavigationDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.navigationDictionary;
     action: MessageSystemNavigationDictionaryTypeAction.get;
-    navigationDictionary: NavigationConfigDictionary;
-    activeDictionaryId: string;
 }
 
 /**
@@ -233,7 +253,6 @@ export interface UpdateActiveIdDataDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.dataDictionary;
     action: MessageSystemDataDictionaryTypeAction.updateActiveId;
-    activeDictionaryId: string;
 }
 
 /**
@@ -253,7 +272,6 @@ export interface UpdateActiveIdNavigationDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.navigationDictionary;
     action: MessageSystemNavigationDictionaryTypeAction.updateActiveId;
-    activeDictionaryId: string;
 }
 
 /**
@@ -279,11 +297,14 @@ export interface UpdateDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.update;
-    dictionaryId: string;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -314,12 +335,18 @@ export interface AddLinkedDataDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.addLinkedData;
-    dictionaryId: string; // dictionary id that the linked data was added to
+    /**
+     * @deprecated
+     */
     linkedDataIds: LinkedData[]; // the linked data
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -345,19 +372,18 @@ export interface RemoveLinkedDataDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.removeLinkedData;
+    /**
+     * @deprecated
+     */
     data: unknown;
     /**
-     * The current active dictionary ID, which may change depending on
-     * whether the current active dictionary ID at the time of linked data removal
-     * was contained in the removed linked data
+     * @deprecated
      */
-    activeDictionaryId: string;
-    dataDictionary: DataDictionary<unknown>;
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
     /**
      * An array of linked data ids that were removed from
      * the data dictionary
+     * @deprecated
      */
     linkedDataIds: string[];
 }
@@ -380,10 +406,14 @@ export interface ReorderLinkedDataDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.reorderLinkedData;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -404,11 +434,18 @@ export interface DuplicateDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.duplicate;
+    /**
+     * @deprecated
+     */
     sourceDataLocation: string;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -429,10 +466,14 @@ export interface RemoveDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.remove;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -455,10 +496,14 @@ export interface AddDataMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.add;
+    /**
+     * @deprecated
+     */
     data: unknown;
-    dataDictionary: DataDictionary<unknown>;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
-    navigationDictionary: NavigationConfigDictionary;
 }
 
 /**
@@ -503,8 +548,6 @@ export interface UpdateNavigationMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.navigation;
     action: MessageSystemNavigationTypeAction.update;
-    activeDictionaryId: string;
-    activeNavigationConfigId: string;
 }
 
 /**
@@ -523,8 +566,9 @@ export interface GetNavigationMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.navigation;
     action: MessageSystemNavigationTypeAction.get;
-    activeDictionaryId: string;
-    activeNavigationConfigId: string;
+    /**
+     * @deprecated
+     */
     navigation: NavigationConfig;
 }
 
@@ -564,11 +608,10 @@ export interface AddSchemaDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
     type: MessageSystemType.schemaDictionary;
     action: MessageSystemSchemaDictionaryTypeAction.add;
-    schemaDictionary: SchemaDictionary;
 }
 
 export interface CustomMessageIncomingOutgoing<OConfig>
-    extends ArbitraryMessageOutgoing<OConfig> {
+    extends ArbitraryMessageIncoming<OConfig> {
     type: MessageSystemType.custom;
 }
 

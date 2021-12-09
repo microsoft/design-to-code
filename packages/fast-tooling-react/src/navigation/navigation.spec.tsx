@@ -189,6 +189,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -298,6 +302,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -392,6 +400,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -483,6 +495,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -590,6 +606,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1340,6 +1360,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1457,6 +1481,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1573,6 +1601,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1689,6 +1721,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1851,6 +1887,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2028,6 +2068,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2163,6 +2207,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2278,6 +2326,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2371,6 +2423,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2464,6 +2520,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2557,6 +2617,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2650,6 +2714,10 @@ describe("Navigation", () => {
                         foo: schema,
                     },
                     historyLimit: 30,
+                    activeHistoryIndex: 0,
+                    dictionaryId: "",
+                    validation: {},
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });

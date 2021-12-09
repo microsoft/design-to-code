@@ -47,17 +47,18 @@ describe("getMessage", () => {
                 },
                 "",
             ];
-            expect(getMessage(getHistory)).to.deep.equal([
-                {
-                    type: MessageSystemType.history,
-                    action: MessageSystemHistoryTypeAction.get,
-                    history: {
-                        items: [],
-                        limit: 30,
-                    },
-                },
-                "",
-            ]);
+            const historyMessage = getMessage(getHistory);
+
+            expect(historyMessage[0].type).to.equal(MessageSystemType.history);
+            expect((historyMessage[0] as GetHistoryMessageOutgoing).action).to.equal(
+                MessageSystemHistoryTypeAction.get
+            );
+            expect(
+                (historyMessage[0] as GetHistoryMessageOutgoing).history.items.length
+            ).to.equal(0);
+            expect(
+                (historyMessage[0] as GetHistoryMessageOutgoing).history.limit
+            ).to.equal(30);
         });
         it("should update the history when a new message has been sent", () => {
             const dataBlob: DataDictionary<unknown> = [
@@ -132,7 +133,7 @@ describe("getMessage", () => {
             ).to.equal(30);
             expect(
                 ((getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing).history
-                    .items[29] as any).data.foo
+                    .items[29] as any).data.dataDictionary[0].data.data.foo
             ).to.equal("bar49");
         });
     });

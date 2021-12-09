@@ -1,6 +1,9 @@
-import { MessageSystemOutgoing } from "./message-system.utilities.props";
+import { MessageSystemIncoming } from "./message-system.utilities.props";
 
-export type HistoryItem = MessageSystemOutgoing;
+export interface HistoryItem {
+    data: MessageSystemIncoming;
+    id: string;
+}
 
 export interface History {
     items: HistoryItem[];
