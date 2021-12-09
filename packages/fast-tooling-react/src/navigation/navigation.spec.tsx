@@ -192,7 +192,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -305,7 +305,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -403,7 +403,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -498,7 +498,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -609,7 +609,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1363,7 +1363,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1484,7 +1484,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1604,7 +1604,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1724,7 +1724,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1890,7 +1890,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2071,7 +2071,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2210,7 +2210,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2329,7 +2329,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2426,7 +2426,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2523,7 +2523,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2620,7 +2620,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2717,7 +2717,7 @@ describe("Navigation", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });

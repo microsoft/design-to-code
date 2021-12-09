@@ -192,7 +192,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -296,7 +296,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -400,7 +400,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -504,7 +504,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -608,7 +608,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -713,7 +713,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -817,7 +817,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -925,7 +925,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1063,7 +1063,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1201,7 +1201,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1318,7 +1318,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1433,7 +1433,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1570,7 +1570,7 @@ describe("Form", () => {
                     activeHistoryIndex: 0,
                     dictionaryId: "",
                     validation: {},
-                    historyId: "0"
+                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
