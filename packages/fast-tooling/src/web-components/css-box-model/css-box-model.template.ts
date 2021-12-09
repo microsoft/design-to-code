@@ -26,11 +26,11 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
 >`
     <template>
         <div class="section">
-            <label for="margin" class="section_label">Margin</label>
+            <label for="margin" class="section-label">Margin</label>
             <br />
             <div
                 class="${x =>
-                    x.marginOpen ? "singleInput singleInput_hidden" : "singleInput"}"
+                    x.marginOpen ? "singleInput singleInput__hidden" : "singleInput"}"
             >
                 <fast-tooling-units-text-field
                     id="margin"
@@ -48,7 +48,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     ${sidesButton}
                 </fast-button>
             </div>
-            <div class="${x => (x.marginOpen ? "grid" : "grid grid_hidden")}">
+            <div class="${x => (x.marginOpen ? "grid" : "grid grid__hidden")}">
                 <div class="item item-top">
                     <fast-tooling-units-text-field
                         id="margin-top"
@@ -101,10 +101,10 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
         </div>
         <br />
         <div class="section">
-            <label for="border" class="section_label">Border Width</label>
+            <label for="border" class="section-label">Border Width</label>
             <div
                 class="${x =>
-                    x.borderOpen ? "singleInput singleInput_hidden" : "singleInput"}"
+                    x.borderOpen ? "singleInput singleInput__hidden" : "singleInput"}"
             >
                 <fast-tooling-units-text-field
                     id="border"
@@ -122,7 +122,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     ${sidesButton}
                 </fast-button>
             </div>
-            <div class="${x => (x.borderOpen ? "grid" : "grid grid_hidden")}">
+            <div class="${x => (x.borderOpen ? "grid" : "grid grid__hidden")}">
                 <div class="item item-top">
                     <fast-tooling-units-text-field
                         id="border-top-width"
@@ -136,7 +136,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 <div class="item item-topRight">
                     <fast-button
                         appearance="stealth"
-                        class="sideButton sideButton_active"
+                        class="sideButton sideButton__active"
                         @click="${(x, c) =>
                             x.handleOpenButtonClick(expandableSection.border)}"
                     >
@@ -177,10 +177,10 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
         </div>
         <br />
         <div class="section">
-            <label for="padding" class="section_label">Padding</label>
+            <label for="padding" class="section-label">Padding</label>
             <div
                 class="${x =>
-                    x.paddingOpen ? "singleInput singleInput_hidden" : "singleInput"}"
+                    x.paddingOpen ? "singleInput singleInput__hidden" : "singleInput"}"
             >
                 <fast-tooling-units-text-field
                     id="padding"
@@ -198,7 +198,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                     ${sidesButton}
                 </fast-button>
             </div>
-            <div class="${x => (x.paddingOpen ? "grid" : "grid grid_hidden")}">
+            <div class="${x => (x.paddingOpen ? "grid" : "grid grid__hidden")}">
                 <div class="item item-top">
                     <fast-tooling-units-text-field
                         id="padding-top"
@@ -211,7 +211,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 <div class="item item-topRight">
                     <fast-button
                         appearance="stealth"
-                        class="sideButton sideButton_active"
+                        class="sideButton sideButton__active"
                         @click="${(x, c) =>
                             x.handleOpenButtonClick(expandableSection.padding)}"
                     >
@@ -256,7 +256,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
             <div class="grid grid-dimension">
                 <div class="item">
                     <div class="dimension">
-                        <label for="width" class="section_label">Width</label>
+                        <label for="width" class="section-label">Width</label>
                         <br />
                         <fast-tooling-units-text-field
                             id="width"
@@ -269,7 +269,7 @@ export const cssBoxModelTemplate = (context: ElementDefinitionContext) => html<
                 </div>
                 <div class="item">
                     <div class="dimension">
-                        <label for="height" class="section_label">Height</label>
+                        <label for="height" class="section-label">Height</label>
                         <br />
                         <fast-tooling-units-text-field
                             id="height"

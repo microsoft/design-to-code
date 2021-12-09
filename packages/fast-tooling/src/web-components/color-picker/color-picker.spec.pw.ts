@@ -15,7 +15,7 @@ test.describe("Color Picker", () => {
 
     test("should open when clicked", async ({ page }) => {
         await page.click('#control input[type="text"]');
-        const colorUI = page.locator(".color-ui");
+        const colorUI = page.locator(".popup__open");
         await expect(colorUI).not.toBeNull();
         // Couldn't get the .isVisible() test to work so looking directly at the css.
         await expect(colorUI).toHaveCSS("display", "flex");
@@ -29,47 +29,47 @@ test.describe("Color Picker", () => {
         await expect(page.locator("#outputValue")).toHaveValue("#AABBCC");
 
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(1) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(1) input[type="text"]')
         ).toHaveValue("170");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(2) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(2) input[type="text"]')
         ).toHaveValue("187");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(3) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(3) input[type="text"]')
         ).toHaveValue("204");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(4) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(4) input[type="text"]')
         ).toHaveValue("210");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(5) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(5) input[type="text"]')
         ).toHaveValue("17");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(6) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(6) input[type="text"]')
         ).toHaveValue("80");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(7) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(7) input[type="text"]')
         ).toHaveValue("100");
         await page.fill('#control input[type="text"]', "rgba(64,128,127,0.5)");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(1) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(1) input[type="text"]')
         ).toHaveValue("64");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(2) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(2) input[type="text"]')
         ).toHaveValue("128");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(3) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(3) input[type="text"]')
         ).toHaveValue("127");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(4) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(4) input[type="text"]')
         ).toHaveValue("179");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(5) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(5) input[type="text"]')
         ).toHaveValue("50");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(6) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(6) input[type="text"]')
         ).toHaveValue("50");
         await expect(
-            page.locator('.color-ui fast-text-field:nth-child(7) input[type="text"]')
+            page.locator('.popup__open fast-text-field:nth-child(7) input[type="text"]')
         ).toHaveValue("50");
     });
 
@@ -77,33 +77,33 @@ test.describe("Color Picker", () => {
         await expect(page.locator('#control input[type="text"]')).toHaveValue("");
         await page.click('#control input[type="text"]');
         await page.fill(
-            '.color-ui fast-text-field:nth-child(1) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(1) input[type="text"]',
             "170"
         );
         await page.fill(
-            '.color-ui fast-text-field:nth-child(2) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(2) input[type="text"]',
             "187"
         );
         await page.fill(
-            '.color-ui fast-text-field:nth-child(3) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(3) input[type="text"]',
             "204"
         );
         await expect(page.locator('#control input[type="text"]')).toHaveValue("#aabbcc");
         await expect(page.locator("#outputValue")).toHaveValue("#aabbcc");
         await page.fill(
-            '.color-ui fast-text-field:nth-child(4) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(4) input[type="text"]',
             "179"
         );
         await page.fill(
-            '.color-ui fast-text-field:nth-child(5) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(5) input[type="text"]',
             "50"
         );
         await page.fill(
-            '.color-ui fast-text-field:nth-child(6) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(6) input[type="text"]',
             "50"
         );
         await page.fill(
-            '.color-ui fast-text-field:nth-child(7) input[type="text"]',
+            '.popup__open fast-text-field:nth-child(7) input[type="text"]',
             "50"
         );
         await expect(page.locator('#control input[type="text"]')).toHaveValue(
@@ -115,15 +115,15 @@ test.describe("Color Picker", () => {
     test("clicking pickers should change value", async ({ page }) => {
         await expect(page.locator('#control input[type="text"]')).toHaveValue("");
         await page.click('#control input[type="text"]');
-        await page.click(".sat-light-picker");
+        await page.click(".pickers-saturation");
         await expect(page.locator('#control input[type="text"]')).toHaveValue("#804040");
         await expect(page.locator("#outputValue")).toHaveValue("#804040");
 
-        await page.click(".hue-picker");
+        await page.click(".pickers-hue");
         await expect(page.locator('#control input[type="text"]')).toHaveValue("#40807f");
         await expect(page.locator("#outputValue")).toHaveValue("#40807f");
 
-        await page.click(".alpha-mask");
+        await page.click(".pickers-alpha");
         await expect(page.locator('#control input[type="text"]')).toHaveValue(
             "rgba(64,128,127,0.5)"
         );
@@ -133,7 +133,7 @@ test.describe("Color Picker", () => {
     test("dragging sliders should change value", async ({ page }) => {
         await expect(page.locator('#control input[type="text"]')).toHaveValue("");
         await page.click('#control input[type="text"]');
-        await page.click(".sat-light-picker");
+        await page.click(".pickers-saturation");
         await expect(page.locator('#control input[type="text"]')).toHaveValue("#804040");
         await page.mouse.move(142, 212);
         await page.mouse.down();

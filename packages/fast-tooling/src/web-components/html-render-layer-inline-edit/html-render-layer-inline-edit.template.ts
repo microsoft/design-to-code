@@ -2,10 +2,10 @@ import { html, ref } from "@microsoft/fast-element";
 import { HTMLRenderLayerInlineEdit } from "./html-render-layer-inline-edit";
 
 export const htmlRenderLayerInlineEditTemplate = html<HTMLRenderLayerInlineEdit>`
-    <div class="edit-region">
+    <div class="edit">
         <textarea
             ${ref("textAreaRef")}
-            class="${x => (x.textAreaActive ? "text-area active" : "text-area")}"
+            class="${x => (x.textAreaActive ? "edit-textArea__active" : "edit-textArea")}"
             @keydown="${(x, c) => x.handleKeyDown(c.event as KeyboardEvent)}"
             @keyup="${(x, c) => x.handleTextInput(c.event as KeyboardEvent)}"
             @click="${(x, c) => {

@@ -20,9 +20,9 @@ export const colorPickerTemplate: (
                 x.mouseActive ? x.handleMouseUp(c.event as MouseEvent) : null}"
             style="--selected-color-value: ${x => (x.value ? x.value : "transparent")}"
         >
-            <div class="root ${x => (x.open ? "open" : "")}" part="root">
+            <div class="root" part="root">
                 <${context.tagFor(TextField)}
-                    class="control"
+                    class="root-control"
                     part="control"
                     id="control"
                     @input="${x => x.handleTextInput()}"
@@ -35,25 +35,25 @@ export const colorPickerTemplate: (
                     :value="${x => x.value}"
                     ${ref("control")}
                 >
-                    <div slot="start" class="selected-color"></div>
+                    <div slot="start" class="control-color"></div>
                 </${context.tagFor(TextField)}>
-                <div class="color-ui">
-                    <div class="picker-region">
+                <div class="${x => (x.open ? "popup__open" : "popup")}">
+                    <div class="pickers">
                         <div
-                            class="sat-light-picker"
+                            class="pickers-saturation"
                             style="background-color:${x => x.uiValues.HueCSSColor}"
                             @mousedown="${(x, c) =>
                                 x.handleMouseDown("sv", c.event as MouseEvent)}"
                         >
                             <div
-                                class="sat-light-indicator"
+                                class="saturation-indicator"
                                 style="left: ${x =>
                                     x.uiValues.SatValLeftPos - 2}%; top: ${x =>
         x.uiValues.SatValTopPos - 2}%"
                             ></div>
                         </div>
                         <div
-                            class="hue-picker"
+                            class="pickers-hue"
                             @mousedown="${(x, c) =>
                                 x.handleMouseDown("h", c.event as MouseEvent)}"
                         >
@@ -63,7 +63,7 @@ export const colorPickerTemplate: (
                             ></div>
                         </div>
                         <div
-                            class="alpha-picker"
+                            class="pickers-alpha"
                             @mousedown="${(x, c) =>
                                 x.handleMouseDown("a", c.event as MouseEvent)}"
                         >
@@ -78,7 +78,7 @@ export const colorPickerTemplate: (
                             ></div>
                         </div>
                     </div>
-                    <div class="input-region">
+                    <div class="inputs">
                         <${context.tagFor(TextField)}
                             maxlength="3"
                             size="3"

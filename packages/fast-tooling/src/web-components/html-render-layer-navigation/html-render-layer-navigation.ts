@@ -29,8 +29,17 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
      * should be specific enough to return only one element, otherwise only the first match
      * will be used.
      */
+    @attr({ attribute: "resize-observer-selector" })
+    public resizeObserverSelector: string;
+
+    /**
+     * @deprecated
+     */
     @attr
     public resizeobserverselector: string;
+    private resizeobserverselectorChanged(): void {
+        this.resizeObserverSelector = this.resizeobserverselector;
+    }
 
     public layerActivityId: string = "NavLayer";
 
@@ -77,9 +86,9 @@ export class HTMLRenderLayerNavigation extends HTMLRenderLayer {
         );
 
         this.resizeDetector.observe(
-            (this.resizeobserverselector
+            (this.resizeObserverSelector
                 ? (this.getRootNode() as Element).querySelector(
-                      this.resizeobserverselector
+                      this.resizeObserverSelector
                   )
                 : null) ?? document.body
         );
