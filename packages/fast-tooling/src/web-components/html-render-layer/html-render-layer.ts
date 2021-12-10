@@ -1,11 +1,6 @@
 import { observable } from "@microsoft/fast-element";
 import { FoundationElement } from "@microsoft/fast-foundation";
-import {
-    DataDictionary,
-    MessageSystem,
-    MessageSystemType,
-    SchemaDictionary,
-} from "../../message-system";
+import { DataDictionary, MessageSystem, SchemaDictionary } from "../../message-system";
 
 export enum ActivityType {
     hover = "hover",
@@ -55,18 +50,8 @@ export abstract class HTMLRenderLayer extends FoundationElement {
 
     protected handleMessageSystem = (e: MessageEvent): void => {
         if (e.data) {
-            if (
-                e.data.type === MessageSystemType.initialize ||
-                e.data.type === MessageSystemType.data
-            ) {
-                this.dataDictionary = e.data.dataDictionary;
-                if (e.data.schemaDictionary) {
-                    this.schemaDictionary = e.data.schemaDictionary;
-                }
-            }
-            if (e.data.type === MessageSystemType.schemaDictionary) {
-                this.schemaDictionary = e.data.schemaDictionary;
-            }
+            this.dataDictionary = e.data.dataDictionary;
+            this.schemaDictionary = e.data.schemaDictionary;
         }
     };
 
