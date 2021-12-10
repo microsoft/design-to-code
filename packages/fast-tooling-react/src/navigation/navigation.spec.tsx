@@ -1865,32 +1865,35 @@ describe("Navigation", () => {
         const rendered: any = mount(
             <Navigation {...navigationProps} messageSystem={fastMessageSystem} />
         );
+        const partialMessage: Partial<InitializeMessageOutgoing> = {
+            dataDictionary,
+            navigationDictionary: [
+                {
+                    "": navigation1,
+                    foo: navigation2,
+                },
+                "",
+            ],
+            schemaDictionary: {
+                foo: schema,
+            },
+            activeDictionaryId: "",
+            activeNavigationConfigId: "",
+            activeHistoryIndex: 0,
+            dictionaryId: "",
+            validation: {},
+            historyId: "0",
+        };
 
         fastMessageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
+                    ...partialMessage,
                     type: MessageSystemType.initialize,
-                    activeDictionaryId: "",
-                    activeNavigationConfigId: "",
                     schema,
                     data,
-                    dataDictionary,
-                    navigationDictionary: [
-                        {
-                            "": navigation1,
-                            foo: navigation2,
-                        },
-                        "",
-                    ],
                     navigation: navigation1,
-                    schemaDictionary: {
-                        foo: schema,
-                    },
                     historyLimit: 30,
-                    activeHistoryIndex: 0,
-                    dictionaryId: "",
-                    validation: {},
-                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -1902,6 +1905,7 @@ describe("Navigation", () => {
         fastMessageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
+                    ...partialMessage,
                     type: MessageSystemType.navigation,
                     action: MessageSystemNavigationTypeAction.update,
                     activeDictionaryId: "foo",
@@ -2047,31 +2051,36 @@ describe("Navigation", () => {
             <Navigation {...navigationProps} messageSystem={fastMessageSystem} />
         );
 
+        const partialMessage: Partial<InitializeMessageOutgoing> = {
+            dataDictionary,
+            navigationDictionary: [
+                {
+                    "": navigation1,
+                    foo: navigation2,
+                },
+                "",
+            ],
+            schemaDictionary: {
+                foo: schema,
+            },
+            activeDictionaryId: "",
+            activeNavigationConfigId: "",
+            activeHistoryIndex: 0,
+            dictionaryId: "",
+            validation: {},
+            historyId: "0",
+        };
+
         fastMessageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
+                    ...partialMessage,
                     type: MessageSystemType.initialize,
-                    activeDictionaryId: "",
                     activeNavigationConfigId: "",
                     schema,
                     data,
-                    dataDictionary,
-                    navigationDictionary: [
-                        {
-                            "": navigation1,
-                            foo: navigation2,
-                        },
-                        "",
-                    ],
                     navigation: navigation1,
-                    schemaDictionary: {
-                        foo: schema,
-                    },
                     historyLimit: 30,
-                    activeHistoryIndex: 0,
-                    dictionaryId: "",
-                    validation: {},
-                    historyId: "0",
                 } as InitializeMessageOutgoing,
             } as any);
         });
@@ -2081,6 +2090,7 @@ describe("Navigation", () => {
         fastMessageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
+                    ...partialMessage,
                     type: MessageSystemType.navigation,
                     action: MessageSystemNavigationTypeAction.update,
                     activeDictionaryId: "foo",
