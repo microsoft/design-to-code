@@ -15,7 +15,6 @@ import {
     DataDictionary,
     MessageSystem,
     MessageSystemNavigationTypeAction,
-    MessageSystemSchemaDictionaryTypeAction,
     MessageSystemType,
     SchemaDictionary,
 } from "../../message-system";
@@ -92,15 +91,18 @@ export class HTMLRender extends FoundationElement {
     // Messaging
     private selectTimeout: number | null = null;
     private handleMessageSystem = (e: MessageEvent): void => {
-        if (e.data) {
+        if (
+            e.data &&
+            (!e.data.options || e.data.options.originatorId !== this.messageOriginatorId)
+        ) {
+            this.dataDictionary = e.data.dataDictionary;
+            this.schemaDictionary = e.data.schemaDictionary;
+            this.activeDictionaryId = e.data.activeDictionaryId;
+
             if (
-                (e.data.type === MessageSystemType.initialize ||
-                    e.data.type === MessageSystemType.data) &&
-                (!e.data.options ||
-                    e.data.options.originatorId !== this.messageOriginatorId)
+                e.data.type === MessageSystemType.initialize ||
+                e.data.type === MessageSystemType.data
             ) {
-                this.dataDictionary = e.data.dataDictionary;
-                this.schemaDictionary = e.data.schemaDictionary;
                 this.currentElement = null;
                 this.updateLayers(
                     this.layerActivityId,
@@ -110,45 +112,12 @@ export class HTMLRender extends FoundationElement {
                     null
                 );
                 this.renderMarkup();
-                if (
-                    typeof e.data.activeDictionaryId === "string" ||
-                    typeof e.data.dictionaryId === "string"
-                ) {
-                    this.activeDictionaryId =
-                        typeof e.data.activeDictionaryId === "string"
-                            ? e.data.activeDictionaryId
-                            : e.data.dictionaryId;
-                    // give everything time to actually render
-                    if (this.selectTimeout) {
-                        window.clearTimeout(this.selectTimeout);
-                    }
-                    this.selectTimeout = window.setTimeout(
-                        this.selectActiveDictionaryId,
-                        50
-                    );
-                }
+                this.updateSelectedActiveDictionaryId();
             }
-            if (
-                e.data.type === MessageSystemType.navigation &&
-                (!e.data.options ||
-                    e.data.options.originatorId !== this.messageOriginatorId)
-            ) {
-                if (e.data.action === MessageSystemNavigationTypeAction.update) {
-                    this.activeDictionaryId = e.data.activeDictionaryId;
-                    if (this.selectTimeout) {
-                        window.clearTimeout(this.selectTimeout);
-                    }
-                    this.selectTimeout = window.setTimeout(
-                        this.selectActiveDictionaryId,
-                        50
-                    );
-                }
+            if (e.data.type === MessageSystemType.navigation) {
+                this.updateSelectedActiveDictionaryId();
             }
-            if (
-                e.data.type === MessageSystemType.custom &&
-                e.data.options &&
-                e.data.options.originatorId !== this.messageOriginatorId
-            ) {
+            if (e.data.type === MessageSystemType.custom) {
                 const action: string[] = (e.data.options.action as string).split("::");
                 if (action[0] === "displayMode") {
                     this.interactiveMode = action[1] !== "preview";
@@ -160,14 +129,7 @@ export class HTMLRender extends FoundationElement {
                             null,
                             null
                         );
-                        // give everything time to update positions
-                        if (this.selectTimeout) {
-                            window.clearTimeout(this.selectTimeout);
-                        }
-                        this.selectTimeout = window.setTimeout(
-                            this.selectActiveDictionaryId,
-                            100
-                        );
+                        this.updateSelectedActiveDictionaryId();
                     } else {
                         this.updateLayers(
                             this.layerActivityId,
@@ -186,17 +148,16 @@ export class HTMLRender extends FoundationElement {
                     }
                 }
             }
-            if (
-                e.data.type === MessageSystemType.schemaDictionary &&
-                (!e.data.options ||
-                    e.data.options.originatorId !== this.messageOriginatorId)
-            ) {
-                if (e.data.action === MessageSystemSchemaDictionaryTypeAction.add) {
-                    this.schemaDictionary = e.data.schemaDictionary;
-                }
-            }
         }
     };
+
+    private updateSelectedActiveDictionaryId() {
+        // give everything time to update positions
+        if (this.selectTimeout) {
+            window.clearTimeout(this.selectTimeout);
+        }
+        this.selectTimeout = window.setTimeout(this.selectActiveDictionaryId, 50);
+    }
 
     private selectActiveDictionaryId = () => {
         this.selectTimeout = null;

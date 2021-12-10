@@ -1,4 +1,4 @@
-import { get, set } from "lodash-es";
+import { get, set, uniqueId } from "lodash-es";
 import { getDataWithDuplicate } from "../data-utilities/duplicate";
 import {
     getDataUpdatedWithoutSourceData,
@@ -24,9 +24,9 @@ import {
     MessageSystemDataDictionaryTypeAction,
     MessageSystemDataTypeAction,
     MessageSystemHistoryTypeAction,
+    MessageSystemIncoming,
     MessageSystemNavigationDictionaryTypeAction,
     MessageSystemNavigationTypeAction,
-    MessageSystemOutgoing,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
     NavigationDictionaryMessageIncoming,
@@ -88,7 +88,8 @@ function getCustomMessage<C, OConfig>(
  * Handles all validation messages
  */
 function getValidationMessage(
-    data: ValidationMessageIncoming
+    data: ValidationMessageIncoming,
+    historyId: string
 ): ValidationMessageOutgoing {
     switch (data.action) {
         case MessageSystemValidationTypeAction.update:
@@ -97,7 +98,15 @@ function getValidationMessage(
             return {
                 type: MessageSystemType.validation,
                 action: MessageSystemValidationTypeAction.update,
+                activeDictionaryId,
                 dictionaryId: data.dictionaryId,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                validation,
                 validationErrors: data.validationErrors,
                 options: data.options,
             };
@@ -105,7 +114,15 @@ function getValidationMessage(
             return {
                 type: MessageSystemType.validation,
                 action: MessageSystemValidationTypeAction.get,
+                activeDictionaryId: data.dictionaryId,
                 dictionaryId: data.dictionaryId,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                validation,
                 validationErrors: validation[data.dictionaryId],
                 options: data.options,
             };
@@ -116,7 +133,8 @@ function getValidationMessage(
  * Handles all data dictionary messages
  */
 function getDataDictionaryMessage(
-    data: DataDictionaryMessageIncoming
+    data: DataDictionaryMessageIncoming,
+    historyId: string
 ): DataDictionaryMessageOutgoing {
     switch (data.action) {
         case MessageSystemDataDictionaryTypeAction.get:
@@ -124,7 +142,14 @@ function getDataDictionaryMessage(
                 type: MessageSystemType.dataDictionary,
                 action: MessageSystemDataDictionaryTypeAction.get,
                 dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
                 activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemDataDictionaryTypeAction.updateActiveId:
@@ -133,7 +158,15 @@ function getDataDictionaryMessage(
             return {
                 type: MessageSystemType.dataDictionary,
                 action: MessageSystemDataDictionaryTypeAction.updateActiveId,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
                 activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
     }
@@ -143,15 +176,23 @@ function getDataDictionaryMessage(
  * Handles all navigation dictionary messages
  */
 function getNavigationDictionaryMessage(
-    data: NavigationDictionaryMessageIncoming
+    data: NavigationDictionaryMessageIncoming,
+    historyId: string
 ): NavigationDictionaryMessageOutgoing {
     switch (data.action) {
         case MessageSystemNavigationDictionaryTypeAction.get:
             return {
                 type: MessageSystemType.navigationDictionary,
                 action: MessageSystemNavigationDictionaryTypeAction.get,
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
                 activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemNavigationDictionaryTypeAction.updateActiveId:
@@ -160,7 +201,15 @@ function getNavigationDictionaryMessage(
             return {
                 type: MessageSystemType.navigationDictionary,
                 action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
                 activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
     }
@@ -169,13 +218,25 @@ function getNavigationDictionaryMessage(
 /**
  * Handles all history manipulation messages
  */
-function getHistoryMessage(data: HistoryMessageIncoming): HistoryMessageOutgoing {
+function getHistoryMessage(
+    data: HistoryMessageIncoming,
+    historyId: string
+): HistoryMessageOutgoing {
     switch (data.action) {
         case MessageSystemHistoryTypeAction.get:
             return {
                 type: MessageSystemType.history,
                 action: MessageSystemHistoryTypeAction.get,
                 history,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
             };
     }
 }
@@ -184,7 +245,8 @@ function getHistoryMessage(data: HistoryMessageIncoming): HistoryMessageOutgoing
  * Handles all schema dictionary manipulation messages
  */
 function getSchemaDictionaryMessage(
-    data: SchemaDictionaryMessageIncoming
+    data: SchemaDictionaryMessageIncoming,
+    historyId: string
 ): SchemaDictionaryMessageOutgoing {
     switch (data.action) {
         case MessageSystemSchemaDictionaryTypeAction.add:
@@ -201,7 +263,15 @@ function getSchemaDictionaryMessage(
             return {
                 type: MessageSystemType.schemaDictionary,
                 action: MessageSystemSchemaDictionaryTypeAction.add,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
                 schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
             };
     }
 }
@@ -210,7 +280,8 @@ function getSchemaDictionaryMessage(
  * Handles all data manipulation messages
  */
 function getDataMessage(
-    data: DataMessageIncoming
+    data: DataMessageIncoming,
+    historyId: string
 ): XOR<DataMessageOutgoing, ErrorMessageOutgoing> {
     switch (data.action) {
         case MessageSystemDataTypeAction.duplicate:
@@ -229,9 +300,16 @@ function getDataMessage(
                 action: MessageSystemDataTypeAction.duplicate,
                 sourceDataLocation: data.sourceDataLocation,
                 data: dataDictionary[0][activeDictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][activeDictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemDataTypeAction.remove:
@@ -249,9 +327,16 @@ function getDataMessage(
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.remove,
                 data: dataDictionary[0][activeDictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][activeDictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemDataTypeAction.add:
@@ -271,9 +356,16 @@ function getDataMessage(
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.add,
                 data: dataDictionary[0][activeDictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][activeDictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemDataTypeAction.update: {
@@ -299,11 +391,17 @@ function getDataMessage(
             return {
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.update,
-                dictionaryId,
                 data: dataDictionary[0][dictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][dictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId,
+                validation,
                 options: data.options,
             };
         }
@@ -375,9 +473,15 @@ function getDataMessage(
                     return { id: dataDictionaryKey };
                 }),
                 data: dataDictionary[0][addLinkedDataDictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][addLinkedDataDictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                validation,
                 options: data.options,
             };
         }
@@ -499,11 +603,17 @@ function getDataMessage(
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.removeLinkedData,
                 data: removedLinkedData,
-                activeDictionaryId,
-                dataDictionary,
                 navigation: navigationDictionary[0][activeDictionaryId],
-                navigationDictionary,
                 linkedDataIds,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         }
@@ -524,16 +634,24 @@ function getDataMessage(
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.reorderLinkedData,
                 data: dataDictionary[0][activeDictionaryId].data,
-                dataDictionary,
                 navigation: navigationDictionary[0][activeDictionaryId],
+                dataDictionary,
                 navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
     }
 }
 
 function getNavigationMessage(
-    data: NavigationMessageIncoming
+    data: NavigationMessageIncoming,
+    historyId: string
 ): NavigationMessageOutgoing {
     switch (data.action) {
         case MessageSystemNavigationTypeAction.update:
@@ -545,22 +663,37 @@ function getNavigationMessage(
                 action: MessageSystemNavigationTypeAction.update,
                 activeDictionaryId: data.activeDictionaryId,
                 activeNavigationConfigId: data.activeNavigationConfigId,
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                schemaDictionary,
+                historyId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
         case MessageSystemNavigationTypeAction.get:
             return {
                 type: MessageSystemType.navigation,
                 action: MessageSystemNavigationTypeAction.get,
-                activeDictionaryId,
-                activeNavigationConfigId,
                 navigation: navigationDictionary[0][activeDictionaryId],
+                dataDictionary,
+                navigationDictionary,
+                activeHistoryIndex,
+                activeNavigationConfigId,
+                schemaDictionary,
+                historyId,
+                activeDictionaryId,
+                dictionaryId: activeDictionaryId,
+                validation,
                 options: data.options,
             };
     }
 }
 
-function updateHistory<C>(data: MessageSystemOutgoing<C>): MessageSystemOutgoing<C> {
-    history.items.push(data);
+function updateHistory<C>(data: MessageSystemIncoming<C>): string {
+    const id = uniqueId();
+    history.items.push({ data, id });
     const historyItemsLength = history.items.length;
 
     if (historyItemsLength > history.limit) {
@@ -571,54 +704,69 @@ function updateHistory<C>(data: MessageSystemOutgoing<C>): MessageSystemOutgoing
         activeHistoryIndex = historyItemsLength;
     }
 
-    return data;
+    return id;
 }
 
 export function getMessage<C = {}>(
     data: InternalMessageSystemIncoming
 ): InternalMessageSystemOutgoing<C> {
+    let historyId;
+
+    if (data[0].type !== MessageSystemType.history) {
+        historyId = updateHistory(data[0]);
+    }
+
     switch (data[0].type) {
         case MessageSystemType.custom:
             return [
-                updateHistory(getCustomMessage(data[0] as CustomMessage<C, {}>)),
+                getCustomMessage(data[0] as CustomMessage<C, {}>),
                 data[1],
             ] as InternalOutgoingMessage<CustomMessage<C, {}>>;
         case MessageSystemType.data:
             return [
-                updateHistory(getDataMessage(data[0] as DataMessageIncoming)),
+                getDataMessage(data[0] as DataMessageIncoming, historyId),
                 data[1],
             ] as InternalOutgoingMessage<DataMessageOutgoing>;
         case MessageSystemType.dataDictionary:
             return [
-                updateHistory(
-                    getDataDictionaryMessage(data[0] as DataDictionaryMessageIncoming)
+                getDataDictionaryMessage(
+                    data[0] as DataDictionaryMessageIncoming,
+                    historyId
                 ),
                 data[1],
             ] as InternalOutgoingMessage<DataDictionaryMessageOutgoing>;
         case MessageSystemType.navigation:
             return [
-                updateHistory(getNavigationMessage(data[0] as NavigationMessageIncoming)),
+                getNavigationMessage(data[0] as NavigationMessageIncoming, historyId),
                 data[1],
             ] as InternalOutgoingMessage<NavigationMessageOutgoing>;
         case MessageSystemType.navigationDictionary:
             return [
-                updateHistory(
-                    getNavigationDictionaryMessage(
-                        data[0] as NavigationDictionaryMessageIncoming
-                    )
+                getNavigationDictionaryMessage(
+                    data[0] as NavigationDictionaryMessageIncoming,
+                    historyId
                 ),
                 data[1],
             ] as InternalOutgoingMessage<NavigationDictionaryMessageOutgoing>;
         case MessageSystemType.validation:
             return [
-                updateHistory(getValidationMessage(data[0] as ValidationMessageIncoming)),
+                getValidationMessage(data[0] as ValidationMessageIncoming, historyId),
                 data[1],
             ] as InternalOutgoingMessage<ValidationMessageOutgoing>;
         case MessageSystemType.history:
-            return [getHistoryMessage(data[0] as HistoryMessageIncoming), data[1]];
+            return [
+                getHistoryMessage(
+                    data[0] as HistoryMessageIncoming,
+                    history.items?.[history.items.length - 1]?.id || undefined
+                ),
+                data[1],
+            ];
         case MessageSystemType.schemaDictionary:
             return [
-                getSchemaDictionaryMessage(data[0] as SchemaDictionaryMessageIncoming),
+                getSchemaDictionaryMessage(
+                    data[0] as SchemaDictionaryMessageIncoming,
+                    historyId
+                ),
                 data[1],
             ];
         case MessageSystemType.initialize:
@@ -644,20 +792,24 @@ export function getMessage<C = {}>(
             history.limit = data[0].historyLimit || defaultHistoryLimit;
 
             return [
-                updateHistory({
+                {
                     type: MessageSystemType.initialize,
                     data: dataDictionary[0][activeDictionaryId].data,
-                    dataDictionary,
                     navigation: navigationDictionary[0][activeDictionaryId],
-                    navigationDictionary,
-                    activeDictionaryId,
-                    activeNavigationConfigId,
                     schema:
                         schemaDictionary[dataDictionary[0][activeDictionaryId].schemaId],
-                    schemaDictionary,
                     historyLimit: history.limit,
+                    dataDictionary,
+                    navigationDictionary,
+                    activeHistoryIndex,
+                    activeNavigationConfigId,
+                    schemaDictionary,
+                    historyId,
+                    activeDictionaryId,
+                    dictionaryId: activeDictionaryId,
+                    validation,
                     options: data[0].options,
-                }),
+                },
                 data[1],
             ] as InternalOutgoingMessage<InitializeMessageOutgoing>;
     }

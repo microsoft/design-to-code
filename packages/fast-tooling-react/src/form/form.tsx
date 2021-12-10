@@ -35,12 +35,17 @@ import styles from "./form.style";
 import defaultStrings from "./form.strings";
 import { classNames } from "@microsoft/fast-web-utilities";
 import {
+    DataDictionary,
     dataSetName,
     MessageSystemDataTypeAction,
     MessageSystemNavigationTypeAction,
     MessageSystemType,
+    NavigationConfig,
+    NavigationConfigDictionary,
     Register,
+    SchemaDictionary,
     TreeNavigationItem,
+    Validation,
 } from "@microsoft/fast-tooling";
 
 export const formId: string = "fast-tooling-react::form";
@@ -157,53 +162,46 @@ class Form extends React.Component<
      * Handle messages from the message system
      */
     private handleMessageSystem = (e: MessageEvent): void => {
+        const schemaDictionary: SchemaDictionary = e.data.schemaDictionary;
+        let dataDictionary: DataDictionary<unknown> = e.data.dataDictionary;
+        let navigationDictionary: NavigationConfigDictionary =
+            e.data.navigationDictionary;
+        let activeDictionaryId: string = e.data.activeDictionaryId;
+        let activeNavigationConfigId: string = e.data.activeNavigationConfigId;
+        let validationErrors: Validation = e.data.validation;
+        let schema: any =
+            schemaDictionary[dataDictionary[0][activeDictionaryId].schemaId];
+        let data: any = dataDictionary[0][activeDictionaryId].data;
+        let navigation: NavigationConfig = navigationDictionary[0][activeDictionaryId];
+        let options = e.data.options;
+        let setState = false;
+
         switch (e.data.type) {
             case MessageSystemType.initialize:
-                this.setState({
-                    schema: e.data.schema,
-                    schemaDictionary: e.data.schemaDictionary,
-                    data: e.data.data,
-                    dataDictionary: e.data.dataDictionary,
-                    navigation: e.data.navigation,
-                    navigationDictionary: e.data.navigationDictionary,
-                    activeDictionaryId: e.data.activeDictionaryId,
-                    activeNavigationConfigId: e.data.activeNavigationConfigId,
-                    options: e.data.options,
-                });
-                break;
             case MessageSystemType.data:
-                this.setState({
-                    data: e.data.data,
-                    dataDictionary: e.data.dataDictionary,
-                    activeDictionaryId: e.data?.activeDictionaryId
-                        ? e.data.activeDictionaryId
-                        : this.state.activeDictionaryId,
-                    navigation: e.data.navigation,
-                    navigationDictionary: e.data.navigationDictionary,
-                    options: e.data.options,
-                });
-                break;
+                activeDictionaryId = e.data?.activeDictionaryId
+                    ? e.data.activeDictionaryId
+                    : this.state.activeDictionaryId;
             case MessageSystemType.navigation:
-                this.setState({
-                    activeDictionaryId: e.data.activeDictionaryId,
-                    activeNavigationConfigId: e.data.activeNavigationConfigId,
-                    options: e.data.options,
-                });
-                break;
             case MessageSystemType.validation:
-                this.setState({
-                    validationErrors: {
-                        ...this.state.validationErrors,
-                        [e.data.dictionaryId]: e.data.validationErrors,
-                    },
-                    options: e.data.options,
-                });
-                break;
             case MessageSystemType.schemaDictionary:
-                this.setState({
-                    schemaDictionary: e.data.schemaDictionary,
-                });
+                setState = true;
                 break;
+        }
+
+        if (setState) {
+            this.setState({
+                schemaDictionary,
+                dataDictionary,
+                activeDictionaryId,
+                activeNavigationConfigId,
+                navigationDictionary,
+                navigation,
+                validationErrors,
+                options,
+                schema,
+                data,
+            });
         }
     };
 

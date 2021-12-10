@@ -32,7 +32,8 @@ import {
     Register,
     TreeNavigationItem,
     DataType,
-    MessageSystemIncoming,
+    DataDictionary,
+    NavigationConfigDictionary,
 } from "@microsoft/fast-tooling";
 import manageJss, { ManagedClasses } from "@microsoft/fast-jss-manager-react";
 import styles, { NavigationClassNameContract } from "./navigation.style";
@@ -174,54 +175,53 @@ class Navigation extends Foundation<
      * Handle messages from the message system
      */
     private handleMessageSystem = (e: MessageEvent): void => {
+        let activeDictionaryId: string = e.data.activeDictionaryId;
+        let activeNavigationConfigId: string = e.data.activeNavigationConfigId;
+        let dataDictionary: DataDictionary<unknown> = e.data.dataDictionary;
+        let navigationDictionary: NavigationConfigDictionary =
+            e.data.navigationDictionary;
+        let expandedNavigationConfigItems = this.state.expandedNavigationConfigItems;
+        let setState: boolean = false;
+
         switch (e.data.type) {
             case MessageSystemType.initialize:
-                this.setState(
-                    {
-                        navigationDictionary: e.data.navigationDictionary,
-                        dataDictionary: e.data.dataDictionary,
-                        activeDictionaryId: e.data.activeDictionaryId
-                            ? e.data.activeDictionaryId
-                            : e.data.navigationDictionary[1],
-                        activeNavigationConfigId: e.data.activeNavigationConfigId
-                            ? e.data.activeNavigationConfigId
-                            : e.data.navigationDictionary[0][
-                                  e.data.navigationDictionary[1]
-                              ][1],
-                    },
-                    this.scrollActiveItemIntoView.bind(this, e)
-                );
-
+                activeDictionaryId = e.data.activeDictionaryId
+                    ? e.data.activeDictionaryId
+                    : e.data.navigationDictionary[1];
+                activeNavigationConfigId = e.data.activeNavigationConfigId
+                    ? e.data.activeNavigationConfigId
+                    : e.data.navigationDictionary[0][e.data.navigationDictionary[1]][1];
+                setState = true;
                 break;
             case MessageSystemType.data:
-                this.setState(
-                    {
-                        navigationDictionary: e.data.navigationDictionary,
-                        dataDictionary: e.data.dataDictionary,
-                        activeDictionaryId: e.data.activeDictionaryId
-                            ? e.data.activeDictionaryId
-                            : this.state.activeDictionaryId,
-                        activeNavigationConfigId: e.data.activeNavigationConfigId
-                            ? e.data.activeNavigationConfigId
-                            : this.state.activeNavigationConfigId,
-                    },
-                    this.scrollActiveItemIntoView.bind(this, e)
-                );
-
+                activeDictionaryId = e.data.activeDictionaryId
+                    ? e.data.activeDictionaryId
+                    : this.state.activeDictionaryId;
+                activeNavigationConfigId = e.data.activeNavigationConfigId
+                    ? e.data.activeNavigationConfigId
+                    : this.state.activeNavigationConfigId;
+                setState = true;
                 break;
             case MessageSystemType.navigation:
-                this.setState(
-                    {
-                        activeDictionaryId: e.data.activeDictionaryId,
-                        activeNavigationConfigId: e.data.activeNavigationConfigId,
-                        expandedNavigationConfigItems: this.getUpdatedElementsExpanded(
-                            e.data.activeDictionaryId,
-                            e.data.activeNavigationConfigId
-                        ),
-                    },
-                    this.scrollActiveItemIntoView.bind(this, e)
+                expandedNavigationConfigItems = this.getUpdatedElementsExpanded(
+                    e.data.activeDictionaryId,
+                    e.data.activeNavigationConfigId
                 );
+                setState = true;
                 break;
+        }
+
+        if (setState) {
+            this.setState(
+                {
+                    activeDictionaryId,
+                    activeNavigationConfigId,
+                    dataDictionary,
+                    expandedNavigationConfigItems,
+                    navigationDictionary,
+                },
+                this.scrollActiveItemIntoView.bind(this, e)
+            );
         }
     };
 

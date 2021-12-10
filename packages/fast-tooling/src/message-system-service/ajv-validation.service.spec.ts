@@ -185,6 +185,10 @@ xdescribe("AjvMapper", () => {
                     schemaDictionary: {
                         foo: schema,
                     },
+                    validation: {},
+                    activeHistoryIndex: 0,
+                    dictionaryId: "foo",
+                    historyId: "1",
                     historyLimit: 30,
                 } as InitializeMessageOutgoing,
             } as any);
@@ -264,6 +268,10 @@ xdescribe("AjvMapper", () => {
                     schemaDictionary: {
                         foo: schema,
                     },
+                    validation: {},
+                    activeHistoryIndex: 0,
+                    dictionaryId: "foo",
+                    historyId: "1",
                     historyLimit: 30,
                 } as InitializeMessageOutgoing,
             } as any);
@@ -342,6 +350,10 @@ xdescribe("AjvMapper", () => {
                         schemaDictionary: {
                             foo: schema,
                         },
+                        validation: {},
+                        activeHistoryIndex: 0,
+                        dictionaryId: "foo",
+                        historyId: "1",
                         historyLimit: 30,
                     } as InitializeMessageOutgoing,
                 } as any);
@@ -398,6 +410,10 @@ xdescribe("AjvMapper", () => {
                         schemaDictionary: {
                             foo: schema,
                         },
+                        validation: {},
+                        activeHistoryIndex: 0,
+                        dictionaryId: "foo",
+                        historyId: "1",
                         historyLimit: 30,
                     } as InitializeMessageOutgoing,
                 } as any);
@@ -428,6 +444,12 @@ xdescribe("AjvMapper", () => {
                             },
                             "bar",
                         ],
+                        activeHistoryIndex: 0,
+                        historyId: "1",
+                        validation: {},
+                        activeNavigationConfigId: "",
+                        activeDictionaryId: "bar",
+                        schemaDictionary: {},
                         navigationDictionary,
                     } as AddLinkedDataDataMessageOutgoing,
                 } as any);
@@ -466,6 +488,10 @@ xdescribe("AjvMapper", () => {
                         schemaDictionary: {
                             foo: schema,
                         },
+                        activeHistoryIndex: 0,
+                        dictionaryId: "foo",
+                        historyId: "1",
+                        validation: {},
                         historyLimit: 30,
                     } as InitializeMessageOutgoing,
                 } as any);
@@ -516,6 +542,10 @@ xdescribe("AjvMapper", () => {
                         schemaDictionary: {
                             foo: schema,
                         },
+                        activeHistoryIndex: 0,
+                        dictionaryId: "foo",
+                        historyId: "1",
+                        validation: {},
                         historyLimit: 30,
                     } as InitializeMessageOutgoing,
                 } as any);
@@ -566,6 +596,10 @@ xdescribe("AjvMapper", () => {
                         schemaDictionary: {
                             foo: schema,
                         },
+                        activeHistoryIndex: 0,
+                        dictionaryId: "foo",
+                        historyId: "1",
+                        validation: {},
                         historyLimit: 30,
                     } as InitializeMessageOutgoing,
                 } as any);
@@ -634,7 +668,7 @@ xdescribe("AjvMapper", () => {
             messageSystem.add({
                 onMessage: callback,
             });
-            const requestMessage: SchemaSetValidationMessageRequest = {
+            const requestMessage: any = {
                 type: MessageSystemType.custom,
                 action: SchemaSetValidationAction.request,
                 id,
@@ -675,7 +709,7 @@ xdescribe("AjvMapper", () => {
             messageSystem.add({
                 onMessage: callback,
             });
-            const requestMessage: SchemaSetValidationMessageRequest = {
+            const requestMessage: any = {
                 type: MessageSystemType.custom,
                 action: SchemaSetValidationAction.request,
                 id,
@@ -716,7 +750,7 @@ xdescribe("AjvMapper", () => {
             messageSystem.add({
                 onMessage: callback,
             });
-            const responseMessage: SchemaSetValidationMessageResponse = {
+            const responseMessage: any = {
                 type: MessageSystemType.custom,
                 action: SchemaSetValidationAction.response,
                 id,
