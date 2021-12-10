@@ -98,7 +98,7 @@ function getValidationMessage(
             return {
                 type: MessageSystemType.validation,
                 action: MessageSystemValidationTypeAction.update,
-                activeDictionaryId: data.dictionaryId,
+                activeDictionaryId,
                 dictionaryId: data.dictionaryId,
                 dataDictionary,
                 navigationDictionary,
