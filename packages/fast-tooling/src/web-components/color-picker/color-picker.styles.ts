@@ -8,7 +8,8 @@ export const colorPickerStyles: (
     context: ElementDefinitionContext,
     definition: FoundationElementDefinition
 ) => ElementStyles = () => css`
-    .root .color-ui {
+    .popup,
+    .popup__open {
         display: none;
         padding: 2px;
         flex-direction: row;
@@ -17,23 +18,23 @@ export const colorPickerStyles: (
         border-radius: calc(var(--corner-radius) * 1px);
     }
 
-    .root.open .color-ui {
+    .popup__open {
         display: flex;
         position: absolute;
         z-index: 1;
         margin-left: -32px;
     }
 
-    .picker-region {
+    .pickers {
         margin: 4px 6px 4px 4px;
     }
 
-    .input-region {
+    .inputs {
         width: 65px;
         margin: 0 4px 4px 0;
     }
 
-    .sat-light-picker {
+    .pickers-saturation {
         position: relative;
         width: 200px;
         height: 200px;
@@ -44,7 +45,7 @@ export const colorPickerStyles: (
         border: 1px solid #fff;
     }
 
-    .sat-light-indicator {
+    .saturation-indicator {
         position: absolute;
         top: 0;
         left: 0;
@@ -55,7 +56,7 @@ export const colorPickerStyles: (
         pointer-events: none;
     }
 
-    .hue-picker {
+    .pickers-hue {
         position: relative;
         width: 200px;
         height: 30px;
@@ -85,7 +86,7 @@ export const colorPickerStyles: (
         margin-left: 1px;
     }
 
-    .alpha-picker {
+    .pickers-alpha {
         position: relative;
         width: 200px;
         height: 30px;
@@ -106,7 +107,7 @@ export const colorPickerStyles: (
         margin-bottom: 5px;
     }
 
-    .selected-color {
+    .control-color {
         position: relative;
         display: inline-block;
         width: 25px;
@@ -116,7 +117,7 @@ export const colorPickerStyles: (
         border: 1px solid var(--fast-tooling-l1-color, #333333);
     }
 
-    .selected-color::before {
+    .control-color::before {
         position: absolute;
         content: "";
         left: 0;
@@ -131,7 +132,7 @@ export const colorPickerStyles: (
         );
     }
 
-    .selected-color::after {
+    .control-color::after {
         position: absolute;
         content: "";
         left: 0;

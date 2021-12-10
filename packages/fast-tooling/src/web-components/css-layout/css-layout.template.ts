@@ -531,7 +531,7 @@ const columnGap = html`
  */
 export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSSLayout>`
     <template>
-        <div class="control-region">
+        <div class="controlRegion">
             <${context.tagFor(Switch)}
                 :checked="${x => x.flexEnabled}"
                 @keypress="${(x, c) =>
@@ -541,17 +541,19 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                 Enable Flexbox
             </${context.tagFor(Switch)}>
         </div>
-        <div class="flexbox-controls${x => (x.flexEnabled ? ` active` : "")}">
-            <div class="control-region">
+        <div class="${x => (x.flexEnabled ? `flexboxRegion__active` : "flexboxRegion")}">
+            <div class="controlRegion">
                 <label for="fast-tooling-css-flex-direction">Direction</label>
-                <div class="control-radio-region">
+                <div class="radioRegion">
                     ${repeat(
                         x => x.flexDirectionOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="${(x, c) => c.parent.flexDirectionName} ${x =>
-                            x} ${(x, c) =>
-                            x === c.parent.flexDirectionValue ? "active" : ""}"
+                                class="radioRegion-contentItem ${(x, c) =>
+                                    c.parent.flexDirectionName} ${x => x} ${(x, c) =>
+                            x === c.parent.flexDirectionValue
+                                ? "radioRegion-contentItem__active"
+                                : ""}"
                             >
                                 ${x =>
                                     x === "row"
@@ -568,6 +570,7 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                                             x
                                         )}"
                                     type="radio"
+                                    class="radioRegion-input"
                                     aria-label="${x => x}"
                                     name="${(x, c) => c.parent.flexDirectionName}"
                                     value="${x => x}"
@@ -598,16 +601,18 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     )}
                 </div>
             </div>
-            <div class="control-region">
+            <div class="controlRegion">
                 <label for="fast-tooling-css-justify-content">Justify Content</label>
-                <div class="control-radio-region">
+                <div class="radioRegion">
                     ${repeat(
                         x => x.justifyContentOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="${(x, c) => c.parent.justifyContentName} ${x =>
-                            x} ${(x, c) =>
-                            x === c.parent.justifyContentValue ? "active" : ""}"
+                                class="radioRegion-contentItem ${(x, c) =>
+                                    c.parent.justifyContentName} ${x => x} ${(x, c) =>
+                            x === c.parent.justifyContentValue
+                                ? "radioRegion-contentItem__active"
+                                : ""}"
                             >
                                 ${x =>
                                     x === "flex-start"
@@ -628,6 +633,7 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                                             x
                                         )}"
                                     type="radio"
+                                    class="radioRegion-input"
                                     aria-label="${x => x}"
                                     name="${(x, c) => c.parent.justifyContentName}"
                                     value="${x => x}"
@@ -658,16 +664,18 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     )}
                 </div>
             </div>
-            <div class="control-region">
+            <div class="controlRegion">
                 <label for="fast-tooling-css-align-content">Align Content</label>
-                <div class="control-radio-region">
+                <div class="radioRegion">
                     ${repeat(
                         x => x.alignContentOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="${(x, c) => c.parent.alignContentName} ${x =>
-                            x} ${(x, c) =>
-                            x === c.parent.alignContentValue ? "active" : ""}"
+                                class="radioRegion-contentItem ${(x, c) =>
+                                    c.parent.alignContentName} ${x => x} ${(x, c) =>
+                            x === c.parent.alignContentValue
+                                ? "radioRegion-contentItem__active"
+                                : ""}"
                             >
                                 ${x =>
                                     x === "flex-start"
@@ -690,6 +698,7 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                                             x
                                         )}"
                                     type="radio"
+                                    class="radioRegion-input"
                                     aria-label="${x => x}"
                                     name="${(x, c) => c.parent.alignContentName}"
                                     value="${x => x}"
@@ -720,17 +729,18 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     )}
                 </div>
             </div>
-            <div class="control-region">
+            <div class="controlRegion">
                 <label for="fast-tooling-css-align-items">Align Items</label>
-                <div class="control-radio-region">
+                <div class="radioRegion">
                     ${repeat(
                         x => x.alignItemsOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="${(x, c) => c.parent.alignItemsName} ${x => x} ${(
-                            x,
-                            c
-                        ) => (x === c.parent.alignItemsValue ? "active" : "")}"
+                                class="radioRegion-contentItem ${(x, c) =>
+                                    c.parent.alignItemsName} ${x => x} ${(x, c) =>
+                            x === c.parent.alignItemsValue
+                                ? "radioRegion-contentItem__active"
+                                : ""}"
                             >
                                 ${x =>
                                     x === "flex-start"
@@ -744,6 +754,7 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                                     id="${(x, c) =>
                                         c.parent.getInputId(c.parent.alignItemsName, x)}"
                                     type="radio"
+                                    class="radioRegion-input"
                                     aria-label="${x => x}"
                                     name="${(x, c) => c.parent.alignItemsName}"
                                     value="${x => x}"
@@ -770,17 +781,17 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     )}
                 </div>
             </div>
-            <div class="control-region row">
-                <div class="control-numberfield-region">
+            <div class="controlRegion-row">
+                <div class="numberfield">
                     <div>
                         <label for="fast-tooling-css-row-gap">Row gap</label>
                         <div class="numberfield-item">
-                            <div class="icon">
+                            <div class="numberfield-icon">
                                 ${rowGap}
                             </div>
                             <input
                                 name="${x => x.rowGapName}"
-                                class="css-row-gap"
+                                class="numberfield-input"
                                 type="number"
                                 id="fast-tooling-css-row-gap"
                                 :value="${x => x.rowGapValue}"
@@ -792,12 +803,12 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     <div>
                         <label for="fast-tooling-css-column-gap">Column gap</label>
                         <div class="numberfield-item">
-                            <div class="icon">
+                            <div class="numberfield-icon">
                                 ${columnGap}
                             </div>
                             <input
                                 name="${x => x.columnGapName}"
-                                class="css-column-gap"
+                                class="numberfield-input"
                                 type="number"
                                 id="fast-tooling-css-column-gap"
                                 :value="${x => x.columnGapValue}"
@@ -808,17 +819,18 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                     </div>
                 </div>
             </div>
-            <div class="control-region">
+            <div class="controlRegion">
                 <label for="fast-tooling-css-flex-wrap">Wrap</label>
-                <div class="control-radio-region">
+                <div class="radioRegion">
                     ${repeat(
                         x => x.flexWrapOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="${(x, c) => c.parent.flexWrapName} ${x => x} ${(
-                            x,
-                            c
-                        ) => (x === c.parent.flexWrapValue ? "active" : "")}"
+                                class="radioRegion-contentItem ${(x, c) =>
+                                    c.parent.flexWrapName} ${x => x} ${(x, c) =>
+                            x === c.parent.flexWrapValue
+                                ? "radioRegion-contentItem__active"
+                                : ""}"
                             >
                                 ${x =>
                                     x === "wrap"
@@ -830,6 +842,7 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                                     id="${(x, c) =>
                                         c.parent.getInputId(c.parent.flexWrapName, x)}"
                                     type="radio"
+                                    class="radioRegion-input"
                                     aria-label="${x => x}"
                                     name="${(x, c) => c.parent.flexWrapName}"
                                     value="${x => x}"

@@ -14,11 +14,11 @@ export const cssBoxModelStyles = css`
         margin-bottom: 10px;
         white-space: nowrap;
     }
-    .section_label {
+    .section-label {
         display: inline-block;
         margin-bottom: 10px;
     }
-    .singleInput_hidden {
+    .singleInput__hidden {
         display: none;
     }
     .sideButton {
@@ -27,7 +27,7 @@ export const cssBoxModelStyles = css`
     .sideButton path {
         fill: ${neutralForegroundRest};
     }
-    .sideButton_active {
+    .sideButton__active {
         background-color: ${neutralFillStealthActive};
     }
     .grid {
@@ -38,7 +38,7 @@ export const cssBoxModelStyles = css`
     .grid-dimension {
         grid-template-columns: 50% 50%;
     }
-    .grid_hidden {
+    .grid__hidden {
         display: none;
     }
     .item {

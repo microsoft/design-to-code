@@ -109,7 +109,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[0];
 
         textField.dispatchEvent(event);
@@ -138,7 +138,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[1];
 
         textField.dispatchEvent(event);
@@ -167,7 +167,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[2];
 
         textField.dispatchEvent(event);
@@ -196,7 +196,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[3];
 
         textField.dispatchEvent(event);
@@ -225,7 +225,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[4];
 
         textField.dispatchEvent(event);
@@ -254,7 +254,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[5];
 
         textField.dispatchEvent(event);
@@ -283,7 +283,7 @@ describe("ColorPicker", () => {
         });
 
         const textField = element.shadowRoot?.querySelectorAll(
-            ".input-region fast-text-field"
+            ".inputs fast-text-field"
         )[6];
 
         textField.dispatchEvent(event);
@@ -306,7 +306,7 @@ describe("ColorPicker", () => {
             wasChanged = true;
         });
 
-        const satLightPicker = element.shadowRoot?.querySelector(".sat-light-picker");
+        const satLightPicker = element.shadowRoot?.querySelector(".pickers-saturation");
 
         satLightPicker.dispatchEvent(event);
 
@@ -328,7 +328,7 @@ describe("ColorPicker", () => {
             wasChanged = true;
         });
 
-        const huePicker = element.shadowRoot?.querySelector(".hue-picker");
+        const huePicker = element.shadowRoot?.querySelector(".pickers-hue");
 
         huePicker.dispatchEvent(event);
 
@@ -350,7 +350,7 @@ describe("ColorPicker", () => {
             wasChanged = true;
         });
 
-        const alphaPicker = element.shadowRoot?.querySelector(".alpha-picker");
+        const alphaPicker = element.shadowRoot?.querySelector(".pickers-alpha");
 
         alphaPicker.dispatchEvent(event);
 
