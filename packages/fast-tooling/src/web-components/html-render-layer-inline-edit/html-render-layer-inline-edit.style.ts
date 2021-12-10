@@ -1,7 +1,7 @@
 import { css } from "@microsoft/fast-element";
 
 export const htmlRenderLayerInlineEditStyles = css`
-    .edit-region {
+    .edit {
         position: fixed;
         top: 0;
         right: 0;
@@ -10,7 +10,8 @@ export const htmlRenderLayerInlineEditStyles = css`
         pointer-events: none;
     }
 
-    .text-area {
+    .edit-textArea,
+    .edit-textArea__active {
         display: none;
         position: absolute;
         box-sizing: content-box;
@@ -29,7 +30,7 @@ export const htmlRenderLayerInlineEditStyles = css`
         white-space: pre-wrap;
     }
 
-    .text-area.active {
+    .edit-textArea__active {
         display: block;
     }
 `;

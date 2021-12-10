@@ -20,42 +20,39 @@ export const cssLayoutStyles = css`
         margin: 10px 0 5px;
     }
 
-    .flexbox-controls {
+    .flexboxRegion {
         display: none;
     }
 
-    .flexbox-controls.active {
+    .flexboxRegion__active {
         display: block;
     }
 
-    .control-region {
+    .controlRegion,
+    .controlRegion-row {
         display: flex;
         flex-direction: column;
     }
 
-    .control-region.row {
+    .controlRegion-row {
         flex-direction: row;
     }
 
-    .css-row-gap,
-    .css-column-gap {
-        vertical-align: middle;
-    }
-
-    .control-numberfield-region {
+    .numberfield {
         display: flex;
         column-gap: 12px;
     }
 
-    .control-numberfield-region .icon {
+    .numberfield-icon {
         position: relative;
         padding: 5px;
         width: 12px;
         height: 12px;
     }
 
-    .control-numberfield-region input {
+    .numberfield-input {
         background: transparent;
+        vertical-align: middle;
         outline: none;
         border: none;
         width: 40px;
@@ -63,7 +60,7 @@ export const cssLayoutStyles = css`
         color: #fff;
     }
 
-    .control-numberfield-region input::-webkit-inner-spin-button {
+    .numberfield-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
     }
 
@@ -73,12 +70,12 @@ export const cssLayoutStyles = css`
         border-radius: ${borderRadius};
     }
 
-    .control-radio-region {
+    .radioRegion {
         display: flex;
         column-gap: 2px;
     }
 
-    .control-radio-region > div {
+    .radioRegion-contentItem {
         background: ${radioBackgroundColor};
         border-radius: ${borderRadius};
         border: 3px solid #1b1b1b;
@@ -87,12 +84,12 @@ export const cssLayoutStyles = css`
         max-width: 24px;
     }
 
-    .control-radio-region .active {
+    .radioRegion-contentItem__active {
         background: ${activeRadioBackgroundColor};
         border-color: ${activeRadioBorderColor};
     }
 
-    .control-radio-region > div > input {
+    .radioRegion-input {
         width: 24px;
         height: 24px;
         margin: 0;

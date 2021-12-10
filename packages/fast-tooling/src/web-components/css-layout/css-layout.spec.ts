@@ -20,9 +20,9 @@ describe("CSSLayout", () => {
 
         await connect();
 
-        const controlRegion = element.shadowRoot?.querySelector(".flexbox-controls");
+        const controlRegion = element.shadowRoot?.querySelector(".flexboxRegion");
 
-        expect(controlRegion.classList.contains("active")).to.equal(false);
+        expect(controlRegion).to.not.be.null;
 
         await disconnect();
     });
@@ -36,11 +36,11 @@ describe("CSSLayout", () => {
 
         toggle.dispatchEvent(toggleEvent);
 
-        const controlRegion = element.shadowRoot?.querySelector(".flexbox-controls");
-
         await DOM.nextUpdate();
 
-        expect(controlRegion.classList.contains("active")).to.equal(true);
+        const controlRegion = element.shadowRoot?.querySelector(".flexboxRegion__active");
+
+        expect(controlRegion).to.not.be.null;
 
         await disconnect();
     });
@@ -295,7 +295,7 @@ describe("CSSLayout", () => {
         await DOM.nextUpdate();
 
         const rowGapInput = element.shadowRoot?.querySelector(
-            "input.css-row-gap"
+            "#fast-tooling-css-row-gap"
         ) as HTMLInputElement;
         rowGapInput.value = "5";
 
@@ -329,7 +329,7 @@ describe("CSSLayout", () => {
         await DOM.nextUpdate();
 
         const columnGapInput = element.shadowRoot?.querySelector(
-            "input.css-column-gap"
+            "#fast-tooling-css-column-gap"
         ) as HTMLInputElement;
         columnGapInput.value = "5";
 

@@ -39,8 +39,17 @@ export class File extends FormAssociatedFile {
      * Callback method for reporting progress of long running FileAction.
      * The progress value is calculated by the FileAction but should be a number between 0 and 1.
      */
-    @attr
+    @attr({ attribute: "progress-callback" })
     public progressCallback: (progress: number) => Promise<void>;
+
+    /**
+     * @deprecated
+     */
+    @attr({ attribute: "progressCallback" })
+    public progressCallbackDepricated: (progress: number) => Promise<void>;
+    private progressCallbackDepricatedChanged(): void {
+        this.progressCallback = this.progressCallbackDepricated;
+    }
 
     /**
      * After file(s) are selected this property will contain a string array with the references
