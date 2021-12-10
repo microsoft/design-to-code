@@ -75,7 +75,7 @@ export const cssLayoutStyles = css`
         column-gap: 2px;
     }
 
-    .radioRegion-div {
+    .radioRegion-contentItem {
         background: ${radioBackgroundColor};
         border-radius: ${borderRadius};
         border: 3px solid #1b1b1b;
@@ -84,7 +84,7 @@ export const cssLayoutStyles = css`
         max-width: 24px;
     }
 
-    .radioRegion-div__active {
+    .radioRegion-contentItem__active {
         background: ${activeRadioBackgroundColor};
         border-color: ${activeRadioBorderColor};
     }

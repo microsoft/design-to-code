@@ -549,10 +549,10 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                         x => x.flexDirectionOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="radioRegion-div ${(x, c) =>
+                                class="radioRegion-contentItem ${(x, c) =>
                                     c.parent.flexDirectionName} ${x => x} ${(x, c) =>
                             x === c.parent.flexDirectionValue
-                                ? "radioRegion-div__active"
+                                ? "radioRegion-contentItem__active"
                                 : ""}"
                             >
                                 ${x =>
@@ -608,10 +608,10 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                         x => x.justifyContentOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="radioRegion-div ${(x, c) =>
+                                class="radioRegion-contentItem ${(x, c) =>
                                     c.parent.justifyContentName} ${x => x} ${(x, c) =>
                             x === c.parent.justifyContentValue
-                                ? "radioRegion-div__active"
+                                ? "radioRegion-contentItem__active"
                                 : ""}"
                             >
                                 ${x =>
@@ -671,10 +671,10 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                         x => x.alignContentOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="radioRegion-div ${(x, c) =>
+                                class="radioRegion-contentItem ${(x, c) =>
                                     c.parent.alignContentName} ${x => x} ${(x, c) =>
                             x === c.parent.alignContentValue
-                                ? "radioRegion-div__active"
+                                ? "radioRegion-contentItem__active"
                                 : ""}"
                             >
                                 ${x =>
@@ -736,10 +736,10 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                         x => x.alignItemsOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="radioRegion-div ${(x, c) =>
+                                class="radioRegion-contentItem ${(x, c) =>
                                     c.parent.alignItemsName} ${x => x} ${(x, c) =>
                             x === c.parent.alignItemsValue
-                                ? "radioRegion-div__active"
+                                ? "radioRegion-contentItem__active"
                                 : ""}"
                             >
                                 ${x =>
@@ -826,10 +826,10 @@ export const cssLayoutTemplate = (context: ElementDefinitionContext) => html<CSS
                         x => x.flexWrapOptions,
                         html<string, CSSLayout>`
                             <div
-                                class="radioRegion-div ${(x, c) =>
+                                class="radioRegion-contentItem ${(x, c) =>
                                     c.parent.flexWrapName} ${x => x} ${(x, c) =>
                             x === c.parent.flexWrapValue
-                                ? "radioRegion-div__active"
+                                ? "radioRegion-contentItem__active"
                                 : ""}"
                             >
                                 ${x =>
