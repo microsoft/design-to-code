@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Updated component CSS and Attributes to comply with style guide",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "44823142+williamw2@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

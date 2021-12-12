@@ -2,6 +2,35 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Sun, 12 Dec 2021 07:08:23 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.13.0",
+      "version": "2.13.0",
+      "comments": {
+        "none": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Updating component tests to reflect the updated message system interfaces",
+            "commit": "3f9f1675cc7e3f3556cb22a4679b0131888a69f8"
+          }
+        ],
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Simplify the handling of messages sent to the Form and Navigation components",
+            "commit": "3f9f1675cc7e3f3556cb22a4679b0131888a69f8"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.34.0",
+            "commit": "3f9f1675cc7e3f3556cb22a4679b0131888a69f8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Dec 2021 07:08:31 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.12.8",
       "version": "2.12.8",

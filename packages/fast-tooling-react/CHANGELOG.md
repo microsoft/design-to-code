@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 08 Dec 2021 07:08:31 GMT and should not be manually modified.
+This log was last generated on Sun, 12 Dec 2021 07:08:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.13.0
+
+Sun, 12 Dec 2021 07:08:23 GMT
+
+### Minor changes
+
+- Simplify the handling of messages sent to the Form and Navigation components (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.34.0
 
 ## 2.12.8
 

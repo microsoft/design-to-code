@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 08 Dec 2021 07:08:31 GMT and should not be manually modified.
+This log was last generated on Sun, 12 Dec 2021 07:08:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.34.0
+
+Sun, 12 Dec 2021 07:08:23 GMT
+
+### Minor changes
+
+- Updated component CSS and Attributes to comply with style guide (44823142+williamw2@users.noreply.github.com)
+- Update message system to send all state data in outgoing messages (7559015+janechu@users.noreply.github.com)
 
 ## 0.33.0
 

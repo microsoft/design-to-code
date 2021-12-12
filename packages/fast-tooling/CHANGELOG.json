@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Sun, 12 Dec 2021 07:08:23 GMT",
+      "tag": "@microsoft/fast-tooling_v0.34.0",
+      "version": "0.34.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Updated component CSS and Attributes to comply with style guide",
+            "commit": "3f9f1675cc7e3f3556cb22a4679b0131888a69f8"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Update message system to send all state data in outgoing messages",
+            "commit": "3f9f1675cc7e3f3556cb22a4679b0131888a69f8"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 08 Dec 2021 07:08:31 GMT",
       "tag": "@microsoft/fast-tooling_v0.33.0",
       "version": "0.33.0",

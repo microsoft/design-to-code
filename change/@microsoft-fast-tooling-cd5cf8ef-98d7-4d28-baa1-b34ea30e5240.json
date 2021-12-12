@@ -1,7 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Update message system to send all state data in outgoing messages",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
