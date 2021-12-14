@@ -85,6 +85,11 @@ export interface LinkedDataDictionaryConfig {
     linkedData: Data<unknown>[];
 
     /**
+     * The IDs to be used for the linked data
+     */
+    linkedDataIds: string[];
+
+    /**
      * The root dictionary ID
      */
     dictionaryId: string;
@@ -105,4 +110,19 @@ export interface LinkedDataDictionaryUpdate {
      * The dictionary ID to add the root of this data dictionary to
      */
     dictionaryId: string;
+}
+
+/**
+ * The removal of linked data can be done in 3 different ways:
+ *
+ * 1. If the dictionary ID is provided, this is the parent
+ * 2. If the dictionary ID is not provided, assume the active dictionary ID is the parent
+ * 3. If the dictionary ID is not provided and the linked data is not provided, assume the
+ *    active dictionary ID is the linked data to be removed and the parent is the active dictionary ID's parent
+ * 4. If in the case of 3. the active dictionary ID has no parent (is the root ID), send an error message
+ */
+export enum RemoveLinkedDataParentType {
+    activeDictionaryId,
+    activeDictionaryIdParent,
+    suppliedDictionaryId,
 }

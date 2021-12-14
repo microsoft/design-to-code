@@ -1,4 +1,4 @@
-import { cloneDeep, get, uniqueId, unset } from "lodash-es";
+import { cloneDeep, get, unset } from "lodash-es";
 import {
     Data,
     DataDictionary,
@@ -7,17 +7,20 @@ import {
     LinkedDataDictionaryUpdate,
 } from "./data.props";
 
+let linkedDataItemIndex = 0;
+
 /**
  * Resolves a set of data dictionaries from multiple data items
  */
 function resolveDataDictionaries(
+    ids: string[],
     parentId: string,
     parentDataLocation: string,
     dataSet: Data<unknown>[]
 ): DataDictionary<unknown>[] {
     return dataSet.map(dataItem => {
         /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-        return resolveDataDictionary(parentId, parentDataLocation, dataItem, {});
+        return resolveDataDictionary(ids, parentId, parentDataLocation, dataItem, {});
     });
 }
 
@@ -25,17 +28,19 @@ function resolveDataDictionaries(
  * Resolves a data dictionary from a data item
  */
 function resolveDataDictionary(
+    ids: string[],
     parentId: string,
     parentDataLocation: string,
     data: Data<unknown>,
     itemDictionary: { [key: string]: Data<unknown> }
 ): DataDictionary<unknown> {
-    const id: string = uniqueId("fast");
+    const id: string = ids[linkedDataItemIndex];
+    linkedDataItemIndex++;
     const dataDictionary: DataDictionary<unknown> = [itemDictionary, id];
     const linkedDataDictionary: DataDictionary<unknown>[] | null = Array.isArray(
         data.linkedData
     )
-        ? resolveDataDictionaries(id, parentDataLocation, data.linkedData)
+        ? resolveDataDictionaries(ids, id, parentDataLocation, data.linkedData)
         : null;
 
     const currentData = data.data;
@@ -79,7 +84,10 @@ function resolveDataDictionary(
 export function getLinkedDataDictionary(
     config: LinkedDataDictionaryConfig
 ): LinkedDataDictionaryUpdate {
+    linkedDataItemIndex = 0;
+
     const resolvedDataDictionary = resolveDataDictionaries(
+        config.linkedDataIds,
         config.dictionaryId,
         config.dataLocation,
         config.linkedData
