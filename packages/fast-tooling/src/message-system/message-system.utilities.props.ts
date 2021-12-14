@@ -238,6 +238,8 @@ export interface GetNavigationDictionaryMessageOutgoing<TConfig = {}>
 
 /**
  * The message to update the active id of the data dictionary
+ * @deprecated - this should use the MessageSystemType.navigation
+ * action MessageSystemNavigationTypeAction.udpate
  */
 export interface UpdateActiveIdDataDictionaryMessageIncoming<TConfig = {}>
     extends ArbitraryMessageIncoming<TConfig> {
@@ -248,6 +250,8 @@ export interface UpdateActiveIdDataDictionaryMessageIncoming<TConfig = {}>
 
 /**
  * The message that the active id of the data dictionary has been updated
+ * @deprecated - this should use the MessageSystemType.navigation
+ * action MessageSystemNavigationTypeAction.udpate
  */
 export interface UpdateActiveIdDataDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {
@@ -257,6 +261,8 @@ export interface UpdateActiveIdDataDictionaryMessageOutgoing<TConfig = {}>
 
 /**
  * The message to update the active id of the navigation dictionary
+ * @deprecated - this should use the MessageSystemType.navigation
+ * action MessageSystemNavigationTypeAction.udpate
  */
 export interface UpdateActiveIdNavigationDictionaryMessageIncoming<TConfig = {}>
     extends ArbitraryMessageIncoming<TConfig> {
@@ -267,6 +273,8 @@ export interface UpdateActiveIdNavigationDictionaryMessageIncoming<TConfig = {}>
 
 /**
  * The message that the active id of the navigation dictionary has been updated
+ * @deprecated - this should use the MessageSystemType.navigation
+ * action MessageSystemNavigationTypeAction.udpate
  */
 export interface UpdateActiveIdNavigationDictionaryMessageOutgoing<TConfig = {}>
     extends ArbitraryMessageOutgoing<TConfig> {

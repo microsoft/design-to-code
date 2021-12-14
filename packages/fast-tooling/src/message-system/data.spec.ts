@@ -19,6 +19,7 @@ describe("getLinkedDataDictionary", () => {
                 },
             ],
             dictionaryId,
+            linkedDataIds: ["foo"],
             dataLocation: "root-location",
         });
         const linkedDataDictionaryKeys = Object.keys(
@@ -71,6 +72,7 @@ describe("getLinkedDataDictionary", () => {
                     linkedData: [nestedLinkedData],
                 },
             ],
+            linkedDataIds: ["foo", "bar", "bat", "baz"],
             dictionaryId,
             dataLocation: "root-location",
         });
@@ -113,6 +115,7 @@ describe("getLinkedDataDictionary", () => {
                     linkedData: [nestedNestedLinkedData1, nestedNestedLinkedData2],
                 },
             ],
+            linkedDataIds: ["foo", "bar"],
             dictionaryId,
             dataLocation: "root-location",
         });

@@ -5,6 +5,8 @@ import {
     AddDataMessageOutgoing,
     AddLinkedDataDataMessageOutgoing,
     AddSchemaDictionaryMessageOutgoing,
+    DataDictionaryMessageIncoming,
+    DataMessageIncoming,
     DuplicateDataMessageOutgoing,
     GetDataDictionaryMessageOutgoing,
     GetHistoryMessageIncoming,
@@ -21,11 +23,14 @@ import {
     MessageSystemNavigationTypeAction,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
+    NavigationDictionaryMessageIncoming,
+    NavigationMessageIncoming,
     NavigationMessageOutgoing,
     RemoveDataMessageOutgoing,
     UpdateActiveIdDataDictionaryMessageOutgoing,
     UpdateActiveIdNavigationDictionaryMessageOutgoing,
     UpdateDataMessageOutgoing,
+    UpdateNavigationMessageIncoming,
     UpdateValidationMessageIncoming,
     ValidationMessageIncoming,
     ValidationMessageOutgoing,
@@ -83,6 +88,14 @@ describe("getMessage", () => {
                 },
                 "",
             ]);
+            getMessage([
+                {
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
+                    activeDictionaryId: "data",
+                } as NavigationMessageIncoming,
+                "",
+            ]);
 
             const getHistory: GetHistoryMessageIncoming = {
                 type: MessageSystemType.history,
@@ -98,26 +111,33 @@ describe("getMessage", () => {
             const schemaDictionary: SchemaDictionary = {
                 foo: { id: "foo" },
             };
-            function dataFactory(count): DataDictionary<unknown> {
-                return [
-                    {
-                        data: {
-                            schemaId: "foo",
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
                             data: {
-                                foo: "bar" + count,
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
                             },
                         },
-                    },
-                    "data",
-                ];
-            }
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
             for (let i = 0, limit = 50; i < limit; i++) {
                 getMessage([
                     {
-                        type: MessageSystemType.initialize,
-                        dataDictionary: dataFactory(i),
-                        schemaDictionary,
-                    },
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
                     "",
                 ]);
             }
@@ -131,10 +151,530 @@ describe("getMessage", () => {
                 (getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing).history
                     .items.length
             ).to.equal(30);
-            expect(
-                ((getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing).history
-                    .items[29] as any).data.dataDictionary[0].data.data.foo
-            ).to.equal("bar49");
+
+            const lastItem = (getMessage([
+                getHistory,
+                "",
+            ])[0] as GetHistoryMessageOutgoing).history.items[29];
+
+            expect(lastItem.previous).to.not.equal(undefined);
+            expect(lastItem.next).to.not.equal(undefined);
+        });
+        describe("items", () => {
+            beforeEach(() => {
+                const schemaDictionary: SchemaDictionary = {
+                    foo: { id: "foo" },
+                };
+                const dataBlob: DataDictionary<unknown> = [
+                    {
+                        data: {
+                            schemaId: "foo",
+                            data: {
+                                foo: "bar",
+                                children: [
+                                    {
+                                        id: "data2",
+                                    },
+                                    {
+                                        id: "data3",
+                                    },
+                                ],
+                            },
+                        },
+                        data2: {
+                            schemaId: "foo",
+                            data: {},
+                            parent: {
+                                id: "data",
+                                dataLocation: "children",
+                            },
+                        },
+                        data3: {
+                            schemaId: "foo",
+                            data: {
+                                foo: "bat",
+                            },
+                            parent: {
+                                id: "data",
+                                dataLocation: "children",
+                            },
+                        },
+                    },
+                    "data",
+                ];
+
+                getMessage([
+                    {
+                        type: MessageSystemType.initialize,
+                        dataDictionary: dataBlob,
+                        schemaDictionary,
+                    },
+                    "",
+                ]);
+            });
+            describe("navigation", () => {
+                it("should store a history item when the active dictionary ID is updated", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.navigation,
+                            action: MessageSystemNavigationTypeAction.update,
+                            activeDictionaryId: "data2",
+                        } as NavigationMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const lastItem = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history.items[29];
+
+                    expect(lastItem.next).to.deep.equal({
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data2",
+                    });
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.navigation);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemNavigationTypeAction.update
+                    );
+                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
+                        "data"
+                    );
+                    expect((lastItem.previous as any).activeNavigationConfigId).to.equal(
+                        ""
+                    );
+                });
+            });
+            describe("navigationDictionary", () => {
+                it("should store a history item when the active dictionary ID is updated", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.navigationDictionary,
+                            action:
+                                MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+                            activeDictionaryId: "data2",
+                        } as NavigationDictionaryMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(
+                        MessageSystemType.navigationDictionary
+                    );
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemNavigationDictionaryTypeAction.updateActiveId
+                    );
+                    expect((lastItem.next as any).activeDictionaryId).to.equal("data2");
+                    expect(lastItem.previous.type).to.equal(
+                        MessageSystemType.navigationDictionary
+                    );
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemNavigationDictionaryTypeAction.updateActiveId
+                    );
+                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
+                        "data"
+                    );
+                });
+            });
+            describe("data", () => {
+                it("should store a history item when data has been duplicated", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.duplicate,
+                            sourceDataLocation: "foo",
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.duplicate
+                    );
+                    expect((lastItem.next as any).sourceDataLocation).to.equal("foo");
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.remove
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("foo[0]");
+                });
+                it("should store a history item when data has been removed", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.remove,
+                            dataLocation: "foo",
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.remove
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("foo");
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.add
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("foo");
+                    expect((lastItem.previous as any).data).to.equal("bar");
+                    expect((lastItem.previous as any).dataType).to.equal(DataType.string);
+                });
+                it("should store a history item when data has been added", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.add,
+                            dataLocation: "bat",
+                            data: 42,
+                            dataType: DataType.number,
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.add
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("bat");
+                    expect((lastItem.next as any).data).to.equal(42);
+                    expect((lastItem.next as any).dataType).to.equal(DataType.number);
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.remove
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("bat");
+                });
+                it("should store a history item when data has been updated", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.update,
+                            dictionaryId: "data",
+                            dataLocation: "foo",
+                            data: "baz",
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.update
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("foo");
+                    expect((lastItem.next as any).data).to.equal("baz");
+                    expect((lastItem.next as any).dictionaryId).to.equal("data");
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.update
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("foo");
+                    expect((lastItem.previous as any).data).to.equal("bar");
+                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                });
+                it("should store a history item when linked data has been added", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.addLinkedData,
+                            dictionaryId: "data",
+                            index: 0,
+                            dataLocation: "children",
+                            linkedData: [
+                                {
+                                    schemaId: "foo",
+                                    parent: {
+                                        id: "data",
+                                        dataLocation: "children",
+                                    },
+                                    data: {
+                                        foo: "foo",
+                                    },
+                                    dataLocation: "children",
+                                },
+                            ],
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.addLinkedData
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("children");
+                    expect((lastItem.next as any).linkedData).to.deep.equal([
+                        {
+                            schemaId: "foo",
+                            parent: {
+                                id: "data",
+                                dataLocation: "children",
+                            },
+                            data: {
+                                foo: "foo",
+                            },
+                            dataLocation: "children",
+                        },
+                    ]);
+                    expect((lastItem.next as any).dictionaryId).to.equal("data");
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.removeLinkedData
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("children");
+                    expect(Array.isArray((lastItem.previous as any).linkedData)).to.be
+                        .true;
+                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                });
+                it("should store a history item when linked data has been removed", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.removeLinkedData,
+                            dictionaryId: "data",
+                            index: 0,
+                            dataLocation: "children",
+                            linkedData: [
+                                {
+                                    id: "data2",
+                                },
+                            ],
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.removeLinkedData
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("children");
+                    expect((lastItem.next as any).index).to.equal(0);
+                    expect((lastItem.next as any).linkedData).to.deep.equal([
+                        {
+                            id: "data2",
+                        },
+                    ]);
+                    expect((lastItem.next as any).dictionaryId).to.equal("data");
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.addLinkedData
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("children");
+                    expect((lastItem.previous as any).linkedData).to.deep.equal([
+                        {
+                            schemaId: "foo",
+                            data: {},
+                            parent: {
+                                id: "data",
+                                dataLocation: "children",
+                            },
+                        },
+                    ]);
+                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                });
+                it("should store a history item when linked has been reordered", () => {
+                    getMessage([
+                        {
+                            type: MessageSystemType.data,
+                            action: MessageSystemDataTypeAction.reorderLinkedData,
+                            dataLocation: "children",
+                            linkedData: [
+                                {
+                                    id: "data3",
+                                },
+                                {
+                                    id: "data2",
+                                },
+                            ],
+                        } as DataMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataTypeAction.reorderLinkedData
+                    );
+                    expect((lastItem.next as any).dataLocation).to.equal("children");
+                    expect((lastItem.next as any).linkedData).to.deep.equal([
+                        {
+                            id: "data3",
+                        },
+                        {
+                            id: "data2",
+                        },
+                    ]);
+                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataTypeAction.reorderLinkedData
+                    );
+                    expect((lastItem.previous as any).dataLocation).to.equal("children");
+                    expect((lastItem.previous as any).linkedData).to.deep.equal([
+                        {
+                            id: "data2",
+                        },
+                        {
+                            id: "data3",
+                        },
+                    ]);
+                });
+            });
+            describe("dataDictionary", () => {
+                it("should store a history item when the active dictionary ID is updated", () => {
+                    const schemaDictionary: SchemaDictionary = {
+                        foo: { id: "foo" },
+                    };
+                    const dataBlob: DataDictionary<unknown> = [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                            data2: {
+                                schemaId: "foo",
+                                data: {},
+                            },
+                        },
+                        "data",
+                    ];
+
+                    getMessage([
+                        {
+                            type: MessageSystemType.initialize,
+                            dataDictionary: dataBlob,
+                            schemaDictionary,
+                        },
+                        "",
+                    ]);
+
+                    getMessage([
+                        {
+                            type: MessageSystemType.dataDictionary,
+                            action: MessageSystemDataDictionaryTypeAction.updateActiveId,
+                            activeDictionaryId: "data2",
+                        } as DataDictionaryMessageIncoming,
+                        "",
+                    ]);
+
+                    const getHistory: GetHistoryMessageIncoming = {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.get,
+                    };
+                    const history = (getMessage([
+                        getHistory,
+                        "",
+                    ])[0] as GetHistoryMessageOutgoing).history;
+                    const lastItemIndex = history.items.length - 1;
+                    const lastItem = history.items[lastItemIndex];
+
+                    expect(lastItem.next.type).to.equal(MessageSystemType.dataDictionary);
+                    expect((lastItem.next as any).action).to.equal(
+                        MessageSystemDataDictionaryTypeAction.updateActiveId
+                    );
+                    expect((lastItem.next as any).activeDictionaryId).to.equal("data2");
+                    expect(lastItem.previous.type).to.equal(
+                        MessageSystemType.dataDictionary
+                    );
+                    expect((lastItem.previous as any).action).to.equal(
+                        MessageSystemDataDictionaryTypeAction.updateActiveId
+                    );
+                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
+                        "data"
+                    );
+                });
+            });
         });
     });
     describe("initialize", () => {
