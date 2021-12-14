@@ -1,0 +1,7 @@
+{
+  "type": "minor",
+  "comment": "Update history to use a previous and next property that will be triggered when moving through the stack",
+  "packageName": "@microsoft/fast-tooling",
+  "email": "7559015+janechu@users.noreply.github.com",
+  "dependentChangeType": "patch"
+}
