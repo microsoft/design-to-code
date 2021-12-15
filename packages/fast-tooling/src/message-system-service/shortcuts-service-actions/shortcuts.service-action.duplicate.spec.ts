@@ -3,7 +3,8 @@ import spies from "chai-spies";
 import { Register } from "../../message-system/message-system.props";
 import MessageSystem from "../../message-system/message-system";
 import {
-    MessageSystemDataTypeAction, MessageSystemNavigationTypeAction,
+    MessageSystemDataTypeAction,
+    MessageSystemNavigationTypeAction,
 } from "../../message-system/message-system.utilities.props";
 import { MessageSystemType } from "../../message-system/types";
 import { Shortcuts } from "../shortcuts.service";
