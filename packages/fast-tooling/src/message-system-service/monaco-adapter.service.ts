@@ -76,20 +76,18 @@ export class MonacoAdapter extends MessageSystemService<
                     });
                 }
                 break;
-            case MessageSystemType.dataDictionary:
-                this.dictionaryId = e.data.activeDictionaryId;
-                this.dataDictionary = e.data.dataDictionary;
-
-                break;
             case MessageSystemType.data:
+                this.dictionaryId = e.data.activeDictionaryId;
                 this.dataDictionary = e.data.dataDictionary;
 
                 break;
             case MessageSystemType.navigation:
                 this.dictionaryId = e.data.activeDictionaryId;
+
                 break;
             case MessageSystemType.schemaDictionary:
                 this.schemaDictionary = e.data.schemaDictionary;
+
                 break;
         }
     };

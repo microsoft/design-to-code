@@ -11,8 +11,6 @@ import { getLinkedDataDictionary, getLinkedDataList } from "./data";
 import { MessageSystemType } from "./types";
 import {
     CustomMessage,
-    DataDictionaryMessageIncoming,
-    DataDictionaryMessageOutgoing,
     DataMessageIncoming,
     DataMessageOutgoing,
     ErrorMessageOutgoing,
@@ -22,16 +20,12 @@ import {
     InternalMessageSystemIncoming,
     InternalMessageSystemOutgoing,
     InternalOutgoingMessage,
-    MessageSystemDataDictionaryTypeAction,
     MessageSystemDataTypeAction,
     MessageSystemHistoryTypeAction,
     MessageSystemIncoming,
-    MessageSystemNavigationDictionaryTypeAction,
     MessageSystemNavigationTypeAction,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
-    NavigationDictionaryMessageIncoming,
-    NavigationDictionaryMessageOutgoing,
     NavigationMessageIncoming,
     NavigationMessageOutgoing,
     SchemaDictionaryMessageIncoming,
@@ -130,130 +124,6 @@ function getValidationMessage(
                 historyId,
                 validation,
                 validationErrors: validation[data.dictionaryId],
-                options: data.options,
-            };
-    }
-}
-
-/**
- * Gets a previous data dictionary message based on an incoming message
- */
-function getDataDictionaryPreviousMessage(
-    data: DataDictionaryMessageIncoming
-): DataDictionaryMessageIncoming | null {
-    switch (data.action) {
-        case MessageSystemDataDictionaryTypeAction.updateActiveId:
-            return {
-                type: MessageSystemType.dataDictionary,
-                action: MessageSystemDataDictionaryTypeAction.updateActiveId,
-                activeDictionaryId,
-                options: data.options,
-            };
-    }
-
-    return null;
-}
-
-/**
- * Handles all data dictionary messages
- */
-function getDataDictionaryMessage(
-    data: DataDictionaryMessageIncoming,
-    historyId: string
-): DataDictionaryMessageOutgoing {
-    switch (data.action) {
-        case MessageSystemDataDictionaryTypeAction.get:
-            return {
-                type: MessageSystemType.dataDictionary,
-                action: MessageSystemDataDictionaryTypeAction.get,
-                dataDictionary,
-                navigationDictionary,
-                activeHistoryIndex,
-                activeNavigationConfigId,
-                schemaDictionary,
-                historyId,
-                activeDictionaryId,
-                dictionaryId: activeDictionaryId,
-                validation,
-                options: data.options,
-            };
-        case MessageSystemDataDictionaryTypeAction.updateActiveId:
-            activeDictionaryId = data.activeDictionaryId;
-
-            return {
-                type: MessageSystemType.dataDictionary,
-                action: MessageSystemDataDictionaryTypeAction.updateActiveId,
-                dataDictionary,
-                navigationDictionary,
-                activeHistoryIndex,
-                activeNavigationConfigId,
-                schemaDictionary,
-                historyId,
-                activeDictionaryId,
-                dictionaryId: activeDictionaryId,
-                validation,
-                options: data.options,
-            };
-    }
-}
-
-/**
- * Gets a previous navigation dictionary message based on an incoming message
- */
-function getNavigationDictionaryPreviousMessage(
-    data: NavigationDictionaryMessageIncoming
-): NavigationDictionaryMessageIncoming | null {
-    switch (data.action) {
-        case MessageSystemNavigationDictionaryTypeAction.updateActiveId:
-            return {
-                type: MessageSystemType.navigationDictionary,
-                action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
-                activeDictionaryId,
-                options: data.options,
-            };
-    }
-
-    return null;
-}
-
-/**
- * Handles all navigation dictionary messages
- */
-function getNavigationDictionaryMessage(
-    data: NavigationDictionaryMessageIncoming,
-    historyId: string
-): NavigationDictionaryMessageOutgoing {
-    switch (data.action) {
-        case MessageSystemNavigationDictionaryTypeAction.get:
-            return {
-                type: MessageSystemType.navigationDictionary,
-                action: MessageSystemNavigationDictionaryTypeAction.get,
-                dataDictionary,
-                navigationDictionary,
-                activeHistoryIndex,
-                activeNavigationConfigId,
-                schemaDictionary,
-                historyId,
-                activeDictionaryId,
-                dictionaryId: activeDictionaryId,
-                validation,
-                options: data.options,
-            };
-        case MessageSystemNavigationDictionaryTypeAction.updateActiveId:
-            activeDictionaryId = data.activeDictionaryId;
-
-            return {
-                type: MessageSystemType.navigationDictionary,
-                action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
-                dataDictionary,
-                navigationDictionary,
-                activeHistoryIndex,
-                activeNavigationConfigId,
-                schemaDictionary,
-                historyId,
-                activeDictionaryId,
-                dictionaryId: activeDictionaryId,
-                validation,
                 options: data.options,
             };
     }
@@ -982,16 +852,6 @@ export function getMessage<C = {}>(
                 data[1],
             ] as InternalOutgoingMessage<DataMessageOutgoing>;
         }
-        case MessageSystemType.dataDictionary:
-            updateHistory(data[0], getDataDictionaryPreviousMessage(data[0]), historyId);
-
-            return [
-                getDataDictionaryMessage(
-                    data[0] as DataDictionaryMessageIncoming,
-                    historyId
-                ),
-                data[1],
-            ] as InternalOutgoingMessage<DataDictionaryMessageOutgoing>;
         case MessageSystemType.navigation:
             updateHistory(data[0], getNavigationPreviousMessage(data[0]), historyId);
 
@@ -999,20 +859,6 @@ export function getMessage<C = {}>(
                 getNavigationMessage(data[0] as NavigationMessageIncoming, historyId),
                 data[1],
             ] as InternalOutgoingMessage<NavigationMessageOutgoing>;
-        case MessageSystemType.navigationDictionary:
-            updateHistory(
-                data[0],
-                getNavigationDictionaryPreviousMessage(data[0]),
-                historyId
-            );
-
-            return [
-                getNavigationDictionaryMessage(
-                    data[0] as NavigationDictionaryMessageIncoming,
-                    historyId
-                ),
-                data[1],
-            ] as InternalOutgoingMessage<NavigationDictionaryMessageOutgoing>;
         case MessageSystemType.validation:
             return [
                 getValidationMessage(data[0] as ValidationMessageIncoming, historyId),

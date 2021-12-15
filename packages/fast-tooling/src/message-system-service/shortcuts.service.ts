@@ -150,11 +150,6 @@ export class Shortcuts extends MessageSystemService<
                 this.dictionaryId = e.data.activeDictionaryId;
                 this.dataDictionary = e.data.dataDictionary;
                 break;
-            case MessageSystemType.dataDictionary:
-                this.dictionaryId = e.data.activeDictionaryId;
-                this.dataDictionary = e.data.dataDictionary;
-
-                break;
             case MessageSystemType.data:
                 this.dataDictionary = e.data.dataDictionary;
 
@@ -162,8 +157,6 @@ export class Shortcuts extends MessageSystemService<
             case MessageSystemType.navigation:
                 this.dictionaryId = e.data.activeDictionaryId;
                 break;
-            case MessageSystemType.navigationDictionary:
-                this.dictionaryId = e.data.activeDictionaryId;
         }
     };
 

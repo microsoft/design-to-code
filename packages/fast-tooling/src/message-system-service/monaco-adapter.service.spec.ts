@@ -323,7 +323,7 @@ xdescribe("MonacoAdapter", () => {
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
-                    type: MessageSystemType.dataDictionary,
+                    type: MessageSystemType.data,
                     dataDictionary: dataDictionary2,
                     activeDictionaryId: "foo",
                 },

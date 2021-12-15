@@ -12,11 +12,6 @@ import { History } from "./history.props";
  * terms are from the POV of the message system.
  */
 
-export enum MessageSystemDataDictionaryTypeAction {
-    get = "get",
-    updateActiveId = "update-active-id",
-}
-
 export enum MessageSystemDataTypeAction {
     update = "update",
     remove = "remove",
@@ -25,11 +20,6 @@ export enum MessageSystemDataTypeAction {
     removeLinkedData = "remove-linked-data",
     addLinkedData = "add-linked-data",
     reorderLinkedData = "reorder-linked-data",
-}
-
-export enum MessageSystemNavigationDictionaryTypeAction {
-    get = "get",
-    updateActiveId = "update-active-id",
 }
 
 export enum MessageSystemNavigationTypeAction {
@@ -154,24 +144,6 @@ export interface InitializeMessageOutgoing<TConfig = {}>
 }
 
 /**
- * The message to get the data dictionary
- */
-export interface GetDataDictionaryMessageIncoming<TConfig = {}>
-    extends ArbitraryMessageIncoming<TConfig> {
-    type: MessageSystemType.dataDictionary;
-    action: MessageSystemDataDictionaryTypeAction.get;
-}
-
-/**
- * The message that the data dictionary has been given
- */
-export interface GetDataDictionaryMessageOutgoing<TConfig = {}>
-    extends ArbitraryMessageOutgoing<TConfig> {
-    type: MessageSystemType.dataDictionary;
-    action: MessageSystemDataDictionaryTypeAction.get;
-}
-
-/**
  * The message that the validation should be updated
  */
 export interface UpdateValidationMessageIncoming<TConfig = {}>
@@ -216,70 +188,6 @@ export interface GetValidationMessageOutgoing<TConfig = {}>
      * @deprecated
      */
     validationErrors: ValidationError[];
-}
-
-/**
- * The message to get the navigation dictionary
- */
-export interface GetNavigationDictionaryMessageIncoming<TConfig = {}>
-    extends ArbitraryMessageIncoming<TConfig> {
-    type: MessageSystemType.navigationDictionary;
-    action: MessageSystemNavigationDictionaryTypeAction.get;
-}
-
-/**
- * The message that the navigation dictionary has been given
- */
-export interface GetNavigationDictionaryMessageOutgoing<TConfig = {}>
-    extends ArbitraryMessageOutgoing<TConfig> {
-    type: MessageSystemType.navigationDictionary;
-    action: MessageSystemNavigationDictionaryTypeAction.get;
-}
-
-/**
- * The message to update the active id of the data dictionary
- * @deprecated - this should use the MessageSystemType.navigation
- * action MessageSystemNavigationTypeAction.udpate
- */
-export interface UpdateActiveIdDataDictionaryMessageIncoming<TConfig = {}>
-    extends ArbitraryMessageIncoming<TConfig> {
-    type: MessageSystemType.dataDictionary;
-    action: MessageSystemDataDictionaryTypeAction.updateActiveId;
-    activeDictionaryId: string;
-}
-
-/**
- * The message that the active id of the data dictionary has been updated
- * @deprecated - this should use the MessageSystemType.navigation
- * action MessageSystemNavigationTypeAction.udpate
- */
-export interface UpdateActiveIdDataDictionaryMessageOutgoing<TConfig = {}>
-    extends ArbitraryMessageOutgoing<TConfig> {
-    type: MessageSystemType.dataDictionary;
-    action: MessageSystemDataDictionaryTypeAction.updateActiveId;
-}
-
-/**
- * The message to update the active id of the navigation dictionary
- * @deprecated - this should use the MessageSystemType.navigation
- * action MessageSystemNavigationTypeAction.udpate
- */
-export interface UpdateActiveIdNavigationDictionaryMessageIncoming<TConfig = {}>
-    extends ArbitraryMessageIncoming<TConfig> {
-    type: MessageSystemType.navigationDictionary;
-    action: MessageSystemNavigationDictionaryTypeAction.updateActiveId;
-    activeDictionaryId: string;
-}
-
-/**
- * The message that the active id of the navigation dictionary has been updated
- * @deprecated - this should use the MessageSystemType.navigation
- * action MessageSystemNavigationTypeAction.udpate
- */
-export interface UpdateActiveIdNavigationDictionaryMessageOutgoing<TConfig = {}>
-    extends ArbitraryMessageOutgoing<TConfig> {
-    type: MessageSystemType.navigationDictionary;
-    action: MessageSystemNavigationDictionaryTypeAction.updateActiveId;
 }
 
 /**
@@ -637,34 +545,6 @@ export interface ErrorMessageOutgoing {
 export type CustomMessage<T, OConfig> = CustomMessageIncomingOutgoing<OConfig> & T;
 
 /**
- * Incoming navigation dictionary messages to the message system
- */
-export type NavigationDictionaryMessageIncoming =
-    | GetNavigationDictionaryMessageIncoming
-    | UpdateActiveIdNavigationDictionaryMessageIncoming;
-
-/**
- * Outgoing navigation dictionary messages from the message system
- */
-export type NavigationDictionaryMessageOutgoing =
-    | GetNavigationDictionaryMessageOutgoing
-    | UpdateActiveIdNavigationDictionaryMessageOutgoing;
-
-/**
- * Incoming data dictionary messages to the message system
- */
-export type DataDictionaryMessageIncoming =
-    | GetDataDictionaryMessageIncoming
-    | UpdateActiveIdDataDictionaryMessageIncoming;
-
-/**
- * Outgoing data dictionary messages from the message system
- */
-export type DataDictionaryMessageOutgoing =
-    | GetDataDictionaryMessageOutgoing
-    | UpdateActiveIdDataDictionaryMessageOutgoing;
-
-/**
  * Incoming navigation messages to the message system
  */
 export type NavigationMessageIncoming =
@@ -721,8 +601,6 @@ export type MessageSystemIncoming<C = {}, OConfig = {}> =
     | HistoryMessageIncoming
     | SchemaDictionaryMessageIncoming
     | NavigationMessageIncoming
-    | NavigationDictionaryMessageIncoming
-    | DataDictionaryMessageIncoming
     | ValidationMessageIncoming
     | CustomMessage<C, OConfig>;
 
@@ -736,8 +614,6 @@ export type InternalMessageSystemIncoming<C = {}, OConfig = {}> =
     | InternalIncomingMessage<HistoryMessageIncoming>
     | InternalIncomingMessage<SchemaDictionaryMessageIncoming>
     | InternalIncomingMessage<NavigationMessageIncoming>
-    | InternalIncomingMessage<NavigationDictionaryMessageIncoming>
-    | InternalIncomingMessage<DataDictionaryMessageIncoming>
     | InternalIncomingMessage<ValidationMessageIncoming>
     | InternalOutgoingMessage<CustomMessage<C, OConfig>>;
 
@@ -751,8 +627,6 @@ export type MessageSystemOutgoing<C = {}, OConfig = {}> =
     | HistoryMessageOutgoing
     | SchemaDictionaryMessageOutgoing
     | NavigationMessageOutgoing
-    | NavigationDictionaryMessageOutgoing
-    | DataDictionaryMessageOutgoing
     | ValidationMessageOutgoing
     | CustomMessage<C, OConfig>;
 
@@ -767,7 +641,5 @@ export type InternalMessageSystemOutgoing<C = {}, OConfig = {}> =
     | InternalOutgoingMessage<HistoryMessageOutgoing>
     | InternalOutgoingMessage<SchemaDictionaryMessageOutgoing>
     | InternalOutgoingMessage<NavigationMessageOutgoing>
-    | InternalOutgoingMessage<NavigationDictionaryMessageOutgoing>
-    | InternalOutgoingMessage<DataDictionaryMessageOutgoing>
     | InternalOutgoingMessage<ValidationMessageOutgoing>
     | InternalOutgoingMessage<CustomMessage<C, OConfig>>;

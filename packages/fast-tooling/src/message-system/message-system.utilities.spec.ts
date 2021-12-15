@@ -5,32 +5,23 @@ import {
     AddDataMessageOutgoing,
     AddLinkedDataDataMessageOutgoing,
     AddSchemaDictionaryMessageOutgoing,
-    DataDictionaryMessageIncoming,
     DataMessageIncoming,
     DuplicateDataMessageOutgoing,
-    GetDataDictionaryMessageOutgoing,
     GetHistoryMessageIncoming,
     GetHistoryMessageOutgoing,
-    GetNavigationDictionaryMessageOutgoing,
     GetNavigationMessageOutgoing,
     InitializeMessageOutgoing,
     InternalIncomingMessage,
     InternalOutgoingMessage,
-    MessageSystemDataDictionaryTypeAction,
     MessageSystemDataTypeAction,
     MessageSystemHistoryTypeAction,
-    MessageSystemNavigationDictionaryTypeAction,
     MessageSystemNavigationTypeAction,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
-    NavigationDictionaryMessageIncoming,
     NavigationMessageIncoming,
     NavigationMessageOutgoing,
     RemoveDataMessageOutgoing,
-    UpdateActiveIdDataDictionaryMessageOutgoing,
-    UpdateActiveIdNavigationDictionaryMessageOutgoing,
     UpdateDataMessageOutgoing,
-    UpdateNavigationMessageIncoming,
     UpdateValidationMessageIncoming,
     ValidationMessageIncoming,
     ValidationMessageOutgoing,
@@ -246,47 +237,6 @@ describe("getMessage", () => {
                     );
                     expect((lastItem.previous as any).activeNavigationConfigId).to.equal(
                         ""
-                    );
-                });
-            });
-            describe("navigationDictionary", () => {
-                it("should store a history item when the active dictionary ID is updated", () => {
-                    getMessage([
-                        {
-                            type: MessageSystemType.navigationDictionary,
-                            action:
-                                MessageSystemNavigationDictionaryTypeAction.updateActiveId,
-                            activeDictionaryId: "data2",
-                        } as NavigationDictionaryMessageIncoming,
-                        "",
-                    ]);
-
-                    const getHistory: GetHistoryMessageIncoming = {
-                        type: MessageSystemType.history,
-                        action: MessageSystemHistoryTypeAction.get,
-                    };
-                    const history = (getMessage([
-                        getHistory,
-                        "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
-                    const lastItemIndex = history.items.length - 1;
-                    const lastItem = history.items[lastItemIndex];
-
-                    expect(lastItem.next.type).to.equal(
-                        MessageSystemType.navigationDictionary
-                    );
-                    expect((lastItem.next as any).action).to.equal(
-                        MessageSystemNavigationDictionaryTypeAction.updateActiveId
-                    );
-                    expect((lastItem.next as any).activeDictionaryId).to.equal("data2");
-                    expect(lastItem.previous.type).to.equal(
-                        MessageSystemType.navigationDictionary
-                    );
-                    expect((lastItem.previous as any).action).to.equal(
-                        MessageSystemNavigationDictionaryTypeAction.updateActiveId
-                    );
-                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
-                        "data"
                     );
                 });
             });
@@ -607,72 +557,6 @@ describe("getMessage", () => {
                             id: "data3",
                         },
                     ]);
-                });
-            });
-            describe("dataDictionary", () => {
-                it("should store a history item when the active dictionary ID is updated", () => {
-                    const schemaDictionary: SchemaDictionary = {
-                        foo: { id: "foo" },
-                    };
-                    const dataBlob: DataDictionary<unknown> = [
-                        {
-                            data: {
-                                schemaId: "foo",
-                                data: {
-                                    foo: "bar",
-                                },
-                            },
-                            data2: {
-                                schemaId: "foo",
-                                data: {},
-                            },
-                        },
-                        "data",
-                    ];
-
-                    getMessage([
-                        {
-                            type: MessageSystemType.initialize,
-                            dataDictionary: dataBlob,
-                            schemaDictionary,
-                        },
-                        "",
-                    ]);
-
-                    getMessage([
-                        {
-                            type: MessageSystemType.dataDictionary,
-                            action: MessageSystemDataDictionaryTypeAction.updateActiveId,
-                            activeDictionaryId: "data2",
-                        } as DataDictionaryMessageIncoming,
-                        "",
-                    ]);
-
-                    const getHistory: GetHistoryMessageIncoming = {
-                        type: MessageSystemType.history,
-                        action: MessageSystemHistoryTypeAction.get,
-                    };
-                    const history = (getMessage([
-                        getHistory,
-                        "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
-                    const lastItemIndex = history.items.length - 1;
-                    const lastItem = history.items[lastItemIndex];
-
-                    expect(lastItem.next.type).to.equal(MessageSystemType.dataDictionary);
-                    expect((lastItem.next as any).action).to.equal(
-                        MessageSystemDataDictionaryTypeAction.updateActiveId
-                    );
-                    expect((lastItem.next as any).activeDictionaryId).to.equal("data2");
-                    expect(lastItem.previous.type).to.equal(
-                        MessageSystemType.dataDictionary
-                    );
-                    expect((lastItem.previous as any).action).to.equal(
-                        MessageSystemDataDictionaryTypeAction.updateActiveId
-                    );
-                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
-                        "data"
-                    );
                 });
             });
         });
@@ -1043,15 +927,6 @@ describe("getMessage", () => {
             expect((message[0].data as any).linkedData.length).to.equal(1);
 
             const id: string = (message[0].data as any).linkedData[0].id;
-            const dictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
 
             expect(
                 Object.keys(message[0].dataDictionary[0]).findIndex(
@@ -1060,7 +935,7 @@ describe("getMessage", () => {
                     }
                 )
             ).not.to.equal(-1);
-            expect(dictionary[0].dataDictionary[0][id].data).to.deep.equal(
+            expect(message[0].dataDictionary[0][id].data).to.deep.equal(
                 linkedData[0].data
             );
             expect(message[0].linkedDataIds).to.deep.equal([{ id }]);
@@ -1119,28 +994,19 @@ describe("getMessage", () => {
 
             const id: string = (message[0].dataDictionary[0].abc.data as any)
                 .linkedData[0].id;
-            const dictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
 
             expect(
-                Object.keys(dictionary[0].dataDictionary[0]).findIndex(
+                Object.keys(message[0].dataDictionary[0]).findIndex(
                     (dictionaryKey: string) => {
                         return dictionaryKey === id;
                     }
                 )
             ).not.to.equal(-1);
-            expect(dictionary[0].dataDictionary[0][id].data).to.deep.equal(
+            expect(message[0].dataDictionary[0][id].data).to.deep.equal(
                 linkedData[0].data
             );
             expect(
-                (dictionary[0].dataDictionary[0].abc.data as any).linkedData
+                (message[0].dataDictionary[0].abc.data as any).linkedData
             ).to.deep.equal([{ id }]);
         });
         it("should add linkedData to an existing array of linkedData items", () => {
@@ -1199,24 +1065,15 @@ describe("getMessage", () => {
             expect((message[0].data as any).linkedData.length).to.equal(2);
 
             const id: string = (message[0].data as any).linkedData[1].id;
-            const dictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
 
             expect(
-                Object.keys(dictionary[0].dataDictionary[0]).findIndex(
+                Object.keys(message[0].dataDictionary[0]).findIndex(
                     (dictionaryKey: string) => {
                         return dictionaryKey === id;
                     }
                 )
             ).not.to.equal(-1);
-            expect(dictionary[0].dataDictionary[0][id].data).to.deep.equal(
+            expect(message[0].dataDictionary[0][id].data).to.deep.equal(
                 linkedData[0].data
             );
         });
@@ -1276,24 +1133,15 @@ describe("getMessage", () => {
             expect((message[0].data as any).linkedData.length).to.equal(2);
 
             const id: string = (message[0].data as any).linkedData[0].id;
-            const dictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
 
             expect(
-                Object.keys(dictionary[0].dataDictionary[0]).findIndex(
+                Object.keys(message[0].dataDictionary[0]).findIndex(
                     (dictionaryKey: string) => {
                         return dictionaryKey === id;
                     }
                 )
             ).not.to.equal(-1);
-            expect(dictionary[0].dataDictionary[0][id].data).to.deep.equal(
+            expect(message[0].dataDictionary[0][id].data).to.deep.equal(
                 linkedData[0].data
             );
         });
@@ -1351,18 +1199,9 @@ describe("getMessage", () => {
             const id: string = (message[0].data as any).linkedData[0].id;
             const nestedId: string = (message[0].dataDictionary[0][id].data as any)
                 .linkedData[0].id;
-            const dictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
 
             expect(
-                Object.keys(dictionary[0].dataDictionary[0]).findIndex(
+                Object.keys(message[0].dataDictionary[0]).findIndex(
                     (dictionaryKey: string) => {
                         return dictionaryKey === id;
                     }
@@ -1826,199 +1665,6 @@ describe("getMessage", () => {
 
             expect(message[0].navigation).to.deep.equal(
                 navigationDictionary[0][message[0].activeDictionaryId]
-            );
-        });
-    });
-    describe("dataDictionary", () => {
-        it("should return messages sent to get the data dictionary", () => {
-            const dataBlob: DataDictionary<unknown> = [
-                {
-                    data: {
-                        schemaId: "foo",
-                        data: {
-                            foo: "bar",
-                        },
-                    },
-                },
-                "data",
-            ];
-            const schemaDictionary: SchemaDictionary = {
-                foo: { id: "foo" },
-            };
-            getMessage([
-                {
-                    type: MessageSystemType.initialize,
-                    data: dataBlob,
-                    schemaDictionary,
-                },
-                "",
-            ]);
-            const getDataDictionary: InternalOutgoingMessage<GetDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetDataDictionaryMessageOutgoing>;
-
-            expect(getDataDictionary[0].type).to.equal(MessageSystemType.dataDictionary);
-            expect(getDataDictionary[0].action).to.equal(
-                MessageSystemDataDictionaryTypeAction.get
-            );
-            expect(getDataDictionary[0].dataDictionary).to.deep.equal(dataBlob);
-            expect(getDataDictionary[0].activeDictionaryId).to.equal(dataBlob[1]);
-        });
-        it("should return messages set to update the active id of the data dictionary", () => {
-            const dataBlob: DataDictionary<unknown> = [
-                {
-                    abc: {
-                        schemaId: "foo",
-                        data: {
-                            foo: [
-                                {
-                                    id: "def",
-                                },
-                            ],
-                        },
-                    },
-                    def: {
-                        schemaId: "foo",
-                        parent: {
-                            id: "abc",
-                            dataLocation: "foo",
-                        },
-                        data: {
-                            bat: "baz",
-                        },
-                    },
-                },
-                "abc",
-            ];
-            const schemaDictionary: SchemaDictionary = {
-                foo: { id: "foo" },
-            };
-            getMessage([
-                {
-                    type: MessageSystemType.initialize,
-                    data: dataBlob,
-                    schemaDictionary,
-                },
-                "",
-            ]);
-
-            const updateDataDictionaryActiveId: InternalOutgoingMessage<UpdateActiveIdDataDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.dataDictionary,
-                        action: MessageSystemDataDictionaryTypeAction.updateActiveId,
-                        activeDictionaryId: "def",
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<UpdateActiveIdDataDictionaryMessageOutgoing>;
-
-            expect(updateDataDictionaryActiveId[0].type).to.equal(
-                MessageSystemType.dataDictionary
-            );
-            expect(updateDataDictionaryActiveId[0].action).to.equal(
-                MessageSystemDataDictionaryTypeAction.updateActiveId
-            );
-            expect(updateDataDictionaryActiveId[0].activeDictionaryId).to.equal("def");
-        });
-    });
-    describe("navigationDictionary", () => {
-        it("should return messages sent to get the navigation dictionary", () => {
-            const dataBlob: DataDictionary<unknown> = [
-                {
-                    data: {
-                        schemaId: "foo",
-                        data: {
-                            foo: "bar",
-                        },
-                    },
-                },
-                "data",
-            ];
-            const schemaDictionary: SchemaDictionary = {
-                foo: { id: "foo" },
-            };
-            getMessage([
-                {
-                    type: MessageSystemType.initialize,
-                    data: dataBlob,
-                    schemaDictionary,
-                },
-                "",
-            ]);
-            const getNavigationDictionary: InternalOutgoingMessage<GetNavigationDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.navigationDictionary,
-                        action: MessageSystemNavigationDictionaryTypeAction.get,
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<GetNavigationDictionaryMessageOutgoing>;
-
-            expect(getNavigationDictionary[0].type).to.equal(
-                MessageSystemType.navigationDictionary
-            );
-            expect(getNavigationDictionary[0].action).to.equal(
-                MessageSystemNavigationDictionaryTypeAction.get
-            );
-            expect(getNavigationDictionary[0].navigationDictionary).not.to.equal(
-                undefined
-            );
-            expect(getNavigationDictionary[0].activeDictionaryId).not.to.equal(undefined);
-        });
-        it("should return messages set to update the active id of the navigation dictionary", () => {
-            const dataBlob: DataDictionary<unknown> = [
-                {
-                    data: {
-                        schemaId: "foo",
-                        data: {
-                            foo: "bar",
-                        },
-                    },
-                },
-                "data",
-            ];
-            const schemaDictionary: SchemaDictionary = {
-                foo: { id: "foo" },
-            };
-            getMessage([
-                {
-                    type: MessageSystemType.initialize,
-                    data: dataBlob,
-                    schemaDictionary,
-                },
-                "",
-            ]);
-
-            const updateNavigationDictionaryActiveId: InternalOutgoingMessage<UpdateActiveIdNavigationDictionaryMessageOutgoing> = getMessage(
-                [
-                    {
-                        type: MessageSystemType.navigationDictionary,
-                        action:
-                            MessageSystemNavigationDictionaryTypeAction.updateActiveId,
-                        activeDictionaryId: "nav2",
-                    },
-                    "",
-                ]
-            ) as InternalOutgoingMessage<
-                UpdateActiveIdNavigationDictionaryMessageOutgoing
-            >;
-
-            expect(updateNavigationDictionaryActiveId[0].type).to.equal(
-                MessageSystemType.navigationDictionary
-            );
-            expect(updateNavigationDictionaryActiveId[0].action).to.equal(
-                MessageSystemNavigationDictionaryTypeAction.updateActiveId
-            );
-            expect(updateNavigationDictionaryActiveId[0].activeDictionaryId).to.equal(
-                "nav2"
             );
         });
     });
