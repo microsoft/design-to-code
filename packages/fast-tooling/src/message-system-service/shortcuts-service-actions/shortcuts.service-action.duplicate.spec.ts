@@ -4,7 +4,7 @@ import { Register } from "../../message-system/message-system.props";
 import MessageSystem from "../../message-system/message-system";
 import {
     MessageSystemDataTypeAction,
-    MessageSystemNavigationDictionaryTypeAction,
+    MessageSystemNavigationTypeAction,
 } from "../../message-system/message-system.utilities.props";
 import { MessageSystemType } from "../../message-system/types";
 import { Shortcuts } from "../shortcuts.service";
@@ -53,8 +53,8 @@ xdescribe("ShortcutsActionDuplicate", () => {
         messageSystem["register"].forEach((registeredItem: Register) => {
             registeredItem.onMessage({
                 data: {
-                    type: MessageSystemType.navigationDictionary,
-                    action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
                     activeDictionaryId: "text",
                 },
             } as any);
