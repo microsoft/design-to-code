@@ -2,6 +2,29 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 15 Dec 2021 07:09:06 GMT",
+      "tag": "@microsoft/fast-tooling_v0.35.0",
+      "version": "0.35.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Update history to use a previous and next property that will be triggered when moving through the stack",
+            "commit": "c0ea89eeb4d72d8f15a22b0ce5c9a3368ca8afb2"
+          }
+        ],
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Remove redundant message types",
+            "commit": "c0ea89eeb4d72d8f15a22b0ce5c9a3368ca8afb2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 12 Dec 2021 07:08:23 GMT",
       "tag": "@microsoft/fast-tooling_v0.34.0",
       "version": "0.34.0",

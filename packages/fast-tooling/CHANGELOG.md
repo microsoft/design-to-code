@@ -1,8 +1,20 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Sun, 12 Dec 2021 07:08:23 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Dec 2021 07:09:06 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.35.0
+
+Wed, 15 Dec 2021 07:09:06 GMT
+
+### Minor changes
+
+- Update history to use a previous and next property that will be triggered when moving through the stack (7559015+janechu@users.noreply.github.com)
+
+### Patches
+
+- Remove redundant message types (7559015+janechu@users.noreply.github.com)
 
 ## 0.34.0
 
