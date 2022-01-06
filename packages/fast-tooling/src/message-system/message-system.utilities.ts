@@ -24,6 +24,7 @@ import {
     MessageSystemHistoryTypeAction,
     MessageSystemIncoming,
     MessageSystemNavigationTypeAction,
+    MessageSystemOutgoing,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
     NavigationMessageIncoming,
@@ -135,7 +136,7 @@ function getValidationMessage(
 function getHistoryMessage(
     data: HistoryMessageIncoming,
     historyId: string
-): HistoryMessageOutgoing {
+): HistoryMessageOutgoing | MessageSystemOutgoing {
     switch (data.action) {
         case MessageSystemHistoryTypeAction.get:
             return {
@@ -152,6 +153,28 @@ function getHistoryMessage(
                 dictionaryId: activeDictionaryId,
                 validation,
             };
+        case MessageSystemHistoryTypeAction.next:
+            if (activeHistoryIndex + 1 <= history.items.length - 1) {
+                activeHistoryIndex += 1;
+
+                /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+                return getMessage(
+                    [history.items[activeHistoryIndex - 1].next as any, historyId],
+                    activeHistoryIndex
+                )[0];
+            }
+            break;
+        case MessageSystemHistoryTypeAction.previous:
+            if (activeHistoryIndex !== 0) {
+                activeHistoryIndex -= 1;
+
+                /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+                return getMessage(
+                    [history.items[activeHistoryIndex + 1].previous as any, historyId],
+                    activeHistoryIndex
+                )[0];
+            }
+            break;
     }
 }
 
@@ -795,18 +818,32 @@ function getNavigationMessage(
 function updateHistory<C>(
     next: MessageSystemIncoming<C>,
     previous: MessageSystemIncoming<C> | null,
-    id: string
+    id: string,
+    historyIndex?: number
 ): string | void {
     if (previous !== null) {
-        history.items.push({ next, previous, id });
-        const historyItemsLength = history.items.length;
+        /**
+         * When history is updated using a historyIndex, it indicates that the history
+         * index is being directly set and should not be set here
+         */
+        if (typeof historyIndex === "undefined") {
+            // Determine if an item is not the current one in history
+            const isCurrent = history.items.length === activeHistoryIndex;
 
-        if (historyItemsLength > history.limit) {
-            history.items.splice(0, historyItemsLength - history.limit);
-        }
+            if (!isCurrent) {
+                // Remove all subsequent history items as they are out of date
+                history.items.splice(activeHistoryIndex + 1);
+            }
 
-        if (activeHistoryIndex !== historyItemsLength) {
-            activeHistoryIndex = historyItemsLength;
+            history.items.push({ next, previous, id });
+            let historyItemsLength = history.items.length;
+
+            if (historyItemsLength > history.limit) {
+                history.items.shift();
+                historyItemsLength = history.limit;
+            }
+
+            activeHistoryIndex = historyItemsLength - 1;
         }
 
         return id;
@@ -824,7 +861,8 @@ function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]) {
 }
 
 export function getMessage<C = {}>(
-    data: InternalMessageSystemIncoming
+    data: InternalMessageSystemIncoming,
+    historyIndex?: number
 ): InternalMessageSystemOutgoing<C> {
     const historyId = data[1];
 
@@ -844,7 +882,8 @@ export function getMessage<C = {}>(
             updateHistory(
                 data[0],
                 getDataPreviousMessage(data[0], ids) as DataMessageIncoming | null,
-                historyId
+                historyId,
+                historyIndex
             );
 
             return [
@@ -853,7 +892,12 @@ export function getMessage<C = {}>(
             ] as InternalOutgoingMessage<DataMessageOutgoing>;
         }
         case MessageSystemType.navigation:
-            updateHistory(data[0], getNavigationPreviousMessage(data[0]), historyId);
+            updateHistory(
+                data[0],
+                getNavigationPreviousMessage(data[0]),
+                historyId,
+                historyIndex
+            );
 
             return [
                 getNavigationMessage(data[0] as NavigationMessageIncoming, historyId),
@@ -864,14 +908,16 @@ export function getMessage<C = {}>(
                 getValidationMessage(data[0] as ValidationMessageIncoming, historyId),
                 data[1],
             ] as InternalOutgoingMessage<ValidationMessageOutgoing>;
-        case MessageSystemType.history:
-            return [
-                getHistoryMessage(
-                    data[0] as HistoryMessageIncoming,
-                    history.items?.[history.items.length - 1]?.id || undefined
-                ),
-                data[1],
-            ];
+        case MessageSystemType.history: {
+            const historyMessage = getHistoryMessage(
+                data[0] as HistoryMessageIncoming,
+                history.items?.[history.items.length - 1]?.id || undefined
+            );
+
+            if (historyMessage) {
+                return [historyMessage as HistoryMessageOutgoing, data[1]];
+            }
+        }
         case MessageSystemType.schemaDictionary:
             return [
                 getSchemaDictionaryMessage(

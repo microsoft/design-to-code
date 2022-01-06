@@ -34,6 +34,8 @@ export enum MessageSystemValidationTypeAction {
 
 export enum MessageSystemHistoryTypeAction {
     get = "get",
+    previous = "previous",
+    next = "next",
 }
 
 export enum MessageSystemSchemaDictionaryTypeAction {
@@ -505,6 +507,27 @@ export interface GetHistoryMessageOutgoing<TConfig = {}>
     type: MessageSystemType.history;
     action: MessageSystemHistoryTypeAction.get;
     history: History;
+    activeHistoryIndex: number;
+}
+
+/**
+ * The message to move to the next item in history
+ * Note: This message does not have an outgoing message as the outgoing message
+ * is the next message stored in the history item
+ */
+export interface NextHistoryMessageIncoming<TConfig = {}>
+    extends ArbitraryMessageIncoming<TConfig> {
+    type: MessageSystemType.history;
+    action: MessageSystemHistoryTypeAction.next;
+}
+
+/**
+ * The message to move to the previous item in history
+ */
+export interface PreviousHistoryMessageIncoming<TConfig = {}>
+    extends ArbitraryMessageIncoming<TConfig> {
+    type: MessageSystemType.history;
+    action: MessageSystemHistoryTypeAction.previous;
 }
 
 /**
@@ -575,7 +598,10 @@ export type ValidationMessageOutgoing =
 /**
  * Incoming history messages to the message system
  */
-export type HistoryMessageIncoming = GetHistoryMessageIncoming;
+export type HistoryMessageIncoming =
+    | GetHistoryMessageIncoming
+    | NextHistoryMessageIncoming
+    | PreviousHistoryMessageIncoming;
 
 /**
  * Outgoing history messages from the message system

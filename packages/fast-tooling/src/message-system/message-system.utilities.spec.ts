@@ -151,6 +151,294 @@ describe("getMessage", () => {
             expect(lastItem.previous).to.not.equal(undefined);
             expect(lastItem.next).to.not.equal(undefined);
         });
+        it("should update the active history index if the previous message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.previous,
+                },
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = (getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing)
+                .activeHistoryIndex;
+
+            expect(history).to.equal(28);
+        });
+        it("should send the previous message if the previous message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            const previousMessage = getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.previous,
+                },
+                "",
+            ]);
+
+            expect(previousMessage[0].type).to.equal(MessageSystemType.navigation);
+            expect((previousMessage[0] as any).action).to.equal(
+                MessageSystemNavigationTypeAction.update
+            );
+            expect((previousMessage[0] as any).activeDictionaryId).to.equal("data48");
+        });
+        it("should update the active history index if the next message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.next,
+                },
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = (getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing)
+                .activeHistoryIndex;
+
+            expect(history).to.equal(24);
+        });
+        it("should send the next message if the next message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            const nextMessage = getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.next,
+                },
+                "",
+            ]);
+
+            expect(nextMessage[0].type).to.equal(MessageSystemType.navigation);
+            expect((nextMessage[0] as any).action).to.equal(
+                MessageSystemNavigationTypeAction.update
+            );
+            expect((nextMessage[0] as any).activeDictionaryId).to.equal("data43");
+        });
+        it("should remove history items that are no longer relevent if a new data or navigation update has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
+                    activeDictionaryId: "data100",
+                } as NavigationMessageIncoming,
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing;
+
+            expect(history.activeHistoryIndex).to.equal(24);
+            expect(history.history.items.length).to.equal(25);
+        });
         describe("items", () => {
             beforeEach(() => {
                 const schemaDictionary: SchemaDictionary = {
@@ -218,10 +506,12 @@ describe("getMessage", () => {
                         type: MessageSystemType.history,
                         action: MessageSystemHistoryTypeAction.get,
                     };
-                    const lastItem = (getMessage([
+                    const items = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history.items[29];
+                    ])[0] as GetHistoryMessageOutgoing).history.items;
+                    const lastItemIndex = items.length - 1;
+                    const lastItem = items[lastItemIndex];
 
                     expect(lastItem.next).to.deep.equal({
                         type: MessageSystemType.navigation,
