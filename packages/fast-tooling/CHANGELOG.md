@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 15 Dec 2021 07:09:06 GMT and should not be manually modified.
+This log was last generated on Sun, 09 Jan 2022 07:08:26 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.36.0
+
+Sun, 09 Jan 2022 07:08:26 GMT
+
+### Minor changes
+
+- Added previous and next history messages to facilitate moving through the MessageSystem history (7559015+janechu@users.noreply.github.com)
+- Added undo/redo alpha released shortcuts (7559015+janechu@users.noreply.github.com)
 
 ## 0.35.0
 
