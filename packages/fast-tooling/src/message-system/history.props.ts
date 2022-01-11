@@ -2,7 +2,7 @@ import { MessageSystemIncoming } from "./message-system.utilities.props";
 
 export interface HistoryItem {
     next: MessageSystemIncoming;
-    previous: MessageSystemIncoming;
+    previous: Array<MessageSystemIncoming>;
     id: string;
 }
 

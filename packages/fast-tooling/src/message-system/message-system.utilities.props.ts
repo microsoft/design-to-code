@@ -244,6 +244,14 @@ export interface AddLinkedDataDataMessageIncoming<TConfig = {}>
     index?: number;
     dataLocation: string;
     linkedData: Array<Data<unknown>>;
+    /**
+     * If there is a list of previous IDs used for this linked data,
+     * utilize these instead of generated them.
+     *
+     * Warning: this should only be used internally or if the user has a self
+     * curated ID system they would prefer to use over the auto-generated one.
+     */
+    originalLinkedDataIds?: Array<LinkedData>;
 }
 
 /**
