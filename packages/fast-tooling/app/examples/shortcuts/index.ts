@@ -15,6 +15,7 @@ import schemaDictionary from "./schema-dictionary";
 const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
 const dataElement = document.getElementById("data");
 const inputElement = document.getElementById("input");
+const activeIdElement = document.getElementById("activeid");
 document.body.setAttribute("style", "margin: 0");
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -25,6 +26,10 @@ let dataDictionary;
 
 function handleMessageSystem(e: MessageEvent) {
     if (e.data) {
+        if (e.data.type !== MessageSystemType.custom) {
+            activeIdElement.innerHTML = e.data.activeDictionaryId;
+        }
+
         if (
             e.data.type === MessageSystemType.initialize ||
             e.data.type === MessageSystemType.data

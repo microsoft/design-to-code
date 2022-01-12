@@ -106,7 +106,7 @@ export default class MessageSystem<C = {}> {
                 this.messageQueue[0][dataItem[1]] = [];
             }
 
-            this.messageQueue[0][dataItem[1]].push(dataItem[0]); // dataItem[1] is overwritten by the same unique ID
+            this.messageQueue[0][dataItem[1]].push(dataItem[0]);
         });
 
         this.sendNextMessage();
@@ -120,14 +120,18 @@ export default class MessageSystem<C = {}> {
         const firstMessagesInQueue = this.messageQueue[0][firstMessagesId];
 
         if (firstMessagesId && firstMessagesInQueue) {
-            const updatedEvents = firstMessagesInQueue.map(firstMessageInQueue => {
-                return new MessageEvent("message", {
-                    data: firstMessageInQueue,
-                    origin: firstMessageInQueue.origin,
-                    lastEventId: firstMessageInQueue.lastEventId,
-                    source: firstMessageInQueue.source,
+            const updatedEvents = firstMessagesInQueue
+                .filter(firstMessageInQueue => {
+                    return firstMessageInQueue !== null;
+                })
+                .map(firstMessageInQueue => {
+                    return new MessageEvent("message", {
+                        data: firstMessageInQueue,
+                        origin: firstMessageInQueue.origin,
+                        lastEventId: firstMessageInQueue.lastEventId,
+                        source: firstMessageInQueue.source,
+                    });
                 });
-            });
 
             this.register.forEach((registeredItem: Register) => {
                 updatedEvents.forEach(updatedEvent => {
