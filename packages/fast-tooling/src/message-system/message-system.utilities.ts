@@ -91,7 +91,7 @@ function getCustomMessage<C, OConfig>(
 function getValidationMessage(
     data: ValidationMessageIncoming,
     historyId: string
-): ValidationMessageOutgoing {
+): ValidationMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemValidationTypeAction.update:
             validation[data.dictionaryId] = data.validationErrors;
@@ -127,6 +127,8 @@ function getValidationMessage(
                 validationErrors: validation[data.dictionaryId],
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -136,7 +138,7 @@ function getValidationMessage(
 function getHistoryMessage(
     data: HistoryMessageIncoming,
     historyId: string
-): Array<HistoryMessageOutgoing | MessageSystemOutgoing> {
+): Array<HistoryMessageOutgoing | MessageSystemOutgoing> | null {
     switch (data.action) {
         case MessageSystemHistoryTypeAction.get:
             return [
@@ -185,6 +187,8 @@ function getHistoryMessage(
                     .flat();
             }
             break;
+        default:
+            return null;
     }
 }
 
@@ -194,7 +198,7 @@ function getHistoryMessage(
 function getSchemaDictionaryMessage(
     data: SchemaDictionaryMessageIncoming,
     historyId: string
-): SchemaDictionaryMessageOutgoing {
+): SchemaDictionaryMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemSchemaDictionaryTypeAction.add:
             schemaDictionary = data.schemas.reduce(
@@ -220,6 +224,8 @@ function getSchemaDictionaryMessage(
                 dictionaryId: activeDictionaryId,
                 validation,
             };
+        default:
+            return null;
     }
 }
 
@@ -419,7 +425,7 @@ function getDataMessage(
     data: DataMessageIncoming,
     linkedDataIds: string[],
     historyId: string
-): XOR<DataMessageOutgoing, ErrorMessageOutgoing> {
+): XOR<DataMessageOutgoing, ErrorMessageOutgoing> | null {
     switch (data.action) {
         case MessageSystemDataTypeAction.duplicate:
             dataDictionary[0][activeDictionaryId].data = getDataWithDuplicate(
@@ -769,6 +775,8 @@ function getDataMessage(
                 validation,
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -789,9 +797,9 @@ function getNavigationPreviousMessage(
                     options: data.options,
                 },
             ];
+        default:
+            return null;
     }
-
-    return null;
 }
 
 /**
@@ -800,7 +808,7 @@ function getNavigationPreviousMessage(
 function getNavigationMessage(
     data: NavigationMessageIncoming,
     historyId: string
-): NavigationMessageOutgoing {
+): NavigationMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemNavigationTypeAction.update:
             activeDictionaryId = data.activeDictionaryId;
@@ -836,6 +844,8 @@ function getNavigationMessage(
                 validation,
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -856,7 +866,7 @@ function updateHistory<C>(
     previous: Array<MessageSystemIncoming<C>> | null,
     id: string,
     historyIndex?: number
-): string | void {
+): void {
     if (previous !== null) {
         /**
          * When history is updated using a historyIndex, it indicates that the history
@@ -881,12 +891,10 @@ function updateHistory<C>(
 
             activeHistoryIndex = historyItemsLength - 1;
         }
-
-        return id;
     }
 }
 
-function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]) {
+function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]): void {
     linkedData.map(linkedDataItem => {
         if (Array.isArray(linkedDataItem.linkedData)) {
             getLinkedDataIds(ids, linkedDataItem.linkedData);
