@@ -122,7 +122,7 @@ export interface LinkedDataDictionaryUpdate {
  * 4. If in the case of 3. the active dictionary ID has no parent (is the root ID), send an error message
  */
 export enum RemoveLinkedDataParentType {
-    activeDictionaryId,
-    activeDictionaryIdParent,
-    suppliedDictionaryId,
+    activeDictionaryId = "active-dictionary-id",
+    activeDictionaryIdParent = "active-dictionary-id-parent",
+    suppliedDictionaryId = "supplied-dictionary-id",
 }

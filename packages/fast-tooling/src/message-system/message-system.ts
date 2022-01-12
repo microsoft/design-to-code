@@ -27,7 +27,7 @@ export default class MessageSystem<C = {}> {
     /**
      * The message queue
      */
-    private messageQueue: [{ [key: string]: MessageEvent }, string[]] = [{}, []];
+    private messageQueue: [{ [key: string]: Array<MessageEvent> }, string[]] = [{}, []];
 
     constructor(config: MessageSystemConfig) {
         if ((window as any).Worker) {
@@ -101,7 +101,13 @@ export default class MessageSystem<C = {}> {
      * from the message system web worker and passes it to each registered item
      */
     private onMessage = (e: MessageEvent): void => {
-        this.messageQueue[0][e.data[1]] = e;
+        e.data.forEach(dataItem => {
+            if (!this.messageQueue[0][dataItem[1]]) {
+                this.messageQueue[0][dataItem[1]] = [];
+            }
+
+            this.messageQueue[0][dataItem[1]].push(dataItem[0]); // dataItem[1] is overwritten by the same unique ID
+        });
 
         this.sendNextMessage();
     };
@@ -110,19 +116,25 @@ export default class MessageSystem<C = {}> {
      * Fire the messages in the order they have been received when they are made available
      */
     private sendNextMessage = (): void => {
-        const firstMessageId = this.messageQueue[1][0];
-        const firstMessageInQueue = this.messageQueue[0][firstMessageId];
+        const firstMessagesId = this.messageQueue[1][0];
+        const firstMessagesInQueue = this.messageQueue[0][firstMessagesId];
 
-        if (firstMessageId && firstMessageInQueue) {
-            const updatedEvent = new MessageEvent("message", {
-                data: firstMessageInQueue.data[0],
-                origin: firstMessageInQueue.origin,
-                lastEventId: firstMessageInQueue.lastEventId,
-                source: firstMessageInQueue.source,
+        if (firstMessagesId && firstMessagesInQueue) {
+            const updatedEvents = firstMessagesInQueue.map(firstMessageInQueue => {
+                return new MessageEvent("message", {
+                    data: firstMessageInQueue,
+                    origin: firstMessageInQueue.origin,
+                    lastEventId: firstMessageInQueue.lastEventId,
+                    source: firstMessageInQueue.source,
+                });
             });
+
             this.register.forEach((registeredItem: Register) => {
-                registeredItem.onMessage(updatedEvent);
+                updatedEvents.forEach(updatedEvent => {
+                    registeredItem.onMessage(updatedEvent);
+                });
             });
+
             this.clearNextMessage();
             this.sendNextMessage();
         }

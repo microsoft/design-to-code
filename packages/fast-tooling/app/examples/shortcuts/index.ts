@@ -1,9 +1,11 @@
 import {
     MessageSystem,
     MessageSystemType,
-    MessageSystemNavigationDictionaryTypeAction,
+    MessageSystemNavigationTypeAction,
     ShortcutsActionDelete,
     ShortcutsActionDuplicate,
+    ShortcutsActionUndo,
+    ShortcutsActionRedo,
 } from "../../../src";
 import { Shortcuts } from "../../../src/message-system-service/shortcuts.service";
 import dataDictionaryConfig from "./data-dictionary-config";
@@ -47,9 +49,10 @@ if ((window as any).Worker) {
         onMessage: handleMessageSystem,
     });
     fastMessageSystem.postMessage({
-        type: MessageSystemType.navigationDictionary,
-        action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+        type: MessageSystemType.navigation,
+        action: MessageSystemNavigationTypeAction.update,
         activeDictionaryId: "text",
+        activeNavigationConfigId: "",
     });
 
     fastShortcuts = new Shortcuts({
@@ -58,6 +61,8 @@ if ((window as any).Worker) {
         actions: [
             ShortcutsActionDelete(fastMessageSystem),
             ShortcutsActionDuplicate(fastMessageSystem),
+            ShortcutsActionRedo(fastMessageSystem),
+            ShortcutsActionUndo(fastMessageSystem),
         ],
     });
 }

@@ -262,7 +262,7 @@ describe("MessageSystem", () => {
         messageSystem.postMessage({} as any);
 
         messageSystem["onMessage"]({
-            data: ["foo", messageSystem["messageQueue"][1][0]],
+            data: [["foo", messageSystem["messageQueue"][1][0]]],
         } as any);
         expect(messageSystem["messageQueue"][1]).to.have.length(0);
     });
@@ -314,7 +314,7 @@ describe("MessageSystem", () => {
         expect(registeredCallback).to.have.been.called.exactly(0);
 
         messageSystem["messageQueue"] = [{}, ["bar"]];
-        messageSystem["onMessage"]({ data: ["foo", "bar"] } as any);
+        messageSystem["onMessage"]({ data: [["foo", "bar"]] } as any);
 
         expect(registeredCallback).to.have.been.called.exactly(1);
     });
