@@ -2,6 +2,29 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Thu, 13 Jan 2022 07:07:24 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.0",
+      "version": "0.37.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Allow multiple outgoing messages to be sent",
+            "commit": "a55ec68bdb4dc4b4274cfef5ae30cc3147521593"
+          }
+        ],
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Ensure that null messages are not sent",
+            "commit": "a55ec68bdb4dc4b4274cfef5ae30cc3147521593"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 09 Jan 2022 07:08:26 GMT",
       "tag": "@microsoft/fast-tooling_v0.36.0",
       "version": "0.36.0",

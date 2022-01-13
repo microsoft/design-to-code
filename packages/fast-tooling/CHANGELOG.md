@@ -1,8 +1,20 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Sun, 09 Jan 2022 07:08:26 GMT and should not be manually modified.
+This log was last generated on Thu, 13 Jan 2022 07:07:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.0
+
+Thu, 13 Jan 2022 07:07:24 GMT
+
+### Minor changes
+
+- Allow multiple outgoing messages to be sent (7559015+janechu@users.noreply.github.com)
+
+### Patches
+
+- Ensure that null messages are not sent (7559015+janechu@users.noreply.github.com)
 
 ## 0.36.0
 
