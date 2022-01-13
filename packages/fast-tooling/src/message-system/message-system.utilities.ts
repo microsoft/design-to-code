@@ -163,7 +163,7 @@ function getHistoryMessage(
 
                 /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
                 return getMessage(
-                    [history.items[activeHistoryIndex - 1].next as any, historyId],
+                    [history.items[activeHistoryIndex].next as any, historyId],
                     activeHistoryIndex
                 ).map(message => {
                     return message[0];

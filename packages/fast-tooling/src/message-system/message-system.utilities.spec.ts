@@ -377,7 +377,7 @@ describe("getMessage", () => {
             expect((nextMessage[0][0] as any).action).to.equal(
                 MessageSystemNavigationTypeAction.update
             );
-            expect((nextMessage[0][0] as any).activeDictionaryId).to.equal("data43");
+            expect((nextMessage[0][0] as any).activeDictionaryId).to.equal("data44");
         });
         it("should remove history items that are no longer relevent if a new data or navigation update has been sent", () => {
             const schemaDictionary: SchemaDictionary = {

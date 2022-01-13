@@ -20,7 +20,7 @@ export default function ShortcutsActionRedo(
                 shiftKey: true,
             },
             {
-                value: "z",
+                value: "Z",
             },
         ],
         action: config => {
