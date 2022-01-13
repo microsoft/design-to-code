@@ -75,7 +75,7 @@ xdescribe("ShortcutsActionRedo", () => {
         const keyboardEvent = new KeyboardEvent("keydown", {
             ctrlKey: true,
             shiftKey: true,
-            key: "z",
+            key: "Z",
         });
         inputElement.dispatchEvent(keyboardEvent);
 
