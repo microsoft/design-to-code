@@ -162,19 +162,8 @@ class Form extends React.Component<
      * Handle messages from the message system
      */
     private handleMessageSystem = (e: MessageEvent): void => {
-        const schemaDictionary: SchemaDictionary = e.data.schemaDictionary;
-        let dataDictionary: DataDictionary<unknown> = e.data.dataDictionary;
-        let navigationDictionary: NavigationConfigDictionary =
-            e.data.navigationDictionary;
-        let activeDictionaryId: string = e.data.activeDictionaryId;
-        let activeNavigationConfigId: string = e.data.activeNavigationConfigId;
-        let validationErrors: Validation = e.data.validation;
-        let schema: any =
-            schemaDictionary[dataDictionary[0][activeDictionaryId].schemaId];
-        let data: any = dataDictionary[0][activeDictionaryId].data;
-        let navigation: NavigationConfig = navigationDictionary[0][activeDictionaryId];
-        let options = e.data.options;
         let setState = false;
+        let activeDictionaryId: string = e.data.activeDictionaryId;
 
         switch (e.data.type) {
             case MessageSystemType.initialize:
@@ -190,6 +179,20 @@ class Form extends React.Component<
         }
 
         if (setState) {
+            const schemaDictionary: SchemaDictionary = e.data.schemaDictionary;
+            let dataDictionary: DataDictionary<unknown> = e.data.dataDictionary;
+            let navigationDictionary: NavigationConfigDictionary =
+                e.data.navigationDictionary;
+            let activeDictionaryId: string = e.data.activeDictionaryId;
+            let activeNavigationConfigId: string = e.data.activeNavigationConfigId;
+            let validationErrors: Validation = e.data.validation;
+            let schema: any =
+                schemaDictionary[dataDictionary[0][activeDictionaryId].schemaId];
+            let data: any = dataDictionary[0][activeDictionaryId].data;
+            let navigation: NavigationConfig =
+                navigationDictionary[0][activeDictionaryId];
+            let options = e.data.options;
+
             this.setState({
                 schemaDictionary,
                 dataDictionary,
