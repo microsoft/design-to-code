@@ -1,4 +1,4 @@
-import { DesignSystem } from "@microsoft/fast-foundation";
+import { DesignSystem, ElementDefinitionContext } from "@microsoft/fast-foundation";
 import {
     MessageSystem,
     MessageSystemDataTypeAction,
@@ -12,18 +12,48 @@ import { fastToolingHTMLRenderLayerInlineEdit } from "../../../src/web-component
 import { nativeElementDefinitions } from "../../../src/definitions/";
 import dataDictionaryConfig from "../../../src/__test__/html-render/data-dictionary-config";
 import schemaDictionary from "../../../src/__test__/html-render/schema-dictionary";
+import {
+    ActivityType,
+    HTMLRenderLayer,
+} from "../../../src/web-components/html-render-layer/html-render-layer";
+import { html, ViewTemplate } from "@microsoft/fast-element";
+
+/* eslint-disable-next-line @typescript-eslint/no-var-requires */
+const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
+document.body.setAttribute("style", "margin: 0");
+
+export class HTMLRenderLayerTest extends HTMLRenderLayer {
+    public layerActivityId: string = "testLayer";
+
+    public elementActivity(
+        layerActivityId: string,
+        activityType: ActivityType,
+        datadictionaryId: string,
+        elementRef: HTMLElement
+    ) {
+        UpdateMessageContainer(`${activityType.toString()} ${datadictionaryId}`);
+    }
+}
+
+export const HTMLRenderLayerNavigationTemplate: (
+    context: ElementDefinitionContext
+) => ViewTemplate<HTMLRenderLayerTest> = context => html<HTMLRenderLayerTest>`
+    <div id="testContainer"></div>
+`;
+
+const fastToolingHTMLRenderLayerTest = HTMLRenderLayerTest.compose({
+    baseName: "html-render-layer-test",
+    template: HTMLRenderLayerNavigationTemplate,
+});
 
 DesignSystem.getOrCreate()
     .withPrefix("fast-tooling")
     .register(
         fastToolingHTMLRender(),
         fastToolingHTMLRenderLayerNavigation(),
-        fastToolingHTMLRenderLayerInlineEdit()
+        fastToolingHTMLRenderLayerInlineEdit(),
+        fastToolingHTMLRenderLayerTest()
     );
-
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
-const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
-document.body.setAttribute("style", "margin: 0");
 
 const fastMessageSystemWorker = new FASTMessageSystemWorker();
 let fastMessageSystem: MessageSystem;
@@ -33,6 +63,10 @@ const button1: HTMLElement = document.getElementById("testbutton1");
 const button2: HTMLElement = document.getElementById("testbutton2");
 const messageContainer: HTMLElement = document.getElementById("messageContainer");
 
+/* document.onmousemove = (ev:MouseEvent)=>{
+    console.log(ev.x+' '+ev.y);
+};
+ */
 function handleMessageSystem(e: MessageEvent) {
     if (e.data) {
         if (
@@ -61,7 +95,7 @@ function handleMessageSystem(e: MessageEvent) {
 
 function UpdateMessageContainer(text: string) {
     const span = document.createElement("span");
-    span.innerHTML = text;
+    span.innerHTML = text.trim();
     messageContainer.appendChild(span);
 }
 
