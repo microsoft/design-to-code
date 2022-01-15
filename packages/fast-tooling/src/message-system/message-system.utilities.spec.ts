@@ -45,15 +45,15 @@ describe("getMessage", () => {
             ];
             const historyMessage = getMessage(getHistory);
 
-            expect(historyMessage[0].type).to.equal(MessageSystemType.history);
-            expect((historyMessage[0] as GetHistoryMessageOutgoing).action).to.equal(
+            expect(historyMessage[0][0].type).to.equal(MessageSystemType.history);
+            expect((historyMessage[0][0] as GetHistoryMessageOutgoing).action).to.equal(
                 MessageSystemHistoryTypeAction.get
             );
             expect(
-                (historyMessage[0] as GetHistoryMessageOutgoing).history.items.length
+                (historyMessage[0][0] as GetHistoryMessageOutgoing).history.items.length
             ).to.equal(0);
             expect(
-                (historyMessage[0] as GetHistoryMessageOutgoing).history.limit
+                (historyMessage[0][0] as GetHistoryMessageOutgoing).history.limit
             ).to.equal(30);
         });
         it("should update the history when a new message has been sent", () => {
@@ -94,7 +94,7 @@ describe("getMessage", () => {
             };
 
             expect(
-                (getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing).history
+                (getMessage([getHistory, ""])[0][0] as GetHistoryMessageOutgoing).history
                     .items.length
             ).to.equal(1);
         });
@@ -139,17 +139,312 @@ describe("getMessage", () => {
             };
 
             expect(
-                (getMessage([getHistory, ""])[0] as GetHistoryMessageOutgoing).history
+                (getMessage([getHistory, ""])[0][0] as GetHistoryMessageOutgoing).history
                     .items.length
             ).to.equal(30);
 
             const lastItem = (getMessage([
                 getHistory,
                 "",
-            ])[0] as GetHistoryMessageOutgoing).history.items[29];
+            ])[0][0] as GetHistoryMessageOutgoing).history.items[29];
 
-            expect(lastItem.previous).to.not.equal(undefined);
+            expect(lastItem.previous[0]).to.not.equal(undefined);
             expect(lastItem.next).to.not.equal(undefined);
+        });
+        it("should update the active history index if the previous message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.previous,
+                },
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = (getMessage([
+                getHistory,
+                "",
+            ])[0][0] as GetHistoryMessageOutgoing).activeHistoryIndex;
+
+            expect(history).to.equal(28);
+        });
+        it("should send the previous message if the previous message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            const previousMessage = getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.previous,
+                },
+                "",
+            ]);
+
+            expect(previousMessage[0][0].type).to.equal(MessageSystemType.navigation);
+            expect((previousMessage[0][0] as any).action).to.equal(
+                MessageSystemNavigationTypeAction.update
+            );
+            expect((previousMessage[0][0] as any).activeDictionaryId).to.equal("data48");
+        });
+        it("should update the active history index if the next message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.next,
+                },
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = (getMessage([
+                getHistory,
+                "",
+            ])[0][0] as GetHistoryMessageOutgoing).activeHistoryIndex;
+
+            expect(history).to.equal(24);
+        });
+        it("should send the next message if the next message has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            const nextMessage = getMessage([
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.next,
+                },
+                "",
+            ]);
+
+            expect(nextMessage[0][0].type).to.equal(MessageSystemType.navigation);
+            expect((nextMessage[0][0] as any).action).to.equal(
+                MessageSystemNavigationTypeAction.update
+            );
+            expect((nextMessage[0][0] as any).activeDictionaryId).to.equal("data44");
+        });
+        it("should remove history items that are no longer relevent if a new data or navigation update has been sent", () => {
+            const schemaDictionary: SchemaDictionary = {
+                foo: { id: "foo" },
+            };
+
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    dataDictionary: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary,
+                },
+                "",
+            ]);
+
+            for (let i = 0, limit = 50; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.navigation,
+                        action: MessageSystemNavigationTypeAction.update,
+                        activeDictionaryId: "data" + i,
+                    } as NavigationMessageIncoming,
+                    "",
+                ]);
+            }
+
+            for (let i = 0, limit = 6; i < limit; i++) {
+                getMessage([
+                    {
+                        type: MessageSystemType.history,
+                        action: MessageSystemHistoryTypeAction.previous,
+                    },
+                    "",
+                ]);
+            }
+
+            getMessage([
+                {
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
+                    activeDictionaryId: "data100",
+                } as NavigationMessageIncoming,
+                "",
+            ]);
+
+            const getHistory: GetHistoryMessageIncoming = {
+                type: MessageSystemType.history,
+                action: MessageSystemHistoryTypeAction.get,
+            };
+
+            const history = getMessage([
+                getHistory,
+                "",
+            ])[0][0] as GetHistoryMessageOutgoing;
+
+            expect(history.activeHistoryIndex).to.equal(24);
+            expect(history.history.items.length).to.equal(25);
         });
         describe("items", () => {
             beforeEach(() => {
@@ -218,26 +513,30 @@ describe("getMessage", () => {
                         type: MessageSystemType.history,
                         action: MessageSystemHistoryTypeAction.get,
                     };
-                    const lastItem = (getMessage([
+                    const items = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history.items[29];
+                    ])[0][0] as GetHistoryMessageOutgoing).history.items;
+                    const lastItemIndex = items.length - 1;
+                    const lastItem = items[lastItemIndex];
 
                     expect(lastItem.next).to.deep.equal({
                         type: MessageSystemType.navigation,
                         action: MessageSystemNavigationTypeAction.update,
                         activeDictionaryId: "data2",
                     });
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.navigation);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(
+                        MessageSystemType.navigation
+                    );
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemNavigationTypeAction.update
                     );
-                    expect((lastItem.previous as any).activeDictionaryId).to.equal(
+                    expect((lastItem.previous[0] as any).activeDictionaryId).to.equal(
                         "data"
                     );
-                    expect((lastItem.previous as any).activeNavigationConfigId).to.equal(
-                        ""
-                    );
+                    expect(
+                        (lastItem.previous[0] as any).activeNavigationConfigId
+                    ).to.equal("");
                 });
             });
             describe("data", () => {
@@ -258,7 +557,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -267,11 +566,11 @@ describe("getMessage", () => {
                         MessageSystemDataTypeAction.duplicate
                     );
                     expect((lastItem.next as any).sourceDataLocation).to.equal("foo");
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.remove
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("foo[0]");
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal("foo[0]");
                 });
                 it("should store a history item when data has been removed", () => {
                     getMessage([
@@ -290,7 +589,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -299,13 +598,15 @@ describe("getMessage", () => {
                         MessageSystemDataTypeAction.remove
                     );
                     expect((lastItem.next as any).dataLocation).to.equal("foo");
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.add
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("foo");
-                    expect((lastItem.previous as any).data).to.equal("bar");
-                    expect((lastItem.previous as any).dataType).to.equal(DataType.string);
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal("foo");
+                    expect((lastItem.previous[0] as any).data).to.equal("bar");
+                    expect((lastItem.previous[0] as any).dataType).to.equal(
+                        DataType.string
+                    );
                 });
                 it("should store a history item when data has been added", () => {
                     getMessage([
@@ -326,7 +627,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -337,11 +638,11 @@ describe("getMessage", () => {
                     expect((lastItem.next as any).dataLocation).to.equal("bat");
                     expect((lastItem.next as any).data).to.equal(42);
                     expect((lastItem.next as any).dataType).to.equal(DataType.number);
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.remove
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("bat");
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal("bat");
                 });
                 it("should store a history item when data has been updated", () => {
                     getMessage([
@@ -362,7 +663,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -373,13 +674,13 @@ describe("getMessage", () => {
                     expect((lastItem.next as any).dataLocation).to.equal("foo");
                     expect((lastItem.next as any).data).to.equal("baz");
                     expect((lastItem.next as any).dictionaryId).to.equal("data");
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.update
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("foo");
-                    expect((lastItem.previous as any).data).to.equal("bar");
-                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal("foo");
+                    expect((lastItem.previous[0] as any).data).to.equal("bar");
+                    expect((lastItem.previous[0] as any).dictionaryId).to.equal("data");
                 });
                 it("should store a history item when linked data has been added", () => {
                     getMessage([
@@ -413,7 +714,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -436,14 +737,16 @@ describe("getMessage", () => {
                         },
                     ]);
                     expect((lastItem.next as any).dictionaryId).to.equal("data");
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.removeLinkedData
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("children");
-                    expect(Array.isArray((lastItem.previous as any).linkedData)).to.be
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal(
+                        "children"
+                    );
+                    expect(Array.isArray((lastItem.previous[0] as any).linkedData)).to.be
                         .true;
-                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                    expect((lastItem.previous[0] as any).dictionaryId).to.equal("data");
                 });
                 it("should store a history item when linked data has been removed", () => {
                     getMessage([
@@ -469,7 +772,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -485,12 +788,14 @@ describe("getMessage", () => {
                         },
                     ]);
                     expect((lastItem.next as any).dictionaryId).to.equal("data");
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.addLinkedData
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("children");
-                    expect((lastItem.previous as any).linkedData).to.deep.equal([
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal(
+                        "children"
+                    );
+                    expect((lastItem.previous[0] as any).linkedData).to.deep.equal([
                         {
                             schemaId: "foo",
                             data: {},
@@ -500,7 +805,7 @@ describe("getMessage", () => {
                             },
                         },
                     ]);
-                    expect((lastItem.previous as any).dictionaryId).to.equal("data");
+                    expect((lastItem.previous[0] as any).dictionaryId).to.equal("data");
                 });
                 it("should store a history item when linked has been reordered", () => {
                     getMessage([
@@ -527,7 +832,7 @@ describe("getMessage", () => {
                     const history = (getMessage([
                         getHistory,
                         "",
-                    ])[0] as GetHistoryMessageOutgoing).history;
+                    ])[0][0] as GetHistoryMessageOutgoing).history;
                     const lastItemIndex = history.items.length - 1;
                     const lastItem = history.items[lastItemIndex];
 
@@ -544,12 +849,14 @@ describe("getMessage", () => {
                             id: "data2",
                         },
                     ]);
-                    expect(lastItem.previous.type).to.equal(MessageSystemType.data);
-                    expect((lastItem.previous as any).action).to.equal(
+                    expect(lastItem.previous[0].type).to.equal(MessageSystemType.data);
+                    expect((lastItem.previous[0] as any).action).to.equal(
                         MessageSystemDataTypeAction.reorderLinkedData
                     );
-                    expect((lastItem.previous as any).dataLocation).to.equal("children");
-                    expect((lastItem.previous as any).linkedData).to.deep.equal([
+                    expect((lastItem.previous[0] as any).dataLocation).to.equal(
+                        "children"
+                    );
+                    expect((lastItem.previous[0] as any).linkedData).to.deep.equal([
                         {
                             id: "data2",
                         },
@@ -586,8 +893,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<InitializeMessageOutgoing>;
-
+            )[0] as InternalOutgoingMessage<InitializeMessageOutgoing>;
             expect(message[0].type).to.equal(MessageSystemType.initialize);
             expect(message[0].data).to.equal(dataBlob[0][dataBlob[1]].data);
             expect(message[0].schema).to.equal(schemaDictionary["foo"]);
@@ -617,7 +923,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<InitializeMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<InitializeMessageOutgoing>;
 
             expect(message[0].type).to.equal(MessageSystemType.initialize);
             expect(message[0].data).to.equal(dataBlob[0][dataBlob[1]].data);
@@ -655,7 +961,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<InitializeMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<InitializeMessageOutgoing>;
 
             expect(message[0].type).to.equal(MessageSystemType.initialize);
             expect(message[0].activeDictionaryId).to.equal("data2");
@@ -692,7 +998,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<DuplicateDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<DuplicateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ foo: ["bar", "bar"] });
         });
@@ -726,7 +1032,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<RemoveDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<RemoveDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({});
         });
@@ -758,7 +1064,7 @@ describe("getMessage", () => {
                     dataType: DataType.object,
                 },
                 "",
-            ]) as InternalOutgoingMessage<AddDataMessageOutgoing>;
+            ])[0] as InternalOutgoingMessage<AddDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "world" });
         });
@@ -791,7 +1097,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "venus" });
         });
@@ -824,7 +1130,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "venus" });
             expect(message[0].dictionaryId).to.equal("data");
@@ -863,7 +1169,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<UpdateDataMessageOutgoing>;
 
             expect(message[0].data).to.deep.equal({ hello: "venus" });
             expect(message[0].dictionaryId).to.equal("bar");
@@ -921,7 +1227,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(Array.isArray((message[0].data as any).linkedData)).to.equal(true);
             expect((message[0].data as any).linkedData.length).to.equal(1);
@@ -983,7 +1289,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(
                 Array.isArray((message[0].dataDictionary[0].abc.data as any).linkedData)
@@ -1059,7 +1365,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(Array.isArray((message[0].data as any).linkedData)).to.equal(true);
             expect((message[0].data as any).linkedData.length).to.equal(2);
@@ -1127,7 +1433,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(Array.isArray((message[0].data as any).linkedData)).to.equal(true);
             expect((message[0].data as any).linkedData.length).to.equal(2);
@@ -1191,7 +1497,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(Array.isArray((message[0].data as any).linkedData)).to.equal(true);
             expect((message[0].data as any).linkedData.length).to.equal(1);
@@ -1255,7 +1561,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect((message[0].data as any).linkedData).to.deep.equal([]);
         });
@@ -1312,7 +1618,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(
                 (message[0].dataDictionary[0].data.data as any).linkedData
@@ -1389,7 +1695,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect((message[0].data as any).linkedData).to.deep.equal([]);
             expect(message[0].dataDictionary).to.deep.equal([
@@ -1470,7 +1776,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect((message[0].data as any).linkedData).to.deep.equal([]);
             expect(message[0].dataDictionary).to.deep.equal([
@@ -1525,7 +1831,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(message[0].type).to.equal(MessageSystemType.error);
             expect((message[0] as any).message).to.equal(removeRootDataNodeErrorMessage);
@@ -1588,7 +1894,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddLinkedDataDataMessageOutgoing>;
 
             expect(Array.isArray((message[0].data as any).linkedData)).to.equal(true);
             expect((message[0].data as any).linkedData.length).to.equal(2);
@@ -1610,7 +1916,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<NavigationMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<NavigationMessageOutgoing>;
 
             expect(message[0].type).to.equal(MessageSystemType.navigation);
             expect(message[0].action).to.equal(MessageSystemNavigationTypeAction.update);
@@ -1651,7 +1957,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<GetNavigationMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<GetNavigationMessageOutgoing>;
 
             expect(message[0].type).to.equal(MessageSystemType.navigation);
             expect(message[0].action).to.equal(MessageSystemNavigationTypeAction.get);
@@ -1707,7 +2013,7 @@ describe("getMessage", () => {
                     },
                     "",
                 ]
-            ) as InternalOutgoingMessage<AddSchemaDictionaryMessageOutgoing>;
+            )[0] as InternalOutgoingMessage<AddSchemaDictionaryMessageOutgoing>;
 
             expect(addedSchemaDictionary[0].type).to.equal(
                 MessageSystemType.schemaDictionary
@@ -1735,7 +2041,7 @@ describe("getMessage", () => {
                 },
                 "",
             ];
-            const message = getMessage(validationUpdate) as InternalOutgoingMessage<
+            const message = getMessage(validationUpdate)[0] as InternalOutgoingMessage<
                 ValidationMessageOutgoing
             >;
 
@@ -1773,7 +2079,7 @@ describe("getMessage", () => {
 
             getMessage(getValidation);
 
-            const message = getMessage(validationUpdate) as InternalOutgoingMessage<
+            const message = getMessage(validationUpdate)[0] as InternalOutgoingMessage<
                 ValidationMessageOutgoing
             >;
 
@@ -1793,7 +2099,7 @@ describe("getMessage", () => {
                 "",
             ];
 
-            expect(getMessage(customMessage)).to.deep.equal(customMessage);
+            expect(getMessage(customMessage)).to.deep.equal([customMessage]);
         });
     });
 });

@@ -2,6 +2,50 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Thu, 13 Jan 2022 07:07:24 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.0",
+      "version": "0.37.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Allow multiple outgoing messages to be sent",
+            "commit": "a55ec68bdb4dc4b4274cfef5ae30cc3147521593"
+          }
+        ],
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Ensure that null messages are not sent",
+            "commit": "a55ec68bdb4dc4b4274cfef5ae30cc3147521593"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 09 Jan 2022 07:08:26 GMT",
+      "tag": "@microsoft/fast-tooling_v0.36.0",
+      "version": "0.36.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added previous and next history messages to facilitate moving through the MessageSystem history",
+            "commit": "39b05deac9da0db7a1ed2029581156aea20f05b2"
+          },
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added undo/redo alpha released shortcuts",
+            "commit": "39b05deac9da0db7a1ed2029581156aea20f05b2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Dec 2021 07:09:06 GMT",
       "tag": "@microsoft/fast-tooling_v0.35.0",
       "version": "0.35.0",

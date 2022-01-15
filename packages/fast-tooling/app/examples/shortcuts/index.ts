@@ -1,9 +1,11 @@
 import {
     MessageSystem,
     MessageSystemType,
-    MessageSystemNavigationDictionaryTypeAction,
+    MessageSystemNavigationTypeAction,
     ShortcutsActionDelete,
     ShortcutsActionDuplicate,
+    ShortcutsActionUndo,
+    ShortcutsActionRedo,
 } from "../../../src";
 import { Shortcuts } from "../../../src/message-system-service/shortcuts.service";
 import dataDictionaryConfig from "./data-dictionary-config";
@@ -13,6 +15,7 @@ import schemaDictionary from "./schema-dictionary";
 const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
 const dataElement = document.getElementById("data");
 const inputElement = document.getElementById("input");
+const activeIdElement = document.getElementById("activeid");
 document.body.setAttribute("style", "margin: 0");
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -23,6 +26,10 @@ let dataDictionary;
 
 function handleMessageSystem(e: MessageEvent) {
     if (e.data) {
+        if (e.data.type !== MessageSystemType.custom) {
+            activeIdElement.innerHTML = e.data.activeDictionaryId;
+        }
+
         if (
             e.data.type === MessageSystemType.initialize ||
             e.data.type === MessageSystemType.data
@@ -47,9 +54,10 @@ if ((window as any).Worker) {
         onMessage: handleMessageSystem,
     });
     fastMessageSystem.postMessage({
-        type: MessageSystemType.navigationDictionary,
-        action: MessageSystemNavigationDictionaryTypeAction.updateActiveId,
+        type: MessageSystemType.navigation,
+        action: MessageSystemNavigationTypeAction.update,
         activeDictionaryId: "text",
+        activeNavigationConfigId: "",
     });
 
     fastShortcuts = new Shortcuts({
@@ -58,6 +66,8 @@ if ((window as any).Worker) {
         actions: [
             ShortcutsActionDelete(fastMessageSystem),
             ShortcutsActionDuplicate(fastMessageSystem),
+            ShortcutsActionRedo(fastMessageSystem),
+            ShortcutsActionUndo(fastMessageSystem),
         ],
     });
 }

@@ -24,6 +24,7 @@ import {
     MessageSystemHistoryTypeAction,
     MessageSystemIncoming,
     MessageSystemNavigationTypeAction,
+    MessageSystemOutgoing,
     MessageSystemSchemaDictionaryTypeAction,
     MessageSystemValidationTypeAction,
     NavigationMessageIncoming,
@@ -90,7 +91,7 @@ function getCustomMessage<C, OConfig>(
 function getValidationMessage(
     data: ValidationMessageIncoming,
     historyId: string
-): ValidationMessageOutgoing {
+): ValidationMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemValidationTypeAction.update:
             validation[data.dictionaryId] = data.validationErrors;
@@ -126,6 +127,8 @@ function getValidationMessage(
                 validationErrors: validation[data.dictionaryId],
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -135,23 +138,57 @@ function getValidationMessage(
 function getHistoryMessage(
     data: HistoryMessageIncoming,
     historyId: string
-): HistoryMessageOutgoing {
+): Array<HistoryMessageOutgoing | MessageSystemOutgoing> | null {
     switch (data.action) {
         case MessageSystemHistoryTypeAction.get:
-            return {
-                type: MessageSystemType.history,
-                action: MessageSystemHistoryTypeAction.get,
-                history,
-                dataDictionary,
-                navigationDictionary,
-                activeHistoryIndex,
-                activeNavigationConfigId,
-                schemaDictionary,
-                historyId,
-                activeDictionaryId,
-                dictionaryId: activeDictionaryId,
-                validation,
-            };
+            return [
+                {
+                    type: MessageSystemType.history,
+                    action: MessageSystemHistoryTypeAction.get,
+                    history,
+                    dataDictionary,
+                    navigationDictionary,
+                    activeHistoryIndex,
+                    activeNavigationConfigId,
+                    schemaDictionary,
+                    historyId,
+                    activeDictionaryId,
+                    dictionaryId: activeDictionaryId,
+                    validation,
+                },
+            ];
+        case MessageSystemHistoryTypeAction.next:
+            if (activeHistoryIndex + 1 <= history.items.length - 1) {
+                activeHistoryIndex += 1;
+
+                /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+                return getMessage(
+                    [history.items[activeHistoryIndex].next as any, historyId],
+                    activeHistoryIndex
+                ).map(message => {
+                    return message[0];
+                });
+            }
+            break;
+        case MessageSystemHistoryTypeAction.previous:
+            if (activeHistoryIndex !== 0) {
+                activeHistoryIndex -= 1;
+
+                return history.items[activeHistoryIndex + 1].previous
+                    .map(previousItem => {
+                        /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
+                        return getMessage(
+                            [previousItem as any, historyId],
+                            activeHistoryIndex
+                        ).map(message => {
+                            return message[0];
+                        });
+                    })
+                    .flat();
+            }
+            break;
+        default:
+            return null;
     }
 }
 
@@ -161,7 +198,7 @@ function getHistoryMessage(
 function getSchemaDictionaryMessage(
     data: SchemaDictionaryMessageIncoming,
     historyId: string
-): SchemaDictionaryMessageOutgoing {
+): SchemaDictionaryMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemSchemaDictionaryTypeAction.add:
             schemaDictionary = data.schemas.reduce(
@@ -187,6 +224,8 @@ function getSchemaDictionaryMessage(
                 dictionaryId: activeDictionaryId,
                 validation,
             };
+        default:
+            return null;
     }
 }
 
@@ -196,7 +235,7 @@ function getSchemaDictionaryMessage(
 function getDataPreviousMessage(
     data: DataMessageIncoming,
     linkedDataIds: string[]
-): DataMessageIncoming | null {
+): Array<DataMessageIncoming | NavigationMessageIncoming> | null {
     switch (data.action) {
         case MessageSystemDataTypeAction.duplicate: {
             const splitDataLocation: string[] = normalizeDataLocationToDotNotation(
@@ -213,11 +252,13 @@ function getDataPreviousMessage(
                 index = lastDataLocationItem;
             }
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.remove,
-                dataLocation: `${data.sourceDataLocation}[${index}]`,
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.remove,
+                    dataLocation: `${data.sourceDataLocation}[${index}]`,
+                },
+            ];
         }
         case MessageSystemDataTypeAction.remove: {
             const dataAtDataLocation = get(
@@ -226,48 +267,57 @@ function getDataPreviousMessage(
             );
             const typeofData = typeof dataAtDataLocation;
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.add,
-                dataLocation: data.dataLocation,
-                data: get(dataDictionary[0][activeDictionaryId].data, data.dataLocation),
-                dataType:
-                    dataAtDataLocation === null
-                        ? DataType.null
-                        : Array.isArray(dataAtDataLocation)
-                        ? DataType.array
-                        : typeofData === "string"
-                        ? DataType.string
-                        : typeofData === "number"
-                        ? DataType.number
-                        : typeofData === "object"
-                        ? DataType.object
-                        : typeofData === "boolean"
-                        ? DataType.boolean
-                        : DataType.unknown,
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.add,
+                    dataLocation: data.dataLocation,
+                    data: get(
+                        dataDictionary[0][activeDictionaryId].data,
+                        data.dataLocation
+                    ),
+                    dataType:
+                        dataAtDataLocation === null
+                            ? DataType.null
+                            : Array.isArray(dataAtDataLocation)
+                            ? DataType.array
+                            : typeofData === "string"
+                            ? DataType.string
+                            : typeofData === "number"
+                            ? DataType.number
+                            : typeofData === "object"
+                            ? DataType.object
+                            : typeofData === "boolean"
+                            ? DataType.boolean
+                            : DataType.unknown,
+                },
+            ];
         }
         case MessageSystemDataTypeAction.add:
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.remove,
-                dataLocation: data.dataLocation,
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.remove,
+                    dataLocation: data.dataLocation,
+                },
+            ];
         case MessageSystemDataTypeAction.update: {
             const dictionaryId: string =
                 typeof data.dictionaryId === "string"
                     ? data.dictionaryId
                     : activeDictionaryId;
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.update,
-                dictionaryId,
-                dataLocation: data.dataLocation,
-                data: cloneDeep(
-                    get(dataDictionary[0][dictionaryId].data, data.dataLocation)
-                ),
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.update,
+                    dictionaryId,
+                    dataLocation: data.dataLocation,
+                    data: cloneDeep(
+                        get(dataDictionary[0][dictionaryId].data, data.dataLocation)
+                    ),
+                },
+            ];
         }
 
         case MessageSystemDataTypeAction.addLinkedData: {
@@ -276,17 +326,19 @@ function getDataPreviousMessage(
                     ? data.dictionaryId
                     : activeDictionaryId;
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.removeLinkedData,
-                dictionaryId,
-                dataLocation: data.dataLocation,
-                linkedData: linkedDataIds.map((id: string) => {
-                    return {
-                        id,
-                    };
-                }),
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.removeLinkedData,
+                    dictionaryId,
+                    dataLocation: data.dataLocation,
+                    linkedData: linkedDataIds.map((id: string) => {
+                        return {
+                            id,
+                        };
+                    }),
+                },
+            ];
         }
         case MessageSystemDataTypeAction.removeLinkedData: {
             const parentType: XOR<RemoveLinkedDataParentType, null> = data.dictionaryId
@@ -329,13 +381,22 @@ function getDataPreviousMessage(
                 return dataDictionary[0][linkedDataItem.id];
             });
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.addLinkedData,
-                dictionaryId: linkedDataParentDictionaryId,
-                dataLocation,
-                linkedData: cloneDeep(linkedData),
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.addLinkedData,
+                    dictionaryId: linkedDataParentDictionaryId,
+                    dataLocation,
+                    linkedData: cloneDeep(linkedData),
+                    originalLinkedDataIds: removedLinkedData,
+                },
+                {
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
+                    activeDictionaryId,
+                    activeNavigationConfigId,
+                },
+            ];
         }
         case MessageSystemDataTypeAction.reorderLinkedData: {
             const currentLinkedData = get(
@@ -343,12 +404,14 @@ function getDataPreviousMessage(
                 data.dataLocation
             );
 
-            return {
-                type: MessageSystemType.data,
-                action: MessageSystemDataTypeAction.reorderLinkedData,
-                dataLocation: data.dataLocation,
-                linkedData: cloneDeep(currentLinkedData),
-            };
+            return [
+                {
+                    type: MessageSystemType.data,
+                    action: MessageSystemDataTypeAction.reorderLinkedData,
+                    dataLocation: data.dataLocation,
+                    linkedData: cloneDeep(currentLinkedData),
+                },
+            ];
         }
         default:
             return null;
@@ -362,7 +425,7 @@ function getDataMessage(
     data: DataMessageIncoming,
     linkedDataIds: string[],
     historyId: string
-): XOR<DataMessageOutgoing, ErrorMessageOutgoing> {
+): XOR<DataMessageOutgoing, ErrorMessageOutgoing> | null {
     switch (data.action) {
         case MessageSystemDataTypeAction.duplicate:
             dataDictionary[0][activeDictionaryId].data = getDataWithDuplicate(
@@ -712,6 +775,8 @@ function getDataMessage(
                 validation,
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -720,19 +785,21 @@ function getDataMessage(
  */
 function getNavigationPreviousMessage(
     data: NavigationMessageIncoming
-): NavigationMessageIncoming | null {
+): Array<NavigationMessageIncoming> | null {
     switch (data.action) {
         case MessageSystemNavigationTypeAction.update:
-            return {
-                type: MessageSystemType.navigation,
-                action: MessageSystemNavigationTypeAction.update,
-                activeDictionaryId,
-                activeNavigationConfigId,
-                options: data.options,
-            };
+            return [
+                {
+                    type: MessageSystemType.navigation,
+                    action: MessageSystemNavigationTypeAction.update,
+                    activeDictionaryId,
+                    activeNavigationConfigId,
+                    options: data.options,
+                },
+            ];
+        default:
+            return null;
     }
-
-    return null;
 }
 
 /**
@@ -741,7 +808,7 @@ function getNavigationPreviousMessage(
 function getNavigationMessage(
     data: NavigationMessageIncoming,
     historyId: string
-): NavigationMessageOutgoing {
+): NavigationMessageOutgoing | null {
     switch (data.action) {
         case MessageSystemNavigationTypeAction.update:
             activeDictionaryId = data.activeDictionaryId;
@@ -777,6 +844,8 @@ function getNavigationMessage(
                 validation,
                 options: data.options,
             };
+        default:
+            return null;
     }
 }
 
@@ -794,26 +863,38 @@ function getNavigationMessage(
  */
 function updateHistory<C>(
     next: MessageSystemIncoming<C>,
-    previous: MessageSystemIncoming<C> | null,
-    id: string
-): string | void {
+    previous: Array<MessageSystemIncoming<C>> | null,
+    id: string,
+    historyIndex?: number
+): void {
     if (previous !== null) {
-        history.items.push({ next, previous, id });
-        const historyItemsLength = history.items.length;
+        /**
+         * When history is updated using a historyIndex, it indicates that the history
+         * index is being directly set and should not be set here
+         */
+        if (typeof historyIndex === "undefined") {
+            // Determine if an item is not the current one in history
+            const isCurrent = history.items.length === activeHistoryIndex;
 
-        if (historyItemsLength > history.limit) {
-            history.items.splice(0, historyItemsLength - history.limit);
+            if (!isCurrent) {
+                // Remove all subsequent history items as they are out of date
+                history.items.splice(activeHistoryIndex + 1);
+            }
+
+            history.items.push({ next, previous, id });
+            let historyItemsLength = history.items.length;
+
+            if (historyItemsLength > history.limit) {
+                history.items.shift();
+                historyItemsLength = history.limit;
+            }
+
+            activeHistoryIndex = historyItemsLength - 1;
         }
-
-        if (activeHistoryIndex !== historyItemsLength) {
-            activeHistoryIndex = historyItemsLength;
-        }
-
-        return id;
     }
 }
 
-function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]) {
+function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]): void {
     linkedData.map(linkedDataItem => {
         if (Array.isArray(linkedDataItem.linkedData)) {
             getLinkedDataIds(ids, linkedDataItem.linkedData);
@@ -824,61 +905,88 @@ function getLinkedDataIds(ids: string[], linkedData: Data<unknown>[]) {
 }
 
 export function getMessage<C = {}>(
-    data: InternalMessageSystemIncoming
-): InternalMessageSystemOutgoing<C> {
+    data: InternalMessageSystemIncoming,
+    historyIndex?: number
+): Array<InternalMessageSystemOutgoing<C>> {
     const historyId = data[1];
 
     switch (data[0].type) {
         case MessageSystemType.custom:
             return [
-                getCustomMessage(data[0] as CustomMessage<C, {}>),
-                data[1],
-            ] as InternalOutgoingMessage<CustomMessage<C, {}>>;
+                [
+                    getCustomMessage(data[0] as CustomMessage<C, {}>),
+                    data[1],
+                ] as InternalOutgoingMessage<CustomMessage<C, {}>>,
+            ];
         case MessageSystemType.data: {
-            const ids: string[] = [];
+            let ids: string[] = [];
 
             if (data[0].action === MessageSystemDataTypeAction.addLinkedData) {
-                getLinkedDataIds(ids, data[0].linkedData);
+                if (data[0].originalLinkedDataIds) {
+                    ids = data[0].originalLinkedDataIds.map(originalLinkedDataId => {
+                        return originalLinkedDataId.id;
+                    });
+                } else {
+                    getLinkedDataIds(ids, data[0].linkedData);
+                }
             }
 
             updateHistory(
                 data[0],
-                getDataPreviousMessage(data[0], ids) as DataMessageIncoming | null,
-                historyId
+                getDataPreviousMessage(data[0], ids) as Array<DataMessageIncoming> | null,
+                historyId,
+                historyIndex
             );
 
             return [
-                getDataMessage(data[0] as DataMessageIncoming, ids, historyId),
-                data[1],
-            ] as InternalOutgoingMessage<DataMessageOutgoing>;
+                [
+                    getDataMessage(data[0] as DataMessageIncoming, ids, historyId),
+                    data[1],
+                ] as InternalOutgoingMessage<DataMessageOutgoing>,
+            ];
         }
         case MessageSystemType.navigation:
-            updateHistory(data[0], getNavigationPreviousMessage(data[0]), historyId);
+            updateHistory(
+                data[0],
+                getNavigationPreviousMessage(data[0]),
+                historyId,
+                historyIndex
+            );
 
             return [
-                getNavigationMessage(data[0] as NavigationMessageIncoming, historyId),
-                data[1],
-            ] as InternalOutgoingMessage<NavigationMessageOutgoing>;
+                [
+                    getNavigationMessage(data[0] as NavigationMessageIncoming, historyId),
+                    data[1],
+                ] as InternalOutgoingMessage<NavigationMessageOutgoing>,
+            ];
         case MessageSystemType.validation:
             return [
-                getValidationMessage(data[0] as ValidationMessageIncoming, historyId),
-                data[1],
-            ] as InternalOutgoingMessage<ValidationMessageOutgoing>;
-        case MessageSystemType.history:
-            return [
-                getHistoryMessage(
-                    data[0] as HistoryMessageIncoming,
-                    history.items?.[history.items.length - 1]?.id || undefined
-                ),
-                data[1],
+                [
+                    getValidationMessage(data[0] as ValidationMessageIncoming, historyId),
+                    data[1],
+                ] as InternalOutgoingMessage<ValidationMessageOutgoing>,
             ];
+        case MessageSystemType.history: {
+            const historyMessage = getHistoryMessage(
+                data[0] as HistoryMessageIncoming,
+                history.items?.[history.items.length - 1]?.id || undefined
+            );
+
+            if (historyMessage) {
+                return historyMessage.map(historyMessageItem => {
+                    return [historyMessageItem as HistoryMessageOutgoing, data[1]];
+                });
+            }
+        }
         case MessageSystemType.schemaDictionary:
             return [
-                getSchemaDictionaryMessage(
-                    data[0] as SchemaDictionaryMessageIncoming,
-                    historyId
-                ),
-                data[1],
+                [
+                    getSchemaDictionaryMessage(
+                        data[0] as SchemaDictionaryMessageIncoming,
+                        historyId
+                    ),
+                    data[1],
+                ],
             ];
         case MessageSystemType.initialize:
             /**
@@ -903,25 +1011,29 @@ export function getMessage<C = {}>(
             history.limit = data[0].historyLimit || defaultHistoryLimit;
 
             return [
-                {
-                    type: MessageSystemType.initialize,
-                    data: dataDictionary[0][activeDictionaryId].data,
-                    navigation: navigationDictionary[0][activeDictionaryId],
-                    schema:
-                        schemaDictionary[dataDictionary[0][activeDictionaryId].schemaId],
-                    historyLimit: history.limit,
-                    dataDictionary,
-                    navigationDictionary,
-                    activeHistoryIndex,
-                    activeNavigationConfigId,
-                    schemaDictionary,
-                    historyId,
-                    activeDictionaryId,
-                    dictionaryId: activeDictionaryId,
-                    validation,
-                    options: data[0].options,
-                },
-                data[1],
-            ] as InternalOutgoingMessage<InitializeMessageOutgoing>;
+                [
+                    {
+                        type: MessageSystemType.initialize,
+                        data: dataDictionary[0][activeDictionaryId].data,
+                        navigation: navigationDictionary[0][activeDictionaryId],
+                        schema:
+                            schemaDictionary[
+                                dataDictionary[0][activeDictionaryId].schemaId
+                            ],
+                        historyLimit: history.limit,
+                        dataDictionary,
+                        navigationDictionary,
+                        activeHistoryIndex,
+                        activeNavigationConfigId,
+                        schemaDictionary,
+                        historyId,
+                        activeDictionaryId,
+                        dictionaryId: activeDictionaryId,
+                        validation,
+                        options: data[0].options,
+                    },
+                    data[1],
+                ] as InternalOutgoingMessage<InitializeMessageOutgoing>,
+            ];
     }
 }

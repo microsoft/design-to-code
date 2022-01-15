@@ -1,10 +1,11 @@
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
 import "../__tests__/mocks/match-media";
-import { configure, mount, render, shallow } from "enzyme";
+import { configure, mount } from "enzyme";
 import { Form, ModularForm } from "./";
 import { FormProps } from "./form.props";
 import {
+    CustomMessageIncomingOutgoing,
     DataType,
     InitializeMessageOutgoing,
     MessageSystem,
@@ -12,18 +13,7 @@ import {
     NavigationConfig,
     Register,
 } from "@microsoft/fast-tooling";
-
-import {
-    arraysSchema as arraySchema,
-    childrenSchema,
-    invalidDataSchema,
-    objectsSchema as objectSchema,
-} from "../__tests__/schemas";
-
-import { ControlConfig, ControlType, StandardControlPlugin } from "./templates";
-import { TextareaControl } from "./controls/control.textarea";
-import { CheckboxControl } from "./controls/control.checkbox";
-import { ButtonControl } from "./controls/control.button";
+import { ControlType, StandardControlPlugin } from "./templates";
 
 /*
  * Configure Enzyme
@@ -38,6 +28,38 @@ describe("Form", () => {
     test("should not throw", () => {
         expect(() => {
             mount(<Form {...formProps} />);
+        }).not.toThrow();
+    });
+    test("should not throw when a custom message is sent", () => {
+        const fastMessageSystem: MessageSystem = new MessageSystem({
+            webWorker: "",
+            dataDictionary: [
+                {
+                    "": {
+                        schemaId: "foo",
+                        data: {},
+                    },
+                },
+                "",
+            ],
+            schemaDictionary: {
+                foo: {
+                    id: "foo",
+                    type: "object",
+                },
+            },
+        });
+
+        mount(<Form {...formProps} messageSystem={fastMessageSystem} />);
+
+        expect(() => {
+            fastMessageSystem["register"].forEach((registeredItem: Register) => {
+                registeredItem.onMessage({
+                    data: {
+                        type: MessageSystemType.custom,
+                    } as CustomMessageIncomingOutgoing<{}>,
+                } as any);
+            });
         }).not.toThrow();
     });
     test("should register the component with a message system", () => {

@@ -2,6 +2,36 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Thu, 13 Jan 2022 07:07:24 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.13.3",
+      "version": "2.13.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.37.0",
+            "commit": "a55ec68bdb4dc4b4274cfef5ae30cc3147521593"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sun, 09 Jan 2022 07:08:26 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.13.2",
+      "version": "2.13.2",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.36.0",
+            "commit": "39b05deac9da0db7a1ed2029581156aea20f05b2"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 15 Dec 2021 07:09:06 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.13.1",
       "version": "2.13.1",
