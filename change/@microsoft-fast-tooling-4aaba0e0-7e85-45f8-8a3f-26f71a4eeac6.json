@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fix the redo shortcut keys and correct the next targeted history action",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
