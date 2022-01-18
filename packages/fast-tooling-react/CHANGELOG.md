@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Thu, 13 Jan 2022 07:07:24 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Jan 2022 07:07:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.13.4
+
+Sun, 16 Jan 2022 07:07:11 GMT
+
+### Patches
+
+- Fixed an issue where the React Form would error when recieving a custom message (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.37.1
 
 ## 2.13.3
 

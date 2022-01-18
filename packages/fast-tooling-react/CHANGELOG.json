@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Sun, 16 Jan 2022 07:07:11 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.13.4",
+      "version": "2.13.4",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Fixed an issue where the React Form would error when recieving a custom message",
+            "commit": "96c9eb864ed51a60df13849e267f803f98849f59"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.37.1",
+            "commit": "96c9eb864ed51a60df13849e267f803f98849f59"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Jan 2022 07:07:24 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.13.3",
       "version": "2.13.3",

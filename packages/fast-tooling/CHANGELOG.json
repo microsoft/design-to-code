@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Sun, 16 Jan 2022 07:07:11 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.1",
+      "version": "0.37.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fix the redo shortcut keys and correct the next targeted history action",
+            "commit": "96c9eb864ed51a60df13849e267f803f98849f59"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 13 Jan 2022 07:07:24 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.0",
       "version": "0.37.0",
