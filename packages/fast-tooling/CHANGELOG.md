@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Thu, 13 Jan 2022 07:07:24 GMT and should not be manually modified.
+This log was last generated on Sun, 16 Jan 2022 07:07:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.1
+
+Sun, 16 Jan 2022 07:07:11 GMT
+
+### Patches
+
+- Fix the redo shortcut keys and correct the next targeted history action (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.0
 
