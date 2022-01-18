@@ -63,10 +63,6 @@ const button1: HTMLElement = document.getElementById("testbutton1");
 const button2: HTMLElement = document.getElementById("testbutton2");
 const messageContainer: HTMLElement = document.getElementById("messageContainer");
 
-/* document.onmousemove = (ev:MouseEvent)=>{
-    console.log(ev.x+' '+ev.y);
-};
- */
 function handleMessageSystem(e: MessageEvent) {
     if (e.data) {
         if (
