@@ -117,8 +117,11 @@ export class HTMLRender extends FoundationElement {
             if (e.data.type === MessageSystemType.navigation) {
                 this.updateSelectedActiveDictionaryId();
             }
-            if (e.data.type === MessageSystemType.custom) {
-                const action: string[] = (e.data.options.action as string).split("::");
+            if (
+                e.data.type === MessageSystemType.custom &&
+                typeof e.data.options?.action === "string"
+            ) {
+                const action: string[] = e.data.options.action.split("::");
                 if (action[0] === "displayMode") {
                     this.interactiveMode = action[1] !== "preview";
                     if (this.interactiveMode) {
