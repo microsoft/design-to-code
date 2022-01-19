@@ -1,7 +1,0 @@
-{
-  "type": "none",
-  "comment": "Added playwright tests for htmlrender components",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "44823142+williamw2@users.noreply.github.com",
-  "dependentChangeType": "none"
-}

@@ -2,6 +2,29 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 19 Jan 2022 07:09:03 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.2",
+      "version": "0.37.2",
+      "comments": {
+        "none": [
+          {
+            "author": "44823142+williamw2@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added playwright tests for htmlrender components",
+            "commit": "dd4c70c71beff2a431eaad8ff0580a1c52f551b0"
+          }
+        ],
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed an issue where the HTML render would error if a custom message was sent without an action",
+            "commit": "dd4c70c71beff2a431eaad8ff0580a1c52f551b0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 16 Jan 2022 07:07:11 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.1",
       "version": "0.37.1",
