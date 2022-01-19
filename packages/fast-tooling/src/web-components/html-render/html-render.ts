@@ -93,7 +93,9 @@ export class HTMLRender extends FoundationElement {
     private handleMessageSystem = (e: MessageEvent): void => {
         if (
             e.data &&
-            (!e.data.options || e.data.options.originatorId !== this.messageOriginatorId)
+            (e.data.type !== MessageSystemType.custom || // do not handle custom messages
+                (e.data.type === MessageSystemType.custom && // unless custom messages include an action (this seems brittle, TODO: #187)
+                    typeof e.data.options?.action === "string"))
         ) {
             this.dataDictionary = e.data.dataDictionary;
             this.schemaDictionary = e.data.schemaDictionary;
@@ -117,10 +119,7 @@ export class HTMLRender extends FoundationElement {
             if (e.data.type === MessageSystemType.navigation) {
                 this.updateSelectedActiveDictionaryId();
             }
-            if (
-                e.data.type === MessageSystemType.custom &&
-                typeof e.data.options?.action === "string"
-            ) {
+            if (e.data.type === MessageSystemType.custom) {
                 const action: string[] = e.data.options.action.split("::");
                 if (action[0] === "displayMode") {
                     this.interactiveMode = action[1] !== "preview";
