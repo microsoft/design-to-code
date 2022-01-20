@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 19 Jan 2022 07:09:03 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Jan 2022 07:08:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.3
+
+Thu, 20 Jan 2022 07:08:23 GMT
+
+### Patches
+
+- Fixed an issue in the HTML render layer web component where custom messages were not ignored (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.2
 

@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Fixed an issue in the HTML render layer web component where custom messages were not ignored",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

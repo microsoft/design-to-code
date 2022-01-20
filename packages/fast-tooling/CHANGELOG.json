@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Thu, 20 Jan 2022 07:08:23 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.3",
+      "version": "0.37.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Fixed an issue in the HTML render layer web component where custom messages were not ignored",
+            "commit": "1620afd1aa1c53d38d2278df9d65460afa20c79b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 19 Jan 2022 07:09:03 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.2",
       "version": "0.37.2",
