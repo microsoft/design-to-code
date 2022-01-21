@@ -418,7 +418,6 @@ export class HTMLRender extends FoundationElement {
             return true;
         }
         e.preventDefault();
-        e.stopPropagation();
         return false;
     }
 
