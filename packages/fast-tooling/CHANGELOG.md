@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Thu, 20 Jan 2022 07:08:23 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Jan 2022 21:47:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.4
+
+Fri, 21 Jan 2022 21:47:33 GMT
+
+### Patches
+
+- Fixed an issue where stopPropagation in HTML Render prevents the use of the shortcuts service (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.3
 

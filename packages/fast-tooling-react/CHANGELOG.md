@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Thu, 20 Jan 2022 07:08:23 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Jan 2022 21:47:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.13.7
+
+Fri, 21 Jan 2022 21:47:33 GMT
+
+### Patches
+
+- Bump @microsoft/fast-tooling to v0.37.4
 
 ## 2.13.6
 
