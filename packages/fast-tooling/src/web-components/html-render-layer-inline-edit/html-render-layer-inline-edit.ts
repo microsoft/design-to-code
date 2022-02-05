@@ -247,7 +247,10 @@ export class HTMLRenderLayerInlineEdit extends HTMLRenderLayer {
             case ActivityType.click:
                 if (
                     this.currentDataId !== null &&
-                    this.currentDataId !== datadictionaryId
+                    this.currentDataId !== datadictionaryId && // Check that if the text area is active and the selected element is the current element
+                    this.textAreaActive &&
+                    datadictionaryId !==
+                        this.dataDictionary[0][this.currentDataId].parent.id
                 ) {
                     // currently editing and something else was clicked
                     this.cancelEdit();
