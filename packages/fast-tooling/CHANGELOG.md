@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Fri, 21 Jan 2022 21:47:33 GMT and should not be manually modified.
+This log was last generated on Sun, 06 Feb 2022 07:07:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.5
+
+Sun, 06 Feb 2022 07:07:35 GMT
+
+### Patches
+
+- Fixed an issue where inline editing was blocked when navigation triggers a new selection (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.4
 
