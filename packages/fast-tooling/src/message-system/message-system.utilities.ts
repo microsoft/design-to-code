@@ -261,10 +261,10 @@ function getDataPreviousMessage(
             ];
         }
         case MessageSystemDataTypeAction.remove: {
-            const dataAtDataLocation = get(
-                dataDictionary[0][activeDictionaryId].data,
-                data.dataLocation
-            );
+            const dataAtDataLocation =
+                data.dataLocation === ""
+                    ? dataDictionary[0][activeDictionaryId].data
+                    : get(dataDictionary[0][activeDictionaryId].data, data.dataLocation);
             const typeofData = typeof dataAtDataLocation;
 
             return [
@@ -306,6 +306,23 @@ function getDataPreviousMessage(
                 typeof data.dictionaryId === "string"
                     ? data.dictionaryId
                     : activeDictionaryId;
+            const updatedData =
+                data.dataLocation === ""
+                    ? dataDictionary[0][dictionaryId].data
+                    : cloneDeep(
+                          get(dataDictionary[0][dictionaryId].data, data.dataLocation)
+                      );
+
+            if (updatedData === undefined) {
+                return [
+                    {
+                        type: MessageSystemType.data,
+                        action: MessageSystemDataTypeAction.remove,
+                        dictionaryId,
+                        dataLocation: data.dataLocation,
+                    },
+                ];
+            }
 
             return [
                 {
@@ -313,9 +330,7 @@ function getDataPreviousMessage(
                     action: MessageSystemDataTypeAction.update,
                     dictionaryId,
                     dataLocation: data.dataLocation,
-                    data: cloneDeep(
-                        get(dataDictionary[0][dictionaryId].data, data.dataLocation)
-                    ),
+                    data: updatedData,
                 },
             ];
         }
@@ -455,10 +470,14 @@ function getDataMessage(
                 validation,
                 options: data.options,
             };
-        case MessageSystemDataTypeAction.remove:
-            dataDictionary[0][activeDictionaryId].data = getDataUpdatedWithoutSourceData({
+        case MessageSystemDataTypeAction.remove: {
+            const dictionaryId =
+                typeof data.dictionaryId === "string"
+                    ? data.dictionaryId
+                    : activeDictionaryId;
+            dataDictionary[0][dictionaryId].data = getDataUpdatedWithoutSourceData({
                 sourceDataLocation: data.dataLocation,
-                data: dataDictionary[0][activeDictionaryId].data,
+                data: dataDictionary[0][dictionaryId].data,
             });
             navigationDictionary = getNavigationDictionary(
                 schemaDictionary,
@@ -469,8 +488,8 @@ function getDataMessage(
             return {
                 type: MessageSystemType.data,
                 action: MessageSystemDataTypeAction.remove,
-                data: dataDictionary[0][activeDictionaryId].data,
-                navigation: navigationDictionary[0][activeDictionaryId],
+                data: dataDictionary[0][dictionaryId].data,
+                navigation: navigationDictionary[0][dictionaryId],
                 dataDictionary,
                 navigationDictionary,
                 activeHistoryIndex,
@@ -482,6 +501,7 @@ function getDataMessage(
                 validation,
                 options: data.options,
             };
+        }
         case MessageSystemDataTypeAction.add:
             dataDictionary[0][activeDictionaryId].data = getDataUpdatedWithSourceData({
                 targetDataLocation: data.dataLocation,

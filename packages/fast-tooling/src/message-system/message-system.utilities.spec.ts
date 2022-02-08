@@ -1036,6 +1036,82 @@ describe("getMessage", () => {
 
             expect(message[0].data).to.deep.equal({});
         });
+        it("should return a data blob without removed values from a specified dictionary ID", () => {
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    data: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar",
+                                },
+                            },
+                            data2: {
+                                schemaId: "foo",
+                                data: {
+                                    foo: "bar2",
+                                },
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary: {
+                        foo: { id: "foo" },
+                    },
+                },
+                "",
+            ]);
+            const message: InternalOutgoingMessage<RemoveDataMessageOutgoing> = getMessage(
+                [
+                    {
+                        type: MessageSystemType.data,
+                        action: MessageSystemDataTypeAction.remove,
+                        dataLocation: "foo",
+                        dictionaryId: "data2",
+                    },
+                    "",
+                ]
+            )[0] as InternalOutgoingMessage<RemoveDataMessageOutgoing>;
+
+            expect(message[0].data).to.deep.equal({});
+            expect(message[0].activeDictionaryId).to.equal("data");
+            expect(message[0].dataDictionary[0].data2.data).to.deep.equal({});
+            expect(message[0].dataDictionary[0].data.data).to.deep.equal({ foo: "bar" });
+        });
+        it("should return a data blob without removed string values", () => {
+            getMessage([
+                {
+                    type: MessageSystemType.initialize,
+                    data: [
+                        {
+                            data: {
+                                schemaId: "foo",
+                                data: "foo",
+                            },
+                        },
+                        "data",
+                    ],
+                    schemaDictionary: {
+                        foo: { id: "foo" },
+                    },
+                },
+                "",
+            ]);
+            const message: InternalOutgoingMessage<RemoveDataMessageOutgoing> = getMessage(
+                [
+                    {
+                        type: MessageSystemType.data,
+                        action: MessageSystemDataTypeAction.remove,
+                        dataLocation: "",
+                    },
+                    "",
+                ]
+            )[0] as InternalOutgoingMessage<RemoveDataMessageOutgoing>;
+
+            expect(message[0].data).to.equal(undefined);
+        });
         it("should return a data blob with added values", () => {
             getMessage([
                 {

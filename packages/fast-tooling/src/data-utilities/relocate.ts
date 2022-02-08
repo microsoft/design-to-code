@@ -172,14 +172,18 @@ function isTargetInArray(dataLocation: string, data: unknown): RelocatedDataConf
 export function getDataUpdatedWithoutSourceData(
     config: UpdateDataWithoutSourceConfig
 ): unknown {
-    const clonedData: unknown = cloneDeep(config.data);
+    let clonedData: unknown = cloneDeep(config.data);
     const sourceDataConfig: RelocatedDataConfig = isTargetInArray(
         config.sourceDataLocation,
         config.data
     );
 
     if (!sourceDataConfig.isArray) {
-        unset(clonedData, config.sourceDataLocation);
+        if (config.sourceDataLocation === "") {
+            clonedData = undefined;
+        } else {
+            unset(clonedData, config.sourceDataLocation);
+        }
     } else {
         const newTargetArray: unknown = get(
             clonedData,
