@@ -381,6 +381,7 @@ export interface RemoveDataMessageIncoming<TConfig = {}>
     extends ArbitraryMessageIncoming<TConfig> {
     type: MessageSystemType.data;
     action: MessageSystemDataTypeAction.remove;
+    dictionaryId?: string;
     dataLocation: string;
 }
 
