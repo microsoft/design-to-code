@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 09 Feb 2022 07:09:11 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.6",
+      "version": "0.37.6",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Allow previous data messages for remove to include removing text, useful when removing text from text nodes",
+            "commit": "9b87eb21af1009f8d4294c8f78f987826e22862b"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sun, 06 Feb 2022 07:07:35 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.5",
       "version": "0.37.5",

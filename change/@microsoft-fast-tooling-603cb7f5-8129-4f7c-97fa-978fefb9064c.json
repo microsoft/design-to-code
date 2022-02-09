@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Allow previous data messages for remove to include removing text, useful when removing text from text nodes",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "7559015+janechu@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

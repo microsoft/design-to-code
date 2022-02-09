@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Sun, 06 Feb 2022 07:07:35 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Feb 2022 07:09:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.6
+
+Wed, 09 Feb 2022 07:09:11 GMT
+
+### Patches
+
+- Allow previous data messages for remove to include removing text, useful when removing text from text nodes (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.5
 
