@@ -2,6 +2,14 @@
 
 This is the code style guide for the FAST tooling repository. When contributing to this project please follow the standards defined in this guide.
 
+## Branches
+
+Branches that will be used to create a pull request to the default branch or a feature branch should use the naming pattern `users/{username}/{purpose-of-change}`.
+
+### Features
+
+Branches encompassing a larger body of work that will be contributed by multiple users or include multiple pull requests should use the naming pattern `features/*`.
+
 ## Files
 
 File and folder naming in general should not include special characters or spaces. Alphanumeric is preffered, separated by dash or underscore depending on the type of file. Names should be as concise as possible while also being meaningful, and should attempt to follow any standard set by a standards governing body such as W3C.
