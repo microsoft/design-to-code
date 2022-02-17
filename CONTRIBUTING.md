@@ -62,7 +62,7 @@ Packages are located within the `packages` folder of the repository. Each packag
 Prior to submitting a pull request please follow the following steps.
 
 1. Review and adhere to the standards defined in the [style guide](./STYLE_GUIDE.md).
-2. Rebase your branch from `main` or use the *merge* button provided by GitHub. If you're new to rebasing checkout [Merging vs Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
+2. Rebase your branch from your target branch (typically `main`) or use the *merge* button provided by GitHub. If you're new to rebasing checkout [Merging vs Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
 3. Generate a change file(s) using `npm run change` located in `./change/*` and used for continuous delivery. As a convenience, the interactive prompt looks to provide recent commit messages for use in the description. *For changes which do not affect the published package(s), please use "none" when selecting the change type*.
 4. Finally, when submitting your pull request please make the title clear and concise, provide a description of the change, and specify any issues that will be closed.
 
@@ -70,7 +70,13 @@ Prior to submitting a pull request please follow the following steps.
 If you are addressing multiple issues which are unrelated, consider either doing multiple pull requests, or generate separate change files to ensure accurate generation of changelogs and versioning of packages.
 :::
 
-For additional details on package versioning and changelog generation read the [Publishing](./PUBLISHING.md) documentation.
+For additional details on package versioning and changelog generation read the [publishing](./PUBLISHING.md) documentation.
+
+:::note
+If you are finding that your changes are either breaking changes or require multiple pull requests, open an issue to discuss this.
+:::
+
+For additional details on branch management read the [branch guide](./BRANCH_GUIDE.md) documentation.
 
 ### Merging a pull request
 
