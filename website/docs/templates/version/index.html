@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <th colspan="1">
+                version
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><em><%- versionInfo.docVersion %> - current</em></td>
+        </tr>
+        <% _.forEach(versionInfo.otherAvailableVersions, function(version) { %>
+        <tr>
+            <td><a href="/docs/<%- version.path %>"><%- version.label %></a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+</table>

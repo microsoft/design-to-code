@@ -1,0 +1,48 @@
+<div class="sidebar">
+    <div class="mobile-control">
+        <span>FAST Tooling</span>
+        <button id="mobileClose" class="mobile-toggle">
+            <svg viewBox="0 0 15 15" width="21" height="21">
+                <g stroke="#ccd0d5" stroke-width="1.2">
+                    <path d="M.75.75l13.5 13.5M14.25.75L.75 14.25"></path>
+                </g>
+            </svg>
+        </button>
+    </div>
+    <nav>
+        <ul>
+            <% _.forEach(sidebar.documentation, function(documentationItem) { %>
+            <li>
+                <a
+                    class="<%- documentationItem.path === currentPath ? 'active' : '' %>"
+                    href="/docs/<%- documentationItem.path %>"
+                >
+                    <%- documentationItem.label %>
+                </a>
+                <% if (Array.isArray(documentationItem.items)) { %>
+                <ul>
+                    <% _.forEach(documentationItem.items, function(categoryItem) { %>
+                    <li>
+                        <a
+                            class="<%- categoryItem.path === currentPath ? 'active' : '' %>"
+                            href="/docs/<%- categoryItem.path %>"
+                        >
+                            <%- categoryItem.label %>
+                        </a>
+                    </li>
+                    <% }); %>
+                </ul>
+                <% } %>
+            </li>
+            <% }); %>
+        </ul>
+    </nav>
+    <script>
+        var mobileCloseButton = document.getElementById("mobileClose");
+        mobileCloseButton.addEventListener("mousedown", e => {
+            e.preventDefault();
+
+            document.body.classList.remove("active-mobile-sidebar");
+        });
+    </script>
+</div>
