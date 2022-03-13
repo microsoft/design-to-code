@@ -1,0 +1,12 @@
+{
+    "@microsoft/fast-tooling": {
+        "versions": [
+            "0.x"
+        ]
+    },
+    "@microsoft/fast-tooling-react": {
+        "versions": [
+            "2.x"
+        ]
+    }
+}

@@ -11,7 +11,8 @@
   "workspaces": [
     "./packages/fast-tooling",
     "./packages/fast-tooling-react",
-    "./packages/fast-tooling-wasm"
+    "./packages/fast-tooling-wasm",
+    "./website"
   ],
   "repository": {
     "type": "git",

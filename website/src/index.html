@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <%= htmlWebpackPlugin.options.metaTemplate %> <%=
+        htmlWebpackPlugin.options.styleTemplate %>
+    </head>
+
+    <body>
+        <div class="mobile-overlay"></div>
+        <div>
+            <%= htmlWebpackPlugin.options.toolbarTemplate %>
+
+            <main>
+                <%= htmlWebpackPlugin.options.frontpage ? "" :
+                htmlWebpackPlugin.options.sidebar %>
+
+                <div>
+                    <%= htmlWebpackPlugin.options.versionInfo ?
+                    htmlWebpackPlugin.options.versionInfo : "" %> <%=
+                    htmlWebpackPlugin.options.content %>
+                </div>
+            </main>
+        </div>
+
+        <%= htmlWebpackPlugin.options.footerTemplate %>
+    </body>
+</html>
