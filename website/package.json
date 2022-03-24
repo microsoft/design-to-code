@@ -7,7 +7,8 @@
     "build:frontpage": "webpack",
     "build:docs": "node --experimental-json-modules ./build/docs.js",
     "build": "npm run build:frontpage && npm run build:docs",
-    "serve": "npm run build && node ./server.js"
+    "serve": "npm run build && node ./server.js",
+    "build:gh-pages": "node ./build/gh-pages.js"
   },
   "devDependencies": {
     "express": "^4.17.3",

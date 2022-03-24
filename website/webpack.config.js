@@ -22,7 +22,7 @@ export default {
         filename: "[name].js",
         clean: true,
     },
-    mode: process.env.NODE_ENV || "development",
+    mode: "production",
     module: {
         rules: [
             {
