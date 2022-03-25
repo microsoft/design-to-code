@@ -6,13 +6,13 @@
         htmlWebpackPlugin.options.styleTemplate %>
     </head>
 
-    <body>
+    <body class="<%= htmlWebpackPlugin.options.isFrontpage ? '' : 'docs' %>">
         <div class="mobile-overlay"></div>
         <div>
             <%= htmlWebpackPlugin.options.toolbarTemplate %>
 
             <main>
-                <%= htmlWebpackPlugin.options.frontpage ? "" :
+                <%= htmlWebpackPlugin.options.isFrontpage ? "" :
                 htmlWebpackPlugin.options.sidebar %>
 
                 <div>

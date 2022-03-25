@@ -5,6 +5,9 @@ import { template as templateResolver } from "lodash-es";
 import { ghPagesBaseUrl } from "./build/constants.js";
 
 const __dirname = process.cwd();
+const baseUrl = process.env.npm_lifecycle_event.includes("gh-pages")
+    ? ghPagesBaseUrl
+    : "";
 const appDir = path.resolve(__dirname, "./src");
 const outDir = path.resolve(__dirname, "./www");
 const frontpageContent = path.resolve(appDir, "templates/content.html");
@@ -46,23 +49,17 @@ export default {
             template: "./src/index.html",
             inject: true,
             content: templateResolver(fs.readFileSync(frontpageContent, "utf8"))({
-                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
-                    ? ghPagesBaseUrl
-                    : "",
+                baseUrl,
             }),
             toolbarTemplate: templateResolver(fs.readFileSync(toolbarTemplate, "utf8"))({
-                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
-                    ? ghPagesBaseUrl
-                    : "",
+                baseUrl,
             }),
             footerTemplate: templateResolver(fs.readFileSync(footerTemplate, "utf8"))(),
             styleTemplate: fs.readFileSync(styleTemplate, "utf8"),
             metaTemplate: templateResolver(fs.readFileSync(metaTemplate, "utf8"))({
-                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
-                    ? ghPagesBaseUrl
-                    : "",
+                baseUrl,
             }),
-            fontpage: true,
+            isFrontpage: true,
         }),
     ],
     resolve: {

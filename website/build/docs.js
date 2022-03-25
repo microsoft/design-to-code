@@ -226,7 +226,11 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                                     fs.readFileSync(footerTemplate, "utf8")
                                 )(),
                                 styleTemplate: fs.readFileSync(styleTemplate, "utf8"),
-                                metaTemplate: fs.readFileSync(metaTemplate, "utf8"),
+                                metaTemplate: templateResolver(
+                                    fs.readFileSync(metaTemplate, "utf8")
+                                )({
+                                    baseUrl,
+                                }),
                                 sidebar: templateResolver(
                                     fs.readFileSync(sidebarTemplate, "utf8")
                                 )({
