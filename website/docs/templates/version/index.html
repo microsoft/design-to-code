@@ -12,7 +12,9 @@
         </tr>
         <% _.forEach(versionInfo.otherAvailableVersions, function(version) { %>
         <tr>
-            <td><a href="/docs/<%- version.path %>"><%- version.label %></a></td>
+            <td>
+                <a href="<%- baseUrl %>/docs/<%- version.path %>"><%- version.label %></a>
+            </td>
         </tr>
         <% }); %>
     </tbody>

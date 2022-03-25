@@ -2,6 +2,7 @@ import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import fs from "fs-extra";
 import { template as templateResolver } from "lodash-es";
+import { ghPagesBaseUrl } from "./build/constants.js";
 
 const __dirname = process.cwd();
 const appDir = path.resolve(__dirname, "./src");
@@ -44,11 +45,23 @@ export default {
         new HtmlWebpackPlugin({
             template: "./src/index.html",
             inject: true,
-            content: fs.readFileSync(frontpageContent, "utf8"),
-            toolbarTemplate: fs.readFileSync(toolbarTemplate, "utf8"),
+            content: templateResolver(fs.readFileSync(frontpageContent, "utf8"))({
+                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
+                    ? ghPagesBaseUrl
+                    : "",
+            }),
+            toolbarTemplate: templateResolver(fs.readFileSync(toolbarTemplate, "utf8"))({
+                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
+                    ? ghPagesBaseUrl
+                    : "",
+            }),
             footerTemplate: templateResolver(fs.readFileSync(footerTemplate, "utf8"))(),
             styleTemplate: fs.readFileSync(styleTemplate, "utf8"),
-            metaTemplate: fs.readFileSync(metaTemplate, "utf8"),
+            metaTemplate: templateResolver(fs.readFileSync(metaTemplate, "utf8"))({
+                baseUrl: process.env.npm_lifecycle_event.includes("gh-pages")
+                    ? ghPagesBaseUrl
+                    : "",
+            }),
             fontpage: true,
         }),
     ],

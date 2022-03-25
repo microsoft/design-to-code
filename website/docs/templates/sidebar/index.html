@@ -15,7 +15,7 @@
             <li>
                 <a
                     class="<%- documentationItem.path === currentPath ? 'active' : '' %>"
-                    href="/docs/<%- documentationItem.path %>"
+                    href="<%- baseUrl %>/docs/<%- documentationItem.path %>"
                 >
                     <%- documentationItem.label %>
                 </a>
@@ -25,7 +25,7 @@
                     <li>
                         <a
                             class="<%- categoryItem.path === currentPath ? 'active' : '' %>"
-                            href="/docs/<%- categoryItem.path %>"
+                            href="<%- baseUrl %>/docs/<%- categoryItem.path %>"
                         >
                             <%- categoryItem.label %>
                         </a>

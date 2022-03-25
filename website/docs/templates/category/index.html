@@ -1,6 +1,6 @@
 <h1><%- label %></h1>
 <ul class="category">
     <% _.forEach(items, function(item) { %>
-    <li><a href="<%- item.path %>"><%- item.label %></a></li>
+    <li><a href="<%- baseUrl %>/docs/<%- item.path %>"><%- item.label %></a></li>
     <% }); %>
 </ul>

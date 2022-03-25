@@ -4,8 +4,10 @@ import fs from "fs-extra";
 import { marked } from "marked";
 import { template as templateResolver } from "lodash-es";
 import versions from "../docs/versions.json";
+import { ghPagesBaseUrl } from "./constants.js";
 
 const __dirname = process.cwd();
+const baseUrl = process.argv.includes("gh-pages") ? ghPagesBaseUrl : "";
 const docsDir = path.resolve(__dirname, "docs");
 const outDir = path.resolve(__dirname, "www/docs");
 const appDir = path.resolve(__dirname, "src");
@@ -118,17 +120,26 @@ function convertDocument(documentationItem, template, isVersionDoc) {
                         htmlWebpackPlugin: {
                             options: {
                                 content: html,
-                                toolbarTemplate: fs.readFileSync(toolbarTemplate, "utf8"),
+                                toolbarTemplate: templateResolver(
+                                    fs.readFileSync(toolbarTemplate, "utf8")
+                                )({
+                                    baseUrl,
+                                }),
                                 footerTemplate: templateResolver(
                                     fs.readFileSync(footerTemplate, "utf8")
                                 )(),
                                 styleTemplate: fs.readFileSync(styleTemplate, "utf8"),
-                                metaTemplate: fs.readFileSync(metaTemplate, "utf8"),
+                                metaTemplate: templateResolver(
+                                    fs.readFileSync(metaTemplate, "utf8")
+                                )({
+                                    baseUrl,
+                                }),
                                 sidebar: templateResolver(
                                     fs.readFileSync(sidebarTemplate, "utf8")
                                 )({
                                     sidebar,
                                     currentPath: documentationItem.path,
+                                    baseUrl,
                                 }),
                                 versionInfo:
                                     versionInfo !== null
@@ -136,8 +147,10 @@ function convertDocument(documentationItem, template, isVersionDoc) {
                                               fs.readFileSync(versionTemplate, "utf8")
                                           )({
                                               versionInfo,
+                                              baseUrl,
                                           })
                                         : null,
+                                baseUrl,
                             },
                         },
                     }),
@@ -202,8 +215,13 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                                 )({
                                     items,
                                     label: documentationItem.label,
+                                    baseUrl,
                                 }),
-                                toolbarTemplate: fs.readFileSync(toolbarTemplate, "utf8"),
+                                toolbarTemplate: templateResolver(
+                                    fs.readFileSync(toolbarTemplate, "utf8")
+                                )({
+                                    baseUrl,
+                                }),
                                 footerTemplate: templateResolver(
                                     fs.readFileSync(footerTemplate, "utf8")
                                 )(),
@@ -214,6 +232,7 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                                 )({
                                     sidebar,
                                     currentPath: documentationItem.path,
+                                    baseUrl,
                                 }),
                             },
                         },
@@ -273,8 +292,3 @@ fs.readFile(path.resolve(__dirname, "src/index.html"), "utf8", (err, data) => {
 
     writeToHTML(sidebar.documentation, data, false);
 });
-
-/**
- * TODO:
- * - styling
- */
