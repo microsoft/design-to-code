@@ -1,3 +1,3 @@
 # Introduction
 
-Welcome to FAST tooling, an ecosystem of packages which aim to allow live updating of HTML.
+Welcome to FAST tooling, an ecosystem of packages built for the purpose of live updating JSON data.
