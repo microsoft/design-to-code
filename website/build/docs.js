@@ -18,7 +18,6 @@ const metaTemplate = path.resolve(appDir, "templates/meta/index.html");
 const categoryTemplate = path.resolve(docsDir, "templates/category/index.html");
 const sidebarTemplate = path.resolve(docsDir, "templates/sidebar/index.html");
 const versionTemplate = path.resolve(docsDir, "templates/version/index.html");
-const docFiles = {};
 
 const type = {
     category: "category",
@@ -73,7 +72,7 @@ function getDocumentVersionAndPackageName(path) {
 }
 
 /**
- * Converts a document from markdown to HTML and adds it to the docFiles object
+ * Converts a document from markdown to HTML
  *
  * @param {object} documentationItem
  * @param {string} template
@@ -93,6 +92,7 @@ function convertDocument(documentationItem, template, isVersionDoc) {
 
                 if (versionAndPackageName !== null) {
                     versionInfo = {
+                        package: versionAndPackageName.package,
                         docVersion: versionAndPackageName.version,
                         otherAvailableVersions: versions[
                             versionAndPackageName.package
@@ -113,7 +113,7 @@ function convertDocument(documentationItem, template, isVersionDoc) {
                     };
                 }
 
-                docFiles[documentationItem.path] = {
+                const docFile = {
                     type: type.doc,
                     path: documentationItem.path,
                     html: templateResolver(template)({
@@ -155,6 +155,20 @@ function convertDocument(documentationItem, template, isVersionDoc) {
                         },
                     }),
                 };
+
+                fs.ensureDir(path.resolve(outDir, docFile.path))
+                    .then(() => {
+                        fs.writeFileSync(
+                            path.resolve(outDir, docFile.path, "index.html"),
+                            docFile.html
+                        );
+                    })
+                    .finally(() => {
+                        resolve();
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
 
                 if (versionInfo && versionInfo.otherAvailableVersions && !isVersionDoc) {
                     writeToHTML(
@@ -204,7 +218,8 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                     },
                     []
                 );
-                docFiles[documentationItem.path] = {
+
+                const catFile = {
                     type: type.category,
                     path: documentationItem.path,
                     html: templateResolver(template)({
@@ -215,6 +230,7 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                                 )({
                                     items,
                                     label: documentationItem.label,
+                                    description: documentationItem.description,
                                     baseUrl,
                                 }),
                                 toolbarTemplate: templateResolver(
@@ -242,9 +258,22 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                         },
                     }),
                 };
-                writeToHTML(documentationItem.items, template, isVersionDoc).then(() => {
-                    resolve();
-                });
+
+                fs.ensureDir(path.resolve(outDir, catFile.path))
+                    .then(() => {
+                        fs.writeFileSync(
+                            path.resolve(outDir, catFile.path, "index.html"),
+                            catFile.html
+                        );
+                    })
+                    .finally(() => {
+                        resolve();
+                    })
+                    .catch(err => {
+                        reject(err);
+                    });
+
+                writeToHTML(documentationItem.items, template, isVersionDoc);
             } else if (documentationItem.type === type.doc) {
                 convertDocument(documentationItem, template, isVersionDoc).then(() => {
                     resolve();
@@ -265,22 +294,8 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
  */
 function writeToHTML(category, template, isVersionDoc) {
     return new Promise((resolve, reject) => {
-        convertMarkdownDocumentation(category, template, isVersionDoc).then(() => {
-            for (const [, value] of Object.entries(docFiles)) {
-                fs.ensureDir(path.resolve(outDir, value.path))
-                    .then(() => {
-                        fs.writeFileSync(
-                            path.resolve(outDir, value.path, "index.html"),
-                            value.html
-                        );
-                    })
-                    .finally(() => {
-                        resolve();
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            }
+        convertMarkdownDocumentation(category, template, isVersionDoc, {}).then(() => {
+            resolve();
         });
     });
 }

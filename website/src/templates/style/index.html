@@ -12,7 +12,9 @@
         --font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
             Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
             sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        --background-color: #18191a;
+        --background-color-layer-1: #18191a;
+        --background-color-layer-2: #242526;
+        --background-color-layer-3: hsla(0, 0%, 100%, 0.05);
         --footer-background-color: #303846;
         --footer-color: #ebefd0;
         --footer-height: 220px;
@@ -26,19 +28,20 @@
         --table-cell-padding: 10px;
         --sidebar-border-color: #606770;
         --sidebar-width: 300px;
-        --sidebar-link-active: hsla(0, 0%, 100%, 0.05);
-        --sidebar-background-color: #242526;
-        --toolbar-background-color: #242526;
+        --sidebar-link-active-background-color: var(--background-color-layer-3);
+        --sidebar-background-color: var(--background-color-layer-2);
+        --toolbar-background-color: var(--background-color-layer-2);
         --toolbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
         --toolbar-height: 60px;
         --category-border-color: #444950;
-        --category-background-color: #242526;
+        --category-background-color: var(--background-color-layer-2);
         --category-border-radius: 10px;
+        --table-caption-background-color: var(--background-color-layer-3);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         min-height: 100vh;
-        background: var(--background-color);
+        background: var(--background-color-layer-1);
         color: var(--font-color);
         font-family: var(--font-family);
     }
@@ -105,12 +108,16 @@
     }
 
     .sidebar .active {
-        background: var(--sidebar-link-active);
+        background: var(--sidebar-link-active-background-color);
     }
 
     .category {
         margin: var(--spacing-vertical) 0;
         padding: 0;
+        display: flex;
+        row-gap: 15px;
+        column-gap: 15px;
+        flex-wrap: wrap;
     }
 
     .category li {
@@ -118,8 +125,8 @@
         background: var(--category-background-color);
         box-shadow: 0 1.5px 3px 0 rgb(0 0 0 / 15%);
         padding: 20px;
-        margin-bottom: 20px;
         border-radius: var(--category-border-radius);
+        width: 200px;
     }
 
     .category li a {
@@ -154,6 +161,10 @@
     main ul {
         padding-inline-start: 20px;
         padding-inline-end: 20px;
+    }
+
+    .content {
+        width: 100%;
     }
 
     .frontpage {
@@ -225,6 +236,14 @@
         margin: var(--spacing-vertical) 0;
         overflow: auto;
         box-sizing: border-box;
+    }
+
+    table caption {
+        display: inline-block;
+        margin-block-end: 15px;
+        background: var(--table-caption-background-color);
+        border-radius: 4px;
+        padding: 5px 10px;
     }
 
     table thead tr {
