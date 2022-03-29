@@ -4,10 +4,12 @@ on:
   push:
     branches: 
       - main
+      - gh-pages
       - 'features/**'
   pull_request:
     branches: 
       - main
+      - gh-pages
       - 'features/**'
 
 jobs:
