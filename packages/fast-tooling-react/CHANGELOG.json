@@ -2,6 +2,27 @@
   "name": "@microsoft/fast-tooling-react",
   "entries": [
     {
+      "date": "Wed, 30 Mar 2022 07:08:59 GMT",
+      "tag": "@microsoft/fast-tooling-react_v2.13.10",
+      "version": "2.13.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump lodash-es from 4.17.15 to 4.17.21",
+            "commit": "f0d871281b5fd9cc17926c81b2b41c99b7e96a4a"
+          },
+          {
+            "author": "beachball",
+            "package": "@microsoft/fast-tooling-react",
+            "comment": "Bump @microsoft/fast-tooling to v0.37.7",
+            "commit": "f0d871281b5fd9cc17926c81b2b41c99b7e96a4a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Feb 2022 07:09:11 GMT",
       "tag": "@microsoft/fast-tooling-react_v2.13.9",
       "version": "2.13.9",

@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 30 Mar 2022 07:08:59 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.7",
+      "version": "0.37.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Bump lodash-es from 4.17.15 to 4.17.21",
+            "commit": "f0d871281b5fd9cc17926c81b2b41c99b7e96a4a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Mar 2022 07:06:21 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.6",
       "version": "0.37.6",

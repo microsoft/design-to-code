@@ -1,8 +1,16 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 09 Feb 2022 07:09:11 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Mar 2022 07:08:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.7
+
+Wed, 30 Mar 2022 07:08:59 GMT
+
+### Patches
+
+- Bump lodash-es from 4.17.15 to 4.17.21 (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.6
 

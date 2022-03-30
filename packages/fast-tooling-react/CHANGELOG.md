@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 09 Feb 2022 07:09:11 GMT and should not be manually modified.
+This log was last generated on Wed, 30 Mar 2022 07:08:59 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.13.10
+
+Wed, 30 Mar 2022 07:08:59 GMT
+
+### Patches
+
+- Bump lodash-es from 4.17.15 to 4.17.21 (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.37.7
 
 ## 2.13.9
 
