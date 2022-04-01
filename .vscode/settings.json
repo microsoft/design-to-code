@@ -11,5 +11,6 @@
     "languageservice",
     "prettierrc",
     "williamw2"
-  ]
+  ],
+  "files.associations": { "*.json": "jsonc" }
 }
