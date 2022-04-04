@@ -1,5 +1,5 @@
 const path = require("path");
-
+const ResolveTypeScriptPlugin = require("resolve-typescript-plugin");
 const appDir = path.resolve(__dirname, "./app");
 const outDir = path.resolve(__dirname, "./dist");
 
@@ -32,6 +32,7 @@ module.exports = {
         ],
     },
     resolve: {
+        plugins: [new ResolveTypeScriptPlugin()],
         extensions: [".js", ".tsx", ".ts", ".json"],
     },
 };

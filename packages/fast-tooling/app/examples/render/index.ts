@@ -5,13 +5,13 @@ import {
     MessageSystemNavigationTypeAction,
     MessageSystemType,
 } from "../../../src";
-import { HTMLRender } from "../../../src/web-components/html-render/html-render";
-import { fastToolingHTMLRender } from "../../../src/web-components/html-render";
-import { fastToolingHTMLRenderLayerNavigation } from "../../../src/web-components/html-render-layer-navigation";
-import { fastToolingHTMLRenderLayerInlineEdit } from "../../../src/web-components/html-render-layer-inline-edit";
-import { nativeElementDefinitions } from "../../../src/definitions/";
-import dataDictionaryConfig from "../../../src/__test__/html-render/data-dictionary-config";
-import schemaDictionary from "../../../src/__test__/html-render/schema-dictionary";
+import { HTMLRender } from "../../../src/web-components/html-render/html-render.js";
+import { fastToolingHTMLRender } from "../../../src/web-components/html-render/index.js";
+import { fastToolingHTMLRenderLayerNavigation } from "../../../src/web-components/html-render-layer-navigation/index.js";
+import { fastToolingHTMLRenderLayerInlineEdit } from "../../../src/web-components/html-render-layer-inline-edit/index.js";
+import { nativeElementDefinitions } from "../../../src/definitions/index.js";
+import dataDictionaryConfig from "../../../src/__test__/html-render/data-dictionary-config.js";
+import schemaDictionary from "../../../src/__test__/html-render/schema-dictionary.js";
 import {
     ActivityType,
     HTMLRenderLayer,
