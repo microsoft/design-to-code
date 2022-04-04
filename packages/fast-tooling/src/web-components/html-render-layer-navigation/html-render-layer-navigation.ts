@@ -4,11 +4,11 @@ import {
     ActivityType,
     HTMLRenderLayer,
     OverlayPosition,
-} from "../html-render-layer/html-render-layer";
+} from "../html-render-layer/html-render-layer.js";
 import type {
     ConstructibleResizeObserver,
     ResizeObserverClassDefinition,
-} from "./resize-observer";
+} from "./resize-observer.js";
 
 // TODO: the Resize Observer related files are a temporary stopgap measure until
 // the package's Typescript version is upgraded to the latest version.

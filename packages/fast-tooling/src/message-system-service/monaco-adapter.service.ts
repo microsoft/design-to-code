@@ -3,13 +3,13 @@ import {
     InitializeMessageIncoming,
     MessageSystemType,
     SchemaDictionary,
-} from "../message-system";
+} from "../message-system/index.js";
 import { DataDictionary } from "../message-system/index.js";
 import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice.js";
 import {
     findMonacoEditorHTMLPositionByDictionaryId,
     mapDataDictionaryToMonacoEditorHTML,
-} from "../data-utilities/monaco";
+} from "../data-utilities/monaco.js";
 import {
     MessageSystemService,
     MessageSystemServiceConfig,

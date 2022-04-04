@@ -6,7 +6,7 @@
 
 import { get } from "lodash-es";
 import { IPosition } from "monaco-editor";
-import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser";
+import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser.js";
 import {
     Data,
     DataDictionary,

@@ -1,7 +1,7 @@
 import {
     WebComponentDefinition,
     WebComponentDefinitionTag,
-} from "../data-utilities/web-component";
+} from "../data-utilities/web-component.js";
 import { commonHTMLAttributes } from "./native/common.definition.js";
 import * as nativeElementDefinitions from "./native/index.js";
 

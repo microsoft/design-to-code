@@ -10,7 +10,7 @@ import {
     SchemaSetValidationMessageResponse,
     Validation,
     ValidationError,
-} from "../message-system";
+} from "../message-system/index.js";
 import { normalizeDataLocationToDotNotation } from "../data-utilities/location.js";
 
 export const ajvValidationId = "fast-tooling::ajv-validation-service";

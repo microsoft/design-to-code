@@ -7,7 +7,7 @@ import {
     ActivityType,
     HTMLRenderLayer,
     OverlayPosition,
-} from "../html-render-layer/html-render-layer";
+} from "../html-render-layer/html-render-layer.js";
 import { htmlRenderOriginatorId } from "../html-render/html-render.js";
 
 export enum CommitMode {

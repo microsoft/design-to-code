@@ -6,7 +6,7 @@ import {
     FontSize1Property,
     ForegroundColorProperty,
     LineHeight1Property,
-} from "../style/css-properties";
+} from "../style/css-properties.js";
 
 export const htmlRenderLayerNavigationStyles = (context, definition) => css`
     .navigation {

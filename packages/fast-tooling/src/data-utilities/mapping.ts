@@ -11,12 +11,12 @@ import {
     ElementDictionary,
     PropertyKeyword,
     ReservedElementMappingKeyword,
-} from "./types";
+} from "./types.js";
 import {
     WebComponentAttribute,
     WebComponentDefinition,
     WebComponentSlot,
-} from "./web-component";
+} from "./web-component.js";
 
 export const dataSetName: string = "data-fast-tooling-name";
 

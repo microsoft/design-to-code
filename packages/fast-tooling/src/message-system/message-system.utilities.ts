@@ -4,7 +4,7 @@ import {
     getDataUpdatedWithoutSourceData,
     getDataUpdatedWithSourceData,
     getNextActiveParentDictionaryId,
-} from "../data-utilities/relocate";
+} from "../data-utilities/relocate.js";
 import { DataType, normalizeDataLocationToDotNotation } from "../data-utilities/index.js";
 import { XOR } from "../data-utilities/type.utilities.js";
 import { getLinkedDataDictionary, getLinkedDataList } from "./data.js";
@@ -33,7 +33,7 @@ import {
     SchemaDictionaryMessageOutgoing,
     ValidationMessageIncoming,
     ValidationMessageOutgoing,
-} from "./message-system.utilities.props";
+} from "./message-system.utilities.props.js";
 import { getNavigationDictionary } from "./navigation.js";
 import { NavigationConfigDictionary } from "./navigation.props.js";
 import {
@@ -41,7 +41,7 @@ import {
     DataDictionary,
     LinkedData,
     RemoveLinkedDataParentType,
-} from "./data.props";
+} from "./data.props.js";
 import { defaultHistoryLimit } from "./history.js";
 import { History } from "./history.props.js";
 import { SchemaDictionary } from "./schema.props.js";

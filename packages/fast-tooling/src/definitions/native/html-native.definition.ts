@@ -6,7 +6,7 @@ import {
     WebComponentDefinition,
     WebComponentDefinitionTag,
     WebComponentSlot,
-} from "../../data-utilities/web-component";
+} from "../../data-utilities/web-component.js";
 import { voidElements } from "../../data-utilities/html-element.js";
 /**
  * These native html tag definitions are dependent on a devDependency on "vscode-web-custom-data"

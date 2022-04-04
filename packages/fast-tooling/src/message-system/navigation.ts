@@ -4,12 +4,12 @@ import {
     DataType,
     itemsKeyword,
     PropertyKeyword,
-} from "../data-utilities/types";
+} from "../data-utilities/types.js";
 import {
     NavigationConfig,
     NavigationConfigDictionary,
     TreeNavigation,
-} from "./navigation.props";
+} from "./navigation.props.js";
 import { SchemaDictionary } from "./schema.props.js";
 import { DataDictionary, Parent } from "./data.props.js";
 

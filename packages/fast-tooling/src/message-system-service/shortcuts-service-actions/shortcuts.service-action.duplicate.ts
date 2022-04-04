@@ -3,7 +3,7 @@ import {
     MessageSystem,
     MessageSystemDataTypeAction,
     MessageSystemType,
-} from "../../message-system";
+} from "../../message-system/index.js";
 import { shortcutsId } from "../shortcuts.service.js";
 import { AddLinkedDataDataMessageIncoming } from "../../message-system/message-system.utilities.props.js";
 

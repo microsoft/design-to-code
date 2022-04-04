@@ -6,18 +6,18 @@ import {
     htmlResolver,
     mapDataDictionary,
     ResolverConfig,
-} from "../../data-utilities/mapping";
+} from "../../data-utilities/mapping.js";
 import {
     WebComponentDefinition,
     WebComponentDefinitionTag,
-} from "../../data-utilities/web-component";
+} from "../../data-utilities/web-component.js";
 import {
     DataDictionary,
     MessageSystem,
     MessageSystemNavigationTypeAction,
     MessageSystemType,
     SchemaDictionary,
-} from "../../message-system";
+} from "../../message-system/index.js";
 import { ActivityType, HTMLRenderLayer } from "../html-render-layer/html-render-layer.js";
 
 /**
