@@ -2,8 +2,8 @@ import {
     WebComponentDefinition,
     WebComponentDefinitionTag,
 } from "../data-utilities/web-component";
-import { commonHTMLAttributes } from "./native/common.definition";
-import * as nativeElementDefinitions from "./native";
+import { commonHTMLAttributes } from "./native/common.definition.js";
+import * as nativeElementDefinitions from "./native/index.js";
 
 export function extendElementDefinitions(definitions: {
     [key: string]: WebComponentDefinition;

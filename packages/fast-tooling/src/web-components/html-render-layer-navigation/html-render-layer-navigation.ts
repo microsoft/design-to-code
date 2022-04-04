@@ -1,5 +1,5 @@
 import { attr, observable } from "@microsoft/fast-element";
-import { dataSetName } from "../../message-system/message-system.utilities";
+import { dataSetName } from "../../message-system/message-system.utilities.js";
 import {
     ActivityType,
     HTMLRenderLayer,

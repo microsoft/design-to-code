@@ -7,10 +7,15 @@
 import { get } from "lodash-es";
 import { IPosition } from "monaco-editor";
 import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser";
-import { Data, DataDictionary, LinkedData, SchemaDictionary } from "../message-system";
-import { dictionaryLink } from "../schemas";
-import { DataType, ReservedElementMappingKeyword } from "./types";
-import { Delimiter, voidElements } from "./html-element";
+import {
+    Data,
+    DataDictionary,
+    LinkedData,
+    SchemaDictionary,
+} from "../message-system/index.js";
+import { dictionaryLink } from "../schemas/index.js";
+import { DataType, ReservedElementMappingKeyword } from "./types.js";
+import { Delimiter, voidElements } from "./html-element.js";
 
 const whiteSpace = " ";
 const newline = "\n";

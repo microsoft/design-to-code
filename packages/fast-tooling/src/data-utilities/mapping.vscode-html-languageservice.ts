@@ -8,8 +8,8 @@ import {
     Parent,
     SchemaDictionary,
 } from "../message-system";
-import { DataType } from "./types";
-import { XOR } from "./type.utilities";
+import { DataType } from "./types.js";
+import { XOR } from "./type.utilities.js";
 
 export interface MapNodeToDataDictionaryConfig {
     /**

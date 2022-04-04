@@ -1,5 +1,5 @@
 import * as vscodeHTMLData from "vscode-web-custom-data/data/browsers.html-data.json";
-import { DataType } from "../../data-utilities";
+import { DataType } from "../../data-utilities/index.js";
 import {
     WebComponentAttribute,
     WebComponentAttributeValues,
@@ -7,7 +7,7 @@ import {
     WebComponentDefinitionTag,
     WebComponentSlot,
 } from "../../data-utilities/web-component";
-import { voidElements } from "../../data-utilities/html-element";
+import { voidElements } from "../../data-utilities/html-element.js";
 /**
  * These native html tag definitions are dependent on a devDependency on "vscode-web-custom-data"
  * specifically the browsers.html-data.json file which defines native html elements and their attributes

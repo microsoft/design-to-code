@@ -1,5 +1,5 @@
-import { CustomMessage, MessageSystemType } from "../message-system";
-import { DataDictionary } from "../message-system/data.props";
+import { CustomMessage, MessageSystemType } from "../message-system/index.js";
+import { DataDictionary } from "../message-system/data.props.js";
 import {
     ShortcutsAction,
     ShortcutsActionCallbackConfig,

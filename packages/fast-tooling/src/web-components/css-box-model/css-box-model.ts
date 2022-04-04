@@ -3,7 +3,7 @@ import {
     CSSDeclarationDictionary,
     mapCSSInlineStyleToCSSPropertyDictionary,
 } from "../../data-utilities/mapping.mdn-data";
-import { FormAssociatedCSSBoxModel } from "./css-box-model.form-associated";
+import { FormAssociatedCSSBoxModel } from "./css-box-model.form-associated.js";
 
 /**
  * Regular expression for identifying the length part of a shorthand CSS statement.

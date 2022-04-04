@@ -1,10 +1,10 @@
-import { DataType } from "../data-utilities/types";
-import { NavigationConfig, NavigationConfigDictionary } from "./navigation.props";
-import { Data, DataDictionary, LinkedData } from "./data.props";
-import { SchemaDictionary } from "./schema.props";
-import { MessageSystemType } from "./types";
-import { Validation, ValidationError } from "./validation.props";
-import { History } from "./history.props";
+import { DataType } from "../data-utilities/types.js";
+import { NavigationConfig, NavigationConfigDictionary } from "./navigation.props.js";
+import { Data, DataDictionary, LinkedData } from "./data.props.js";
+import { SchemaDictionary } from "./schema.props.js";
+import { MessageSystemType } from "./types.js";
+import { Validation, ValidationError } from "./validation.props.js";
+import { History } from "./history.props.js";
 
 /**
  * Note on nomenclature: incoming messages are being sent to, and recieved, by the message system

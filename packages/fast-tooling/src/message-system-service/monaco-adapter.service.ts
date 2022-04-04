@@ -4,8 +4,8 @@ import {
     MessageSystemType,
     SchemaDictionary,
 } from "../message-system";
-import { DataDictionary } from "../message-system";
-import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice";
+import { DataDictionary } from "../message-system/index.js";
+import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice.js";
 import {
     findMonacoEditorHTMLPositionByDictionaryId,
     mapDataDictionaryToMonacoEditorHTML,

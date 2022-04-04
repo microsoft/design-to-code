@@ -1,4 +1,4 @@
-import { FileAction } from "../file-action/";
+import { FileAction } from "../file-action/index.js";
 
 /**
  * Implementation of a FileAction that converts files into Object URLs.

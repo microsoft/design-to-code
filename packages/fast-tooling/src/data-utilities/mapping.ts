@@ -1,6 +1,11 @@
 import { camelCase, cloneDeep, get } from "lodash-es";
-import { Data, DataDictionary, LinkedData, SchemaDictionary } from "../message-system";
-import { linkedDataSchema } from "../schemas";
+import {
+    Data,
+    DataDictionary,
+    LinkedData,
+    SchemaDictionary,
+} from "../message-system/index.js";
+import { linkedDataSchema } from "../schemas/index.js";
 import {
     DataType,
     ElementDictionary,

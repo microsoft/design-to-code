@@ -10,8 +10,8 @@ import {
     NavigationConfigDictionary,
     TreeNavigation,
 } from "./navigation.props";
-import { SchemaDictionary } from "./schema.props";
-import { DataDictionary, Parent } from "./data.props";
+import { SchemaDictionary } from "./schema.props.js";
+import { DataDictionary, Parent } from "./data.props.js";
 
 function getNavigationRecursive(
     schema: any,

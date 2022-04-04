@@ -18,7 +18,7 @@ import {
     MessageSystemType,
     SchemaDictionary,
 } from "../../message-system";
-import { ActivityType, HTMLRenderLayer } from "../html-render-layer/html-render-layer";
+import { ActivityType, HTMLRenderLayer } from "../html-render-layer/html-render-layer.js";
 
 /**
  * An ID that signifies the origin of a MessageSystem message.

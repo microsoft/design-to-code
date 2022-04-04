@@ -1,6 +1,6 @@
-import { DataDictionary } from "./data.props";
-import { SchemaDictionary } from "./schema.props";
-import { InitializeMessageIncoming } from "./message-system.utilities.props";
+import { DataDictionary } from "./data.props.js";
+import { SchemaDictionary } from "./schema.props.js";
+import { InitializeMessageIncoming } from "./message-system.utilities.props.js";
 
 export interface Register<C = {}> {
     /**

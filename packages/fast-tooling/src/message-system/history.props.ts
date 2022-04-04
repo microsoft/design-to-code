@@ -1,4 +1,4 @@
-import { MessageSystemIncoming } from "./message-system.utilities.props";
+import { MessageSystemIncoming } from "./message-system.utilities.props.js";
 
 export interface HistoryItem {
     next: MessageSystemIncoming;

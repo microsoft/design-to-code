@@ -1,4 +1,4 @@
-import { CustomMessage } from "./message-system.utilities.props";
+import { CustomMessage } from "./message-system.utilities.props.js";
 
 export interface Validation {
     [dictionaryId: string]: ValidationError[];

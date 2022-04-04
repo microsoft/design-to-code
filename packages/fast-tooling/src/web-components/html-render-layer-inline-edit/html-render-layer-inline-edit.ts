@@ -1,11 +1,14 @@
 import { attr, observable } from "@microsoft/fast-element";
-import { MessageSystemDataTypeAction, MessageSystemType } from "../../message-system";
+import {
+    MessageSystemDataTypeAction,
+    MessageSystemType,
+} from "../../message-system/index.js";
 import {
     ActivityType,
     HTMLRenderLayer,
     OverlayPosition,
 } from "../html-render-layer/html-render-layer";
-import { htmlRenderOriginatorId } from "../html-render/html-render";
+import { htmlRenderOriginatorId } from "../html-render/html-render.js";
 
 export enum CommitMode {
     onBlurOrEnter = "on-blur-or-enter",
