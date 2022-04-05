@@ -1,7 +1,7 @@
 import { html, ref, ViewTemplate } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
 import { TextField } from "@microsoft/fast-components";
-import { ColorPicker } from "./color-picker";
+import { ColorPicker } from "./color-picker.js";
 
 /**
  * The template for the color picker component.

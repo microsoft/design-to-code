@@ -1,7 +1,7 @@
 import { Tooltip } from "@microsoft/fast-components";
 import { html, repeat } from "@microsoft/fast-element";
 import { ElementDefinitionContext, Switch } from "@microsoft/fast-foundation";
-import { CSSLayout } from "./css-layout";
+import { CSSLayout } from "./css-layout.js";
 
 /**
  * CSS flex-direction icons

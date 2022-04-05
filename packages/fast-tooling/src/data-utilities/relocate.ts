@@ -4,9 +4,9 @@
  */
 
 import { cloneDeep, get, set, unset } from "lodash-es";
-import { DataDictionary } from "../message-system";
-import { normalizeDataLocationToDotNotation } from "./location";
-import { DataType } from "./types";
+import { DataDictionary } from "../message-system/index.js";
+import { normalizeDataLocationToDotNotation } from "./location.js";
+import { DataType } from "./types.js";
 
 interface UpdateDataWithSourceConfig {
     targetDataLocation: string;

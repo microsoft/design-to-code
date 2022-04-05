@@ -1,7 +1,7 @@
 import { attr, observable } from "@microsoft/fast-element";
 import { isHTMLElement } from "@microsoft/fast-web-utilities";
-import { FileAction } from "../file-action/";
-import { FormAssociatedFile } from "./file.form-associated";
+import { FileAction } from "../file-action/index.js";
+import { FormAssociatedFile } from "./file.form-associated.js";
 
 /**
  * Web component for presenting a file picker dialog and perform some action on the selected files.

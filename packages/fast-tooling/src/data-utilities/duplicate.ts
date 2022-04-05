@@ -1,6 +1,6 @@
 import { cloneDeep, get, set } from "lodash-es";
-import { normalizeDataLocationToDotNotation } from "./location";
-import { isInArray } from "./array";
+import { normalizeDataLocationToDotNotation } from "./location.js";
+import { isInArray } from "./array.js";
 
 function duplicateDataInArray(data: unknown, sourceDataLocation: string): void {
     const sourceData: unknown = get(data as object, sourceDataLocation);

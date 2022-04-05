@@ -7,9 +7,9 @@ import {
     ShortcutsActionUndo,
     ShortcutsActionRedo,
 } from "../../../src";
-import { Shortcuts } from "../../../src/message-system-service/shortcuts.service";
-import dataDictionaryConfig from "./data-dictionary-config";
-import schemaDictionary from "./schema-dictionary";
+import { Shortcuts } from "../../../src/message-system-service/shortcuts.service.js";
+import dataDictionaryConfig from "./data-dictionary-config.js";
+import schemaDictionary from "./schema-dictionary.js";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");

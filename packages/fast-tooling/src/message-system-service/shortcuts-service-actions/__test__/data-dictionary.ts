@@ -1,4 +1,4 @@
-import { DataDictionary } from "../../../message-system/data.props";
+import { DataDictionary } from "../../../message-system/data.props.js";
 
 export default [
     {

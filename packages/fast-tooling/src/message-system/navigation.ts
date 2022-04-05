@@ -4,14 +4,14 @@ import {
     DataType,
     itemsKeyword,
     PropertyKeyword,
-} from "../data-utilities/types";
+} from "../data-utilities/types.js";
 import {
     NavigationConfig,
     NavigationConfigDictionary,
     TreeNavigation,
-} from "./navigation.props";
-import { SchemaDictionary } from "./schema.props";
-import { DataDictionary, Parent } from "./data.props";
+} from "./navigation.props.js";
+import { SchemaDictionary } from "./schema.props.js";
+import { DataDictionary, Parent } from "./data.props.js";
 
 function getNavigationRecursive(
     schema: any,

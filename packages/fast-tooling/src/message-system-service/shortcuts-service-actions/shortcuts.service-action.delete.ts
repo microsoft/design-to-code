@@ -1,10 +1,10 @@
-import { ShortcutsAction } from "../shortcuts.service-action";
+import { ShortcutsAction } from "../shortcuts.service-action.js";
 import {
     MessageSystem,
     MessageSystemDataTypeAction,
     MessageSystemType,
-} from "../../message-system";
-import { shortcutsId } from "../shortcuts.service";
+} from "../../message-system/index.js";
+import { shortcutsId } from "../shortcuts.service.js";
 
 /**
  * @alpha

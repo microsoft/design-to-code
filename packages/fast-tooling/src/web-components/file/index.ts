@@ -1,6 +1,6 @@
-import { File } from "./file";
-import { FileTemplate as template } from "./file.template";
-import { FileStyles as styles } from "./file.styles";
+import { File } from "./file.js";
+import { FileTemplate as template } from "./file.template.js";
+import { FileStyles as styles } from "./file.styles.js";
 
 /**
  * @alpha

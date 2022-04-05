@@ -1,5 +1,5 @@
-import { WebComponentAttribute } from "../../data-utilities/web-component";
-import { DataType } from "../../data-utilities";
+import { WebComponentAttribute } from "../../data-utilities/web-component.js";
+import { DataType } from "../../data-utilities/index.js";
 
 export const commonHTMLAttributes: WebComponentAttribute[] = [
     {

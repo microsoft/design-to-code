@@ -1,4 +1,4 @@
-import { DataType } from "./types";
+import { DataType } from "./types.js";
 
 export type WebComponentAttributeValueType = string | number;
 

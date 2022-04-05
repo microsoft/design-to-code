@@ -1,6 +1,6 @@
-import { HTMLRender, htmlRenderOriginatorId } from "./html-render";
-import { htmlRenderTemplate as template } from "./html-render.template";
-import { htmlRenderStyles as styles } from "./html-render.styles";
+import { HTMLRender, htmlRenderOriginatorId } from "./html-render.js";
+import { htmlRenderTemplate as template } from "./html-render.template.js";
+import { htmlRenderStyles as styles } from "./html-render.styles.js";
 
 /**
  * A web component for rendering HTML using the MessageSystem.

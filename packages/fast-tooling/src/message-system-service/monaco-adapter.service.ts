@@ -3,25 +3,25 @@ import {
     InitializeMessageIncoming,
     MessageSystemType,
     SchemaDictionary,
-} from "../message-system";
-import { DataDictionary } from "../message-system";
-import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice";
+} from "../message-system/index.js";
+import { DataDictionary } from "../message-system/index.js";
+import { mapVSCodeHTMLAndDataDictionaryToDataDictionary } from "../data-utilities/mapping.vscode-html-languageservice.js";
 import {
     findMonacoEditorHTMLPositionByDictionaryId,
     mapDataDictionaryToMonacoEditorHTML,
-} from "../data-utilities/monaco";
+} from "../data-utilities/monaco.js";
 import {
     MessageSystemService,
     MessageSystemServiceConfig,
-} from "./message-system.service";
+} from "./message-system.service.js";
 import {
     MonacoAdapterAction,
     MonacoAdapterActionCallbackConfig,
-} from "./monaco-adapter.service-action";
+} from "./monaco-adapter.service-action.js";
 import {
     findDictionaryIdParents,
     findUpdatedDictionaryId,
-} from "./monaco-adapter.service.utilities";
+} from "./monaco-adapter.service.utilities.js";
 
 export type actionCallback = () => void;
 
