@@ -15,7 +15,7 @@ module.exports = {
         main: path.resolve(appDir, "index.ts"),
     },
     resolve: {
-        plugins: [ new ResolveTypeScriptPlugin()],
+        plugins: [new ResolveTypeScriptPlugin()],
         extensions: [".ts", ".js"],
     },
     output: {
