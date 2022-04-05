@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Added file extensions to import and export paths",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "nicholasrice@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}
