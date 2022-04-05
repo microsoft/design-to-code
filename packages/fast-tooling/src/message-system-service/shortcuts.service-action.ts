@@ -3,7 +3,7 @@ import { DataDictionary } from "../message-system/data.props.js";
 import {
     MessageSystemServiceAction,
     MessageSystemServiceActionConfig,
-} from "./message-system.service-action";
+} from "./message-system.service-action.js";
 import { ActionNotFound } from "./message-system.service.js";
 
 export interface MetaKey {

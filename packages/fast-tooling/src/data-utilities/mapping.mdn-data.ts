@@ -12,7 +12,7 @@ import {
     MDNCSSPropertyConfig,
     MDNCSSSyntaxConfig,
     status,
-} from "./mapping.mdn-data.types";
+} from "./mapping.mdn-data.types.js";
 import { XOR } from "./type.utilities.js";
 
 /* eslint-disable  @typescript-eslint/no-use-before-define */

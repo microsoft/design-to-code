@@ -2,7 +2,7 @@ import { observable } from "@microsoft/fast-element";
 import {
     CSSDeclarationDictionary,
     mapCSSInlineStyleToCSSPropertyDictionary,
-} from "../../data-utilities/mapping.mdn-data";
+} from "../../data-utilities/mapping.mdn-data.js";
 import { FormAssociatedCSSBoxModel } from "./css-box-model.form-associated.js";
 
 /**

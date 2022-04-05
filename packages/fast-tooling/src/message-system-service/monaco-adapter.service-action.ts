@@ -3,7 +3,7 @@ import { MessageSystemType } from "../message-system/index.js";
 import {
     MessageSystemServiceAction,
     MessageSystemServiceActionConfig,
-} from "./message-system.service-action";
+} from "./message-system.service-action.js";
 
 export interface MonacoAdapterActionCallbackConfig {
     /**

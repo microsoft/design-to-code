@@ -13,15 +13,15 @@ import {
 import {
     MessageSystemService,
     MessageSystemServiceConfig,
-} from "./message-system.service";
+} from "./message-system.service.js";
 import {
     MonacoAdapterAction,
     MonacoAdapterActionCallbackConfig,
-} from "./monaco-adapter.service-action";
+} from "./monaco-adapter.service-action.js";
 import {
     findDictionaryIdParents,
     findUpdatedDictionaryId,
-} from "./monaco-adapter.service.utilities";
+} from "./monaco-adapter.service.utilities.js";
 
 export type actionCallback = () => void;
 
