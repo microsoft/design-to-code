@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Added missing file extension in css layout web component import",
-  "packageName": "@microsoft/fast-tooling",
-  "email": "nicholasrice@users.noreply.github.com",
-  "dependentChangeType": "patch"
-}

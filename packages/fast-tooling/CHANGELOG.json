@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 06 Apr 2022 00:54:27 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.9",
+      "version": "0.37.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "nicholasrice@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added missing file extension in css layout web component import",
+            "commit": "b8ae240854e6cab4065c838da5010c1c061a7aaa"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 05 Apr 2022 17:46:00 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.8",
       "version": "0.37.8",
