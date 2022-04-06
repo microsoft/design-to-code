@@ -11,7 +11,7 @@ import {
     flexWrapOptions,
     justifyContentOptions,
     ObservableFlexboxCSSPropertyName,
-} from "./css-layout.css-properties";
+} from "./css-layout.css-properties.js";
 
 /**
  * A CSSLayout Custom HTML Element.
