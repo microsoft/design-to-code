@@ -19,7 +19,8 @@ module.exports = {
             "styles": "never",
             "properties": "never",
             "syntax":" never",
-            "types": "never"
+            "types": "never",
+            "css-properties": "never"
         }]
     },
 };
