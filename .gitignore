@@ -61,3 +61,9 @@ temp/
 # Ignore Build Artefacts
 bin/
 obj/
+
+# Ignore the docs folder
+docs/*
+
+# Except the docs folder README
+!docs/README.md
