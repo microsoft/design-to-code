@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs-extra";
 import { marked } from "marked";
 import { template as templateResolver } from "lodash-es";
-import versions from "../docs/versions.json";
+import versions from "../docs/versions.json" assert { type: "json" };
 import { ghPagesBaseUrl } from "./constants.js";
 
 const __dirname = process.cwd();
