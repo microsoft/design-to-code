@@ -2,6 +2,51 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 06 Apr 2022 00:54:27 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.9",
+      "version": "0.37.9",
+      "comments": {
+        "patch": [
+          {
+            "author": "nicholasrice@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added missing file extension in css layout web component import",
+            "commit": "b8ae240854e6cab4065c838da5010c1c061a7aaa"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 05 Apr 2022 17:46:00 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.8",
+      "version": "0.37.8",
+      "comments": {
+        "patch": [
+          {
+            "author": "nicholasrice@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Added file extensions to import and export paths",
+            "commit": "a1941c58729d0d9641a9eef8c6d1a69b640d32c6"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 30 Mar 2022 07:08:59 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.7",
+      "version": "0.37.7",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Bump lodash-es from 4.17.15 to 4.17.21",
+            "commit": "f0d871281b5fd9cc17926c81b2b41c99b7e96a4a"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Mar 2022 07:06:21 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.6",
       "version": "0.37.6",

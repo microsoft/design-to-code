@@ -1,3 +1,3 @@
-export * from "./path.definition";
-export * from "./svg.definition";
-export * from "./html-native.definition";
+export * from "./path.definition.js";
+export * from "./svg.definition.js";
+export * from "./html-native.definition.js";

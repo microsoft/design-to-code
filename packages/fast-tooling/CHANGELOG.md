@@ -1,8 +1,32 @@
 # Change Log - @microsoft/fast-tooling
 
-This log was last generated on Wed, 09 Feb 2022 07:09:11 GMT and should not be manually modified.
+This log was last generated on Wed, 06 Apr 2022 00:54:27 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.37.9
+
+Wed, 06 Apr 2022 00:54:27 GMT
+
+### Patches
+
+- Added missing file extension in css layout web component import (nicholasrice@users.noreply.github.com)
+
+## 0.37.8
+
+Tue, 05 Apr 2022 17:46:00 GMT
+
+### Patches
+
+- Added file extensions to import and export paths (nicholasrice@users.noreply.github.com)
+
+## 0.37.7
+
+Wed, 30 Mar 2022 07:08:59 GMT
+
+### Patches
+
+- Bump lodash-es from 4.17.15 to 4.17.21 (7559015+janechu@users.noreply.github.com)
 
 ## 0.37.6
 

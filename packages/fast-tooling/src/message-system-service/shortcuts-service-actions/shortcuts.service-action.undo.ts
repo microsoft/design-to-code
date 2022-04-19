@@ -1,7 +1,7 @@
-import { ShortcutsAction } from "../shortcuts.service-action";
-import { MessageSystem, MessageSystemType } from "../../message-system";
-import { shortcutsId } from "../shortcuts.service";
-import { MessageSystemHistoryTypeAction } from "../../message-system/message-system.utilities.props";
+import { ShortcutsAction } from "../shortcuts.service-action.js";
+import { MessageSystem, MessageSystemType } from "../../message-system/index.js";
+import { shortcutsId } from "../shortcuts.service.js";
+import { MessageSystemHistoryTypeAction } from "../../message-system/message-system.utilities.props.js";
 
 /**
  * @alpha

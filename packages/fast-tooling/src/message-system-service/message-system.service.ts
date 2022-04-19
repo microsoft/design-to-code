@@ -1,6 +1,6 @@
-import { MessageSystem } from "../message-system";
-import { Register } from "../message-system/message-system.props";
-import { MessageSystemServiceAction } from "./message-system.service-action";
+import { MessageSystem } from "../message-system/index.js";
+import { Register } from "../message-system/message-system.props.js";
+import { MessageSystemServiceAction } from "./message-system.service-action.js";
 
 export interface IdentifiedAction {
     /**

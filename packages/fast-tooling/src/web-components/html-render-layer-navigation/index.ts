@@ -1,6 +1,6 @@
-import { HTMLRenderLayerNavigation } from "./html-render-layer-navigation";
-import { htmlRenderLayerNavigationTemplate as template } from "./html-render-layer-navigation.template";
-import { htmlRenderLayerNavigationStyles as styles } from "./html-render-layer-navigation.style";
+import { HTMLRenderLayerNavigation } from "./html-render-layer-navigation.js";
+import { htmlRenderLayerNavigationTemplate as template } from "./html-render-layer-navigation.template.js";
+import { htmlRenderLayerNavigationStyles as styles } from "./html-render-layer-navigation.style.js";
 
 /**
  * A web component for use in the default slot of the \<html-render\> web component.

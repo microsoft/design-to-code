@@ -4,6 +4,7 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ResolveTypeScriptPlugin = require("resolve-typescript-plugin");
 
 const appDir = path.resolve(__dirname, "./");
 const outDir = path.resolve(__dirname, "./www");
@@ -15,6 +16,7 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".js"],
+        plugins: [new ResolveTypeScriptPlugin()],
     },
     output: {
         path: outDir,

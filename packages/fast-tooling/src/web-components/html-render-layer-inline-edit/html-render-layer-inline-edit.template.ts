@@ -1,5 +1,5 @@
 import { html, ref } from "@microsoft/fast-element";
-import { HTMLRenderLayerInlineEdit } from "./html-render-layer-inline-edit";
+import { HTMLRenderLayerInlineEdit } from "./html-render-layer-inline-edit.js";
 
 export const htmlRenderLayerInlineEditTemplate = html<HTMLRenderLayerInlineEdit>`
     <div class="edit">

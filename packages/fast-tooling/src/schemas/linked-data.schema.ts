@@ -1,4 +1,4 @@
-import { linkedDataPluginId, pluginIdKeyword } from "./keywords";
+import { linkedDataPluginId, pluginIdKeyword } from "./keywords.js";
 
 export const dictionaryLink: string = "@microsoft/fast-tooling/dictionary-link";
 

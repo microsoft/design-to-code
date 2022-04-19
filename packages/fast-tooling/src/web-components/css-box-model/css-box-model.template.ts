@@ -1,6 +1,6 @@
 import { html } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
-import { CSSBoxModel, expandableSection } from "./css-box-model";
+import { CSSBoxModel, expandableSection } from "./css-box-model.js";
 
 const sidesButton = html`
     <svg

@@ -1,5 +1,5 @@
 import { get } from "lodash-es";
-import { normalizeDataLocationToDotNotation } from "./location";
+import { normalizeDataLocationToDotNotation } from "./location.js";
 
 /**
  * The target is in an array

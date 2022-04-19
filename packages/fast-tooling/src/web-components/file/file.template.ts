@@ -1,7 +1,7 @@
 import { html, slotted, ViewTemplate } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
 import { Button } from "@microsoft/fast-components";
-import { File } from "./file";
+import { File } from "./file.js";
 
 /**
  * The template for the file component.

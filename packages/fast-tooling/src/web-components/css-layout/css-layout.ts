@@ -1,8 +1,8 @@
 import { observable } from "@microsoft/fast-element";
 import { keySpace } from "@microsoft/fast-web-utilities";
-import { mapCSSInlineStyleToCSSPropertyDictionary } from "../../data-utilities/mapping.mdn-data";
-import { fastToolingPrefix } from "../utilities";
-import { FormAssociatedCSSLayout } from "./css-layout.form-associated";
+import { mapCSSInlineStyleToCSSPropertyDictionary } from "../../data-utilities/mapping.mdn-data.js";
+import { fastToolingPrefix } from "../utilities/index.js";
+import { FormAssociatedCSSLayout } from "./css-layout.form-associated.js";
 import {
     alignContentOptions,
     alignItemsOptions,
@@ -11,7 +11,7 @@ import {
     flexWrapOptions,
     justifyContentOptions,
     ObservableFlexboxCSSPropertyName,
-} from "./css-layout.css-properties";
+} from "./css-layout.css-properties.js";
 
 /**
  * A CSSLayout Custom HTML Element.
