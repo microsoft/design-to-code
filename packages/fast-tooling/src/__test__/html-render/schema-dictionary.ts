@@ -1,5 +1,5 @@
-import { linkedDataSchema } from "../../";
-import { ReservedElementMappingKeyword } from "../../data-utilities/types";
+import { linkedDataSchema } from "../../schemas/index.js";
+import { ReservedElementMappingKeyword } from "../../data-utilities/types.js";
 
 export default {
     div: {

@@ -5,7 +5,7 @@ import {
     LinkedData,
     LinkedDataDictionaryConfig,
     LinkedDataDictionaryUpdate,
-} from "./data.props";
+} from "./data.props.js";
 
 let linkedDataItemIndex = 0;
 

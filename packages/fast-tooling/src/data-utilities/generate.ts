@@ -1,4 +1,4 @@
-import { CombiningKeyword, DataType, PropertyKeyword } from "./types";
+import { CombiningKeyword, DataType, PropertyKeyword } from "./types.js";
 
 /**
  * This file contains all functionality for generating data

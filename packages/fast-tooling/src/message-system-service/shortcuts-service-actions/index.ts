@@ -1,7 +1,7 @@
-import ShortcutsActionDelete from "./shortcuts.service-action.delete";
-import ShortcutsActionDuplicate from "./shortcuts.service-action.duplicate";
-import ShortcutsActionRedo from "./shortcuts.service-action.redo";
-import ShortcutsActionUndo from "./shortcuts.service-action.undo";
+import ShortcutsActionDelete from "./shortcuts.service-action.delete.js";
+import ShortcutsActionDuplicate from "./shortcuts.service-action.duplicate.js";
+import ShortcutsActionRedo from "./shortcuts.service-action.redo.js";
+import ShortcutsActionUndo from "./shortcuts.service-action.undo.js";
 
 export {
     ShortcutsActionDelete,

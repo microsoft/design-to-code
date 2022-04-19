@@ -1,5 +1,5 @@
-import { WebComponentDefinition } from "../../data-utilities/web-component";
-import { DataType } from "../../data-utilities";
+import { WebComponentDefinition } from "../../data-utilities/web-component.js";
+import { DataType } from "../../data-utilities/index.js";
 
 export const pathDefinition: WebComponentDefinition = {
     version: 1,

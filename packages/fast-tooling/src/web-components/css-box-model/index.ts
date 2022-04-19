@@ -1,6 +1,6 @@
-import { cssBoxModelTemplate as template } from "./css-box-model.template";
-import { cssBoxModelStyles as styles } from "./css-box-model.style";
-import { CSSBoxModel } from "./css-box-model";
+import { cssBoxModelTemplate as template } from "./css-box-model.template.js";
+import { cssBoxModelStyles as styles } from "./css-box-model.style.js";
+import { CSSBoxModel } from "./css-box-model.js";
 
 /**
  * A web component used for updating CSS box model values.
@@ -15,4 +15,4 @@ export const fastToolingCSSBoxModel = CSSBoxModel.compose({
     styles,
 });
 
-export { cssBoxModelCssProperties } from "./css-box-model.css-properties";
+export { cssBoxModelCssProperties } from "./css-box-model.css-properties.js";

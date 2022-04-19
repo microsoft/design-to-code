@@ -1,9 +1,9 @@
 import { uniqueId } from "lodash-es";
-import { XOR } from "../data-utilities/type.utilities";
-import { MessageSystemType } from "./types";
-import { defaultHistoryLimit } from "./history";
-import { Initialize, MessageSystemConfig, Register } from "./message-system.props";
-import { MessageSystemIncoming } from "./message-system.utilities.props";
+import { XOR } from "../data-utilities/type.utilities.js";
+import { MessageSystemType } from "./types.js";
+import { defaultHistoryLimit } from "./history.js";
+import { Initialize, MessageSystemConfig, Register } from "./message-system.props.js";
+import { MessageSystemIncoming } from "./message-system.utilities.props.js";
 
 /**
  * The registration used for the message system

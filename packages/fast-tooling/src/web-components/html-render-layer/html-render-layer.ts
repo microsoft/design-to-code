@@ -5,7 +5,7 @@ import {
     MessageSystem,
     MessageSystemType,
     SchemaDictionary,
-} from "../../message-system";
+} from "../../message-system/index.js";
 
 export enum ActivityType {
     hover = "hover",

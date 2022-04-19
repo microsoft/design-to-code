@@ -1,13 +1,13 @@
-import { CustomMessage, MessageSystemType } from "../message-system";
-import { DataDictionary } from "../message-system/data.props";
+import { CustomMessage, MessageSystemType } from "../message-system/index.js";
+import { DataDictionary } from "../message-system/data.props.js";
 import {
     ShortcutsAction,
     ShortcutsActionCallbackConfig,
-} from "./shortcuts.service-action";
+} from "./shortcuts.service-action.js";
 import {
     MessageSystemService,
     MessageSystemServiceConfig,
-} from "./message-system.service";
+} from "./message-system.service.js";
 
 export type shortcutsMessageSystemAction = "initialize";
 export type shortcutsMessageSystemListenerType = "keydown";

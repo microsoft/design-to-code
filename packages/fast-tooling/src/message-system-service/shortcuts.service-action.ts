@@ -1,10 +1,10 @@
-import { XOR } from "../data-utilities/type.utilities";
-import { DataDictionary } from "../message-system/data.props";
+import { XOR } from "../data-utilities/type.utilities.js";
+import { DataDictionary } from "../message-system/data.props.js";
 import {
     MessageSystemServiceAction,
     MessageSystemServiceActionConfig,
-} from "./message-system.service-action";
-import { ActionNotFound } from "./message-system.service";
+} from "./message-system.service-action.js";
+import { ActionNotFound } from "./message-system.service.js";
 
 export interface MetaKey {
     metaKey: true;

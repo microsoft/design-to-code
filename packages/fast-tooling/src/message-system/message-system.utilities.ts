@@ -1,14 +1,14 @@
 import { cloneDeep, get, set, uniqueId } from "lodash-es";
-import { getDataWithDuplicate } from "../data-utilities/duplicate";
+import { getDataWithDuplicate } from "../data-utilities/duplicate.js";
 import {
     getDataUpdatedWithoutSourceData,
     getDataUpdatedWithSourceData,
     getNextActiveParentDictionaryId,
-} from "../data-utilities/relocate";
-import { DataType, normalizeDataLocationToDotNotation } from "../data-utilities";
-import { XOR } from "../data-utilities/type.utilities";
-import { getLinkedDataDictionary, getLinkedDataList } from "./data";
-import { MessageSystemType } from "./types";
+} from "../data-utilities/relocate.js";
+import { DataType, normalizeDataLocationToDotNotation } from "../data-utilities/index.js";
+import { XOR } from "../data-utilities/type.utilities.js";
+import { getLinkedDataDictionary, getLinkedDataList } from "./data.js";
+import { MessageSystemType } from "./types.js";
 import {
     CustomMessage,
     DataMessageIncoming,
@@ -33,20 +33,20 @@ import {
     SchemaDictionaryMessageOutgoing,
     ValidationMessageIncoming,
     ValidationMessageOutgoing,
-} from "./message-system.utilities.props";
-import { getNavigationDictionary } from "./navigation";
-import { NavigationConfigDictionary } from "./navigation.props";
+} from "./message-system.utilities.props.js";
+import { getNavigationDictionary } from "./navigation.js";
+import { NavigationConfigDictionary } from "./navigation.props.js";
 import {
     Data,
     DataDictionary,
     LinkedData,
     RemoveLinkedDataParentType,
-} from "./data.props";
-import { defaultHistoryLimit } from "./history";
-import { History } from "./history.props";
-import { SchemaDictionary } from "./schema.props";
-import { Validation } from "./validation.props";
-import { removeRootDataNodeErrorMessage } from "./errors";
+} from "./data.props.js";
+import { defaultHistoryLimit } from "./history.js";
+import { History } from "./history.props.js";
+import { SchemaDictionary } from "./schema.props.js";
+import { Validation } from "./validation.props.js";
+import { removeRootDataNodeErrorMessage } from "./errors.js";
 
 /**
  * The default name that the display text maps to

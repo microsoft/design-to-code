@@ -1,4 +1,4 @@
-import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser";
+import { Node, parse } from "vscode-html-languageservice/lib/esm/parser/htmlParser.js";
 import { uniqueId } from "lodash-es";
 import { pascalCase } from "@microsoft/fast-web-utilities";
 import {
@@ -7,9 +7,9 @@ import {
     LinkedData,
     Parent,
     SchemaDictionary,
-} from "../message-system";
-import { DataType } from "./types";
-import { XOR } from "./type.utilities";
+} from "../message-system/index.js";
+import { DataType } from "./types.js";
+import { XOR } from "./type.utilities.js";
 
 export interface MapNodeToDataDictionaryConfig {
     /**

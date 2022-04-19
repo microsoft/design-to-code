@@ -1,5 +1,6 @@
 import { expect, Page, test } from "@playwright/test";
 
+/* eslint-disable-next-line */
 async function getMessage(page: Page, positionFromEnd: number): Promise<string> {
     const messageOutput = await page.locator(
         "#messageContainer span:nth-last-child(" + positionFromEnd + ")"

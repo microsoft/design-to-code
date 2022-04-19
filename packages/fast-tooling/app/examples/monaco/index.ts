@@ -1,24 +1,24 @@
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import { html_beautify } from "vscode-html-languageservice/lib/esm/beautify/beautify-html";
 import {
     MessageSystem,
     MessageSystemDataTypeAction,
     MessageSystemType,
 } from "../../../src";
 import {
+    findDictionaryIdByMonacoEditorHTMLPosition,
     findMonacoEditorHTMLPositionByDictionaryId,
     mapDataDictionaryToMonacoEditorHTML,
-    findDictionaryIdByMonacoEditorHTMLPosition,
-} from "../../../src/data-utilities/monaco";
+} from "../../../src/data-utilities/monaco.js";
+import { XOR } from "../../../src/data-utilities/type.utilities.js";
 import {
     MonacoAdapter,
     monacoAdapterId,
 } from "../../../src/message-system-service/monaco-adapter.service";
-import { MonacoAdapterAction } from "../../../src/message-system-service/monaco-adapter.service-action";
-import monacoEditorConfig from "./monaco-editor-config";
-import dataDictionaryConfig from "./data-dictionary-config";
-import schemaDictionary from "./schema-dictionary";
-import { html_beautify } from "vscode-html-languageservice/lib/esm/beautify/beautify-html";
-import { XOR } from "../../../src/data-utilities/type.utilities";
+import { MonacoAdapterAction } from "../../../src/message-system-service/monaco-adapter.service-action.js";
+import dataDictionaryConfig from "./data-dictionary-config.js";
+import monacoEditorConfig from "./monaco-editor-config.js";
+import schemaDictionary from "./schema-dictionary.js";
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const FASTMessageSystemWorker = require("../../../dist/message-system.min.js");
