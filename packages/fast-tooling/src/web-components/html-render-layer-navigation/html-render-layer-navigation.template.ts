@@ -1,7 +1,7 @@
 import { html, ref, ViewTemplate } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
-import { FocusOutlineWidthProperty } from "../style/css-properties";
-import { HTMLRenderLayerNavigation } from "./html-render-layer-navigation";
+import { FocusOutlineWidthProperty } from "../style/css-properties.js";
+import { HTMLRenderLayerNavigation } from "./html-render-layer-navigation.js";
 
 export const htmlRenderLayerNavigationTemplate: (
     context: ElementDefinitionContext

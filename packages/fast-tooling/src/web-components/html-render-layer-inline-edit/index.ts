@@ -1,6 +1,6 @@
-import { HTMLRenderLayerInlineEdit } from "./html-render-layer-inline-edit";
-import { htmlRenderLayerInlineEditTemplate as template } from "./html-render-layer-inline-edit.template";
-import { htmlRenderLayerInlineEditStyles as styles } from "./html-render-layer-inline-edit.style";
+import { HTMLRenderLayerInlineEdit } from "./html-render-layer-inline-edit.js";
+import { htmlRenderLayerInlineEditTemplate as template } from "./html-render-layer-inline-edit.template.js";
+import { htmlRenderLayerInlineEditStyles as styles } from "./html-render-layer-inline-edit.style.js";
 
 /**
  * A web component for use in the default slot of the \<html-render\> web component.

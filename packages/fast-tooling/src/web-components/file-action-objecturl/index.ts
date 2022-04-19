@@ -1,4 +1,4 @@
-import { FileActionObjectUrl } from "./file-action-objecturl";
+import { FileActionObjectUrl } from "./file-action-objecturl.js";
 
 /**
  * @alpha

@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-import { getMessage } from "./message-system.utilities";
+import { getMessage } from "./message-system.utilities.js";
 
 onmessage = function (e: MessageEvent): void {
     if (e.data?.[0]?.type) {

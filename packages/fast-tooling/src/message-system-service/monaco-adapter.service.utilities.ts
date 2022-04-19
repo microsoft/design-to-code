@@ -1,5 +1,5 @@
-import { LinkedData, Parent } from "../";
-import { DataDictionary } from "../message-system";
+import { LinkedData, Parent } from "../message-system/data.props.js";
+import { DataDictionary } from "../message-system/index.js";
 
 export interface ExtendedParent extends Parent {
     /**

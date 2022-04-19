@@ -6,19 +6,19 @@ import {
     htmlResolver,
     mapDataDictionary,
     ResolverConfig,
-} from "../../data-utilities/mapping";
+} from "../../data-utilities/mapping.js";
 import {
     WebComponentDefinition,
     WebComponentDefinitionTag,
-} from "../../data-utilities/web-component";
+} from "../../data-utilities/web-component.js";
 import {
     DataDictionary,
     MessageSystem,
     MessageSystemNavigationTypeAction,
     MessageSystemType,
     SchemaDictionary,
-} from "../../message-system";
-import { ActivityType, HTMLRenderLayer } from "../html-render-layer/html-render-layer";
+} from "../../message-system/index.js";
+import { ActivityType, HTMLRenderLayer } from "../html-render-layer/html-render-layer.js";
 
 /**
  * An ID that signifies the origin of a MessageSystem message.

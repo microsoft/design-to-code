@@ -1,5 +1,5 @@
-import { DataType } from "../data-utilities/types";
-import { Parent } from "./data.props";
+import { DataType } from "../data-utilities/types.js";
+import { Parent } from "./data.props.js";
 
 export interface TreeNavigation {
     /**

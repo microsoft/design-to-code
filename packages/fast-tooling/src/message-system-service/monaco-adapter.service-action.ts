@@ -1,9 +1,9 @@
 import { IPosition } from "monaco-editor";
-import { MessageSystemType } from "../message-system";
+import { MessageSystemType } from "../message-system/index.js";
 import {
     MessageSystemServiceAction,
     MessageSystemServiceActionConfig,
-} from "./message-system.service-action";
+} from "./message-system.service-action.js";
 
 export interface MonacoAdapterActionCallbackConfig {
     /**

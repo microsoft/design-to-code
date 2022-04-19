@@ -1,6 +1,6 @@
 import { html, ref, slotted, ViewTemplate } from "@microsoft/fast-element";
 import { ElementDefinitionContext } from "@microsoft/fast-foundation";
-import { HTMLRender } from "./html-render";
+import { HTMLRender } from "./html-render.js";
 
 export const htmlRenderTemplate: (
     context: ElementDefinitionContext
