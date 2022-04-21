@@ -11,7 +11,8 @@
   "workspaces": [
     "./packages/fast-tooling",
     "./packages/fast-tooling-react",
-    "./packages/fast-tooling-wasm"
+    "./packages/fast-tooling-wasm",
+    "./website"
   ],
   "repository": {
     "type": "git",
@@ -55,7 +56,7 @@
     "glob": "^7.1.2",
     "husky": "^4.2.5",
     "lint-staged": "^10.1.2",
-    "prettier": "2.0.2",
+    "prettier": "^2.6.1",
     "rimraf": "^3.0.2",
     "yargs": "^16.2.0"
   }
