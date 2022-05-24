@@ -80,6 +80,10 @@
         font-family: var(--font-family);
     }
 
+    p {
+        line-height: 24px;
+    }
+
     .toolbar {
         position: sticky;
         top: 0;
@@ -192,7 +196,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -204,8 +208,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -470,16 +478,6 @@
             <li>
                 <a
                     class=""
-                    href="https://microsoft.github.io/fast-tooling/docs/examples"
-                >
-                    Examples
-                </a>
-                
-            </li>
-            
-            <li>
-                <a
-                    class=""
                     href="https://microsoft.github.io/fast-tooling/docs/message-system"
                 >
                     Message System
@@ -690,7 +688,7 @@
 </div>
 
 
-                <div class="content">
+                <div class="container">
                     <table>
     <caption>
         package:
@@ -710,9 +708,59 @@
         
     </tbody>
 </table>
- <h1 id="form">Form</h1>
-<p>TBD</p>
 
+                    <div class="content"><h1 id="form">Form</h1>
+<p>The <code>Form</code> is a React component that generates fields based on the JSON Schema, so if a JSON Schema specifies a &quot;type&quot; of &quot;string&quot;, a text input will appear.</p>
+<p>The component is pluggable and stylable, so if there is a requirement to replace any fields or change the styling to match the rest of your application, this is easy to do.</p>
+<h2 id="usage">Usage</h2>
+<p>The basic usage only requires the passing of the <code>MessageSystem</code>. The component will then register itself and begin sending and recieving data.</p>
+<pre><code class="language-tsx">import { Form } from &quot;@microsoft/fast-tooling-react&quot;;
+
+&lt;Form messageSystem={fastMessageSystem} /&gt;
+</code></pre>
+<h3 id="modular-usage">Modular Usage</h3>
+<p>There are two exports for the <code>Form</code>, the default <code>Form</code> and <code>ModularForm</code>. The <code>ModularForm</code> is for use with any React component that may share a dependency on <code>react-dnd</code> such as the <code>Navigation</code> component, or the <code>Viewer</code>. It&#39;s safe to assume that if you are using more than one React component from the <code>@microsoft/fast-tooling-react</code> package you must use the <code>ModularForm</code>.</p>
+<pre><code class="language-tsx">import { DndProvider } from &quot;react-dnd&quot;;
+import HTML5Backend from &quot;react-dnd-html5-backend&quot;;
+import { ModularForm } from &quot;@microsoft/fast-tooling-react&quot;;
+
+&lt;DndProvider backend={HTML5Backend}&gt;
+    &lt;ModularForm messageSystem={fastMessageSystem} /&gt;
+&lt;/DndProvider&gt;
+</code></pre>
+<h2 id="styling">Styling</h2>
+<p>The <code>Form</code> leverages <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">CSS variables</a> and the following are available:</p>
+<ul>
+<li><code>--fast-tooling-accent-color</code></li>
+<li><code>--fast-tooling-l1-color</code></li>
+<li><code>--fast-tooling-l4-color</code></li>
+<li><code>--fast-tooling-text-color</code></li>
+<li><code>--fast-tooling-l3-fill-color</code></li>
+<li><code>--fast-tooling-error-color</code></li>
+<li><code>--fast-tooling-floating-color</code></li>
+</ul>
+<h2 id="adding-a-custom-control">Adding a custom control</h2>
+<p>There may be occasions where a custom control will serve better than the default form elements provided by the <code>Form</code>. For this situation a <code>StandardControlPlugin</code> is made available that will provide the surrounding UI for the <code>Form</code> but allow the form element or custom control to be created.</p>
+<pre><code class="language-tsx">import { ModularForm, StandardControlPlugin } from &quot;@microsoft/fast-tooling-react&quot;;
+
+&lt;Form
+    messageSystem={fastMessageSystem}
+    controls={[
+        new StandardControlPlugin({
+            id: &quot;foo&quot;,
+            control: (config) =&gt; {
+                return (
+                    &lt;input
+                        value={config.value}
+                    /&gt;
+                )
+            }
+        })
+    ]}
+/&gt;
+</code></pre>
+</div>
+                    <div class="index"></div>
                 </div>
             </main>
         </div>

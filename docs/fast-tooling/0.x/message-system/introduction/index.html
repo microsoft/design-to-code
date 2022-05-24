@@ -80,6 +80,10 @@
         font-family: var(--font-family);
     }
 
+    p {
+        line-height: 24px;
+    }
+
     .toolbar {
         position: sticky;
         top: 0;
@@ -192,7 +196,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -204,8 +208,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -470,16 +478,6 @@
             <li>
                 <a
                     class=""
-                    href="https://microsoft.github.io/fast-tooling/docs/examples"
-                >
-                    Examples
-                </a>
-                
-            </li>
-            
-            <li>
-                <a
-                    class=""
                     href="https://microsoft.github.io/fast-tooling/docs/message-system"
                 >
                     Message System
@@ -690,7 +688,7 @@
 </div>
 
 
-                <div class="content">
+                <div class="container">
                     <table>
     <caption>
         package:
@@ -710,11 +708,67 @@
         
     </tbody>
 </table>
- <h1 id="message-system">Message System</h1>
-<p>FAST tooling components rely on including a secondary script which contains a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Worker">web worker</a> called the message system.</p>
-<p>This worker performs all of the data manipulation and provides a navigational data structure based on data passed.</p>
-<p>TBD</p>
 
+                    <div class="content"><h1 id="message-system">Message System</h1>
+<p>FAST tooling components rely on including a script which contains a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Worker">web worker</a> as well as a class to manipulate the data being sent to and from it called the <code>MessageSystem</code>.</p>
+<p>The worker performs all of the data manipulation as well as a navigational data structure based on data passed. The <code>MessageSystem</code> class allow functionality to &quot;register&quot; itself to accept and send data.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>Add the web worker to your project, it is located at <code>@microsoft/fast-tooling/dist/message-system.min.js</code>.</p>
+<p>To initialize the <code>MessageSystem</code>, a config must be passed that includes the data, schemas, and web worker.</p>
+<p>Example:</p>
+<pre><code class="language-ts">const fastMessageSystem: MessageSystem = new MessageSystem({
+    webWorker: fastMessageSystemWorker,
+    dataDictionary: [
+        &quot;root&quot;,
+        {
+            root: {
+                schemaId: &quot;myTextSchema&quot;,
+                data: &quot;Hello world&quot;
+            }
+        }
+    ],
+    schemaDictionary: {
+        myTextSchema: {
+            title: &quot;Text&quot;,
+            type: &quot;text&quot;
+        },
+    },
+});
+</code></pre>
+<p>To understand how the data dictionary and schema dictionary are structured and why, check out the section on <a href="../data-format">data formats</a>.</p>
+<h3 id="webpack">Webpack</h3>
+<p>It is recommended that the <code>worker-loader</code> be used in a webpack project. This can look like the following setup:</p>
+<p><code>webpack.config.js</code></p>
+<pre><code class="language-js">module.exports = {
+    ...yourConfig,
+    module: {
+        rules: [
+            {
+                test: /message\-system\.min\.js/,
+                use: {
+                    loader: &quot;worker-loader&quot;,
+                },
+            },
+        ],
+    },
+};
+</code></pre>
+<p><code>index.ts</code></p>
+<pre><code class="language-ts">import FASTMessageSystemWorker from &quot;@microsoft/fast-tooling/dist/message-system.min.js&quot;;
+import { MessageSystem } from &quot;@microsoft/fast-tooling&quot;;
+
+// Activate the worker
+const fastMessageSystemWorker = new FASTMessageSystemWorker();
+
+// Create a new MessageSystem instance and pass the MessageSystem web worker to it
+const fastMessageSystem: MessageSystem = new MessageSystem({
+    webWorker: fastMessageSystemWorker,
+    dataDictionary: dataDictionaryConfig as any,
+    schemaDictionary,
+});
+</code></pre>
+</div>
+                    <div class="index"></div>
                 </div>
             </main>
         </div>

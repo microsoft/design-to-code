@@ -80,6 +80,10 @@
         font-family: var(--font-family);
     }
 
+    p {
+        line-height: 24px;
+    }
+
     .toolbar {
         position: sticky;
         top: 0;
@@ -192,7 +196,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -204,8 +208,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -470,16 +478,6 @@
             <li>
                 <a
                     class=""
-                    href="https://microsoft.github.io/fast-tooling/docs/examples"
-                >
-                    Examples
-                </a>
-                
-            </li>
-            
-            <li>
-                <a
-                    class=""
                     href="https://microsoft.github.io/fast-tooling/docs/message-system"
                 >
                     Message System
@@ -690,8 +688,10 @@
 </div>
 
 
-                <div class="content">
-                     <h1>React Components</h1>
+                <div class="container">
+                    
+                    <div class="content"></div>
+                    <div class="index"><h1>React Components</h1>
 <p>A set of React components that can be registered with the Message System.</p>
 <ul class="category">
     
@@ -702,7 +702,7 @@
     <li><a href="https://microsoft.github.io/fast-tooling/docs/fast-tooling-react/2.x/components/viewer">Viewer</a></li>
     
 </ul>
-
+</div>
                 </div>
             </main>
         </div>

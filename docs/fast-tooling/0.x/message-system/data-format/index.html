@@ -80,6 +80,10 @@
         font-family: var(--font-family);
     }
 
+    p {
+        line-height: 24px;
+    }
+
     .toolbar {
         position: sticky;
         top: 0;
@@ -192,7 +196,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -204,8 +208,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -470,16 +478,6 @@
             <li>
                 <a
                     class=""
-                    href="https://microsoft.github.io/fast-tooling/docs/examples"
-                >
-                    Examples
-                </a>
-                
-            </li>
-            
-            <li>
-                <a
-                    class=""
                     href="https://microsoft.github.io/fast-tooling/docs/message-system"
                 >
                     Message System
@@ -690,7 +688,7 @@
 </div>
 
 
-                <div class="content">
+                <div class="container">
                     <table>
     <caption>
         package:
@@ -710,9 +708,48 @@
         
     </tbody>
 </table>
- <h1 id="data-format">Data Format</h1>
-<p>TBD</p>
 
+                    <div class="content"><h1 id="data-format">Data Format</h1>
+<p>Data must be formatted as JSON, and descriptions of data must follow JSON Schema.</p>
+<h2 id="data-dictionary">Data dictionary</h2>
+<p>The data dictionary is an array of two items, the first being the root item and the second being the dictionary of data. This is done to enable data nesting behavior.</p>
+<p>Example:</p>
+<pre><code class="language-ts">import { DataDictionary } from &quot;@microsoft/fast-tooling&quot;;
+
+const myDataDictionary: DataDictionary&lt;unknown&gt; = [
+    &quot;root&quot;,
+    {
+        root: {
+            schemaId: &quot;myTextSchema&quot;,
+            data: &quot;Hello world&quot;
+        }
+    }
+]
+</code></pre>
+<h2 id="schema-dictionary">Schema dictionary</h2>
+<p>The schema dictionary is a dictionary of possible JSON schemas that the data can conform to. The <code>$id</code> is used as the <code>key</code> in the dictionary object.</p>
+<p>Example:</p>
+<pre><code class="language-ts">import { SchemaDictionary } from &quot;@microsoft/fast-tooling&quot;;
+
+const mySchemaDictionary: SchemaDictionary = {
+    myTextSchema: {
+        title: &quot;Text&quot;,
+        type: &quot;text&quot;
+    },
+    myNumberSchema: {
+        title: &quot;Number&quot;,
+        type: &quot;number&quot;
+    }
+}
+</code></pre>
+<h2 id="json-schema-caveats">JSON Schema caveats</h2>
+<p>For ease of use, keep JSON Schemas as simple as possible. Avoid use of the following keywords which are currently not supported by the <code>@microsoft/fast-tooling</code> or <code>@microsoft/fast-tooling-react</code> packages:</p>
+<ul>
+<li><code>allOf</code></li>
+<li><code>$ref</code></li>
+</ul>
+</div>
+                    <div class="index"></div>
                 </div>
             </main>
         </div>

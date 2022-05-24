@@ -80,6 +80,10 @@
         font-family: var(--font-family);
     }
 
+    p {
+        line-height: 24px;
+    }
+
     .toolbar {
         position: sticky;
         top: 0;
@@ -192,7 +196,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -204,8 +208,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -469,16 +477,6 @@
             
             <li>
                 <a
-                    class=""
-                    href="https://microsoft.github.io/fast-tooling/docs/examples"
-                >
-                    Examples
-                </a>
-                
-            </li>
-            
-            <li>
-                <a
                     class="active"
                     href="https://microsoft.github.io/fast-tooling/docs/message-system"
                 >
@@ -690,8 +688,10 @@
 </div>
 
 
-                <div class="content">
-                     <h1>Message System</h1>
+                <div class="container">
+                    
+                    <div class="content"></div>
+                    <div class="index"><h1>Message System</h1>
 <p>A web worker that serves as the fundamental backbone to the FAST tooling project.</p>
 <ul class="category">
     
@@ -702,7 +702,7 @@
     <li><a href="https://microsoft.github.io/fast-tooling/docs/fast-tooling/0.x/message-system/data-format">Data Format</a></li>
     
 </ul>
-
+</div>
                 </div>
             </main>
         </div>
