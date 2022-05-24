@@ -1,4 +1,4 @@
-import versions from "./versions.json";
+import versions from "./versions.json" assert { type: "json" };
 const toolingPackageName = "@microsoft/fast-tooling";
 const toolingReactPackageName = "@microsoft/fast-tooling-react";
 
