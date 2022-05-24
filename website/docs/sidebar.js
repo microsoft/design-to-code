@@ -34,11 +34,6 @@ export default {
             path: "introduction",
         },
         {
-            type: "doc",
-            label: "Examples",
-            path: "examples",
-        },
-        {
             type: "category",
             label: "Message System",
             description:
