@@ -225,7 +225,7 @@ function convertMarkdownDocumentation(category, template, isVersionDoc) {
                     html: templateResolver(template)({
                         htmlWebpackPlugin: {
                             options: {
-                                content: templateResolver(
+                                index: templateResolver(
                                     fs.readFileSync(categoryTemplate, "utf8")
                                 )({
                                     items,
