@@ -1,3 +1,5 @@
+**Deprecated**: This package is being deprecated in favor of `@microsoft/design-to-code-react`.
+
 # FAST Tooling React
 
 The tooling available in FAST Tooling React can be used together to create UI for manipulating serializable data and viewing React components.
