@@ -1,6 +1,6 @@
 # Introduction
 
-This is the code style guide for the FAST tooling repository. When contributing to this project please follow the standards defined in this guide.
+This is the code style guide for the Design to Code repository. When contributing to this project please follow the standards defined in this guide.
 
 ## Branches
 
