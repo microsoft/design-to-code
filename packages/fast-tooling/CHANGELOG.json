@@ -2,6 +2,21 @@
   "name": "@microsoft/fast-tooling",
   "entries": [
     {
+      "date": "Wed, 13 Jul 2022 07:07:28 GMT",
+      "tag": "@microsoft/fast-tooling_v0.37.10",
+      "version": "0.37.10",
+      "comments": {
+        "patch": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/fast-tooling",
+            "comment": "Deprecate published packages in favor of renamed packages",
+            "commit": "19c2a49e79e7c38373265f7fdee715efe28de77f"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 06 Apr 2022 00:54:27 GMT",
       "tag": "@microsoft/fast-tooling_v0.37.9",
       "version": "0.37.9",
