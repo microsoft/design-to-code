@@ -1,3 +1,5 @@
+**Deprecated**: This package is being deprecated in favor of `@microsoft/design-to-code`.
+
 # FAST Tooling
 
 FAST Tooling is a library agnostic specific set of utilities to assist in creating web UI.
