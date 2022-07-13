@@ -18,6 +18,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "api-extractor": "api-extractor run --local --verbose",
     "build": "tsc --project ./tsconfig.json",
     "build:app": "webpack --progress --mode=production",
     "clean:dist": "node ../../build/clean.js dist",
@@ -79,6 +80,7 @@
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-react": "^7.12.13",
+    "@microsoft/api-extractor": "^7.20.0",
     "@types/jest": "^25.2.1",
     "@types/lodash-es": "^4.17.4",
     "@types/node": "^9.6.7",
