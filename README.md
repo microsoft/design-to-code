@@ -1,6 +1,6 @@
-# FAST Tooling
+# Design to Code
 
-This is the FAST Tooling project, containing a set of packages that can be combined to create complex workflows for web applications. The goal of these workflows is to allow users to create and modify their own web based experiences, from individual web components to completed web sites.
+This is the Design to Code project, containing a set of packages that can be combined to create complex workflows. The goal of these workflows is to allow users to create and modify their own web based experiences, from individual web components to completed web sites.
 
 This project is not to be confused with its related project [FAST](https://github.com/microsoft/fast), a set of libraries for creating native web components and design systems.
 

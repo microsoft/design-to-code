@@ -1,6 +1,6 @@
 # Branch guide
 
-This is the branch guide for the FAST Tooling repository. When contributing to this project please follow the standards defined in this guide.
+This is the branch guide for the Design to Code repository. When contributing to this project please follow the standards defined in this guide.
 
 ## Default
 
