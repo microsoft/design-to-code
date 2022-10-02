@@ -6,7 +6,7 @@ The worker performs all of the data manipulation as well as a navigational data 
 
 ## Getting started
 
-Add the web worker to your project, it is located at `@microsoft/fast-tooling/dist/message-system.min.js`.
+Add the web worker to your project, it is located at `@microsoft/design-to-code/dist/message-system.min.js`.
 
 To initialize the `MessageSystem`, a config must be passed that includes the data, schemas, and web worker.
 
@@ -57,11 +57,11 @@ module.exports = {
 
 `index.ts`
 ```ts
-import FASTMessageSystemWorker from "@microsoft/fast-tooling/dist/message-system.min.js";
-import { MessageSystem } from "@microsoft/fast-tooling";
+import MessageSystemWorker from "@microsoft/design-to-code/dist/message-system.min.js";
+import { MessageSystem } from "@microsoft/design-to-code";
 
 // Activate the worker
-const fastMessageSystemWorker = new FASTMessageSystemWorker();
+const fastMessageSystemWorker = new MessageSystemWorker();
 
 // Create a new MessageSystem instance and pass the MessageSystem web worker to it
 const fastMessageSystem: MessageSystem = new MessageSystem({

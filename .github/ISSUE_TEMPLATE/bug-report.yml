@@ -21,9 +21,9 @@ body:
       label: What package(s) are causing the problem?
       multiple: true
       options:
-        - "@microsoft/fast-tooling"
-        - "@microsoft/fast-tooling-react"
-        - "@microsoft/fast-tooling-wasm"
+        - "@microsoft/design-to-code"
+        - "@microsoft/design-to-code-react"
+        - "@microsoft/design-to-code-wasm"
   - type: dropdown
     id: browsers
     attributes:

@@ -1,3 +1,3 @@
 # Website
 
-This is the website for the FAST Tooling project.
+This is the website for the Design to Code project.
