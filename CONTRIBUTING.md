@@ -1,4 +1,4 @@
-# Contributing to FAST Tooling
+# Contributing to Design to Code
 
 Contributions are welcome! You can submit a pull request to fix a bug, implementing a feature, or even correcting simple documentation typos.
 
@@ -6,11 +6,11 @@ Contributions are welcome! You can submit a pull request to fix a bug, implement
 
 ### Machine setup
 
-To work with the FAST Tooling [monorepo](https://en.wikipedia.org/wiki/Monorepo) you'll need Git, Node.js@^16.0.0, and npm@^7.0.0 setup on your machine.
+To work with the Design to Code [monorepo](https://en.wikipedia.org/wiki/Monorepo) you'll need Git, Node.js@^16.0.0, and npm@^7.0.0 setup on your machine.
 
-FAST Tooling uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
+Design to Code uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need Node.js, which FAST Tooling uses as its JavaScript runtime, enabling its build and test scripts. Node.js instructions and downloads for your preferred OS can be found [here](https://nodejs.org/en/).
+Once Git is installed, you'll also need Node.js, which Design to Code uses as its JavaScript runtime, enabling its build and test scripts. Node.js instructions and downloads for your preferred OS can be found [here](https://nodejs.org/en/).
 
 :::important
 The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.
@@ -18,20 +18,20 @@ The above steps are a one-time setup for your machine and do not need to be repe
 
 ### Cloning the repository
 
-Now that your machine is setup, you can clone the FAST Tooling repository. Open a terminal and run this command:
+Now that your machine is setup, you can clone the Design to Code repository. Open a terminal and run this command:
 
 ```shell
-git clone https://github.com/microsoft/fast-tooling.git
+git clone https://github.com/microsoft/design-to-code.git
 ```
 Cloning via SSH:
 
 ```shell
-git clone git@github.com:microsoft/fast-tooling.git
+git clone git@github.com:microsoft/design-to-code.git
 ```
 
 ### Installing and building
 
-From within the `fast-tooling` folder where you've cloned the repo, install all package dependencies and build all workspaces (local dependencies) with this command:
+From within the `design-to-code` folder where you've cloned the repo, install all package dependencies and build all workspaces (local dependencies) with this command:
 
 ```bash
 npm install
@@ -106,7 +106,7 @@ Default VS Code settings for this project are configured as [Workspace settings]
 
 ## FAST guidance
 
-The FAST Tooling project follows the contribution policy outlined in the FAST project for their [governance](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#governance), [acceptance and consensus seeking process](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#acceptance-and-consensus-seeking-process), and [stability policy](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#stability-policy).
+The Design to Code project follows the contribution policy outlined in the FAST project for their [governance](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#governance), [acceptance and consensus seeking process](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#acceptance-and-consensus-seeking-process), and [stability policy](https://github.com/microsoft/fast/blob/master/CONTRIBUTING.md#stability-policy).
 
 ## Developer's Certificate of Origin 1.1
 

@@ -1,5 +1,5 @@
 {
-  "name": "@microsoft/fast-tooling-repository",
+  "name": "@microsoft/design-to-code-repository",
   "description": "A system of development tools, and utilities used à la carte or as a suite to build enterprise-grade websites and applications.",
   "version": "0.1.0",
   "author": {
@@ -16,10 +16,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microsoft/fast-tooling.git"
+    "url": "git+https://github.com/microsoft/design-to-code.git"
   },
   "bugs": {
-    "url": "https://github.com/microsoft/fast-tooling/issues/new/choose"
+    "url": "https://github.com/microsoft/design-to-code/issues/new/choose"
   },
   "scripts": {
     "bump": "beachball bump",
@@ -45,7 +45,7 @@
     "@playwright/test": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
-    "beachball": "^2.16.0",
+    "beachball": "^2.30.1",
     "chalk": "^2.4.2",
     "copyfiles": "^2.4.1",
     "dotenv": "^6.0.0",

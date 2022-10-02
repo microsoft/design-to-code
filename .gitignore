@@ -63,7 +63,7 @@ bin/
 obj/
 
 # Ignore the docs folder
-docs/*
+/docs/*
 
 # Except the docs folder README
-!docs/README.md
+!/docs/README.md

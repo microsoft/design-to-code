@@ -12,6 +12,8 @@
         --font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
             Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
             sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+            "Liberation Mono", "Courier New", monospace;
         --background-color-layer-1: #18191a;
         --background-color-layer-2: #242526;
         --background-color-layer-3: hsla(0, 0%, 100%, 0.05);
@@ -37,6 +39,9 @@
         --category-background-color: var(--background-color-layer-2);
         --category-border-radius: 10px;
         --table-caption-background-color: var(--background-color-layer-3);
+        --code-background: #333437;
+        --code-border-radius: 6px;
+        --code-block-background: rgb(41, 45, 62);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -44,6 +49,10 @@
         background: var(--background-color-layer-1);
         color: var(--font-color);
         font-family: var(--font-family);
+    }
+
+    p {
+        line-height: 24px;
     }
 
     .toolbar {
@@ -87,7 +96,7 @@
         width: var(--sidebar-width);
         min-width: var(--sidebar-width);
         border-right: 1px solid var(--sidebar-border-color);
-        height: calc(100vh - var(--toolbar-height) - var(--footer-height) - 30px);
+        min-height: calc(100vh - var(--toolbar-height) - var(--footer-height) - 30px);
         overflow: auto;
     }
 
@@ -158,7 +167,7 @@
     }
 
     main > div {
-        margin-inline-start: 25px;
+        padding: 25px;
     }
 
     main div a {
@@ -170,8 +179,12 @@
         padding-inline-end: 20px;
     }
 
-    .content {
-        width: 100%;
+    .container {
+        max-width: 900px;
+    }
+
+    .content ul {
+        list-style: inherit;
     }
 
     .frontpage {
@@ -288,6 +301,20 @@
     table th {
         border: var(--table-border-width) solid var(--table-border-color);
         padding: var(--table-cell-padding);
+    }
+
+    pre code {
+        display: block;
+        padding: 16px;
+        background-color: var(--code-block-background);
+    }
+
+    code {
+        background-color: var(--code-background);
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: var(--code-border-radius);
+        font-family: var(--font-family-monospace);
+        padding: 2px;
     }
 
     @media (max-width: 996px) {

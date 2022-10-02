@@ -1,8 +1,17 @@
 # Change Log - @microsoft/fast-tooling-react
 
-This log was last generated on Wed, 06 Apr 2022 00:54:27 GMT and should not be manually modified.
+This log was last generated on Wed, 13 Jul 2022 07:07:28 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.13.13
+
+Wed, 13 Jul 2022 07:07:28 GMT
+
+### Patches
+
+- Deprecate published packages in favor of renamed packages (7559015+janechu@users.noreply.github.com)
+- Bump @microsoft/fast-tooling to v0.37.10
 
 ## 2.13.12
 
