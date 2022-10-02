@@ -15,10 +15,11 @@
                 <%= htmlWebpackPlugin.options.isFrontpage ? "" :
                 htmlWebpackPlugin.options.sidebar %>
 
-                <div class="content">
+                <div class="container">
                     <%= htmlWebpackPlugin.options.versionInfo ?
-                    htmlWebpackPlugin.options.versionInfo : "" %> <%=
-                    htmlWebpackPlugin.options.content %>
+                    htmlWebpackPlugin.options.versionInfo : "" %>
+                    <div class="content"><%= htmlWebpackPlugin.options.content %></div>
+                    <div class="index"><%= htmlWebpackPlugin.options.index %></div>
                 </div>
             </main>
         </div>
