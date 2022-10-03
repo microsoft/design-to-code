@@ -8,7 +8,7 @@ The data dictionary is an array of two items, the first being the root item and 
 
 Example:
 ```ts
-import { DataDictionary } from "@microsoft/fast-tooling";
+import { DataDictionary } from "@microsoft/design-to-code";
 
 const myDataDictionary: DataDictionary<unknown> = [
     "root",
@@ -27,7 +27,7 @@ The schema dictionary is a dictionary of possible JSON schemas that the data can
 
 Example:
 ```ts
-import { SchemaDictionary } from "@microsoft/fast-tooling";
+import { SchemaDictionary } from "@microsoft/design-to-code";
 
 const mySchemaDictionary: SchemaDictionary = {
     myTextSchema: {
@@ -43,7 +43,7 @@ const mySchemaDictionary: SchemaDictionary = {
 
 ## JSON Schema caveats
 
-For ease of use, keep JSON Schemas as simple as possible. Avoid use of the following keywords which are currently not supported by the `@microsoft/fast-tooling` or `@microsoft/fast-tooling-react` packages:
+For ease of use, keep JSON Schemas as simple as possible. Avoid use of the following keywords which are currently not supported by the `@microsoft/design-to-code` or `@microsoft/design-to-code-react` packages:
 
 - `allOf`
 - `$ref`

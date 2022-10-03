@@ -71,4 +71,4 @@ jobs:
         webhook_token: ${{ secrets.DISCORD_NOTIFICATION_WEBHOOK_TOKEN }}
         color: "#DE2D6D"
         username: "FAST DevOps Bot"
-        message: "Publishing has completed on https://github.com/microsoft/fast-tooling/actions"
+        message: "Publishing has completed on https://github.com/microsoft/design-to-code/actions"

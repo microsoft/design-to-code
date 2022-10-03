@@ -8,12 +8,12 @@ Beachball is configured for patches and minor changes in a single file (`./beach
 
 Running `npm run change` triggers an interactive process on the command line to capture the type and description of the change. These details are used to generate a file in the `./change/*` folder. Change file names are formatted as `{package-name}-{guid}.json` with the following example.
 
-File location and name: `change/@microsoft-fast-tooling-4685ad54-b24a-4d2b-b160-519d410f468d.json`
+File location and name: `change/@microsoft-design-to-code-4685ad54-b24a-4d2b-b160-519d410f468d.json`
 ```json
 {
   "type": "minor",
   "comment": "Add fancy new feature for components.",
-  "packageName": "@microsoft/fast-tooling",
+  "packageName": "@microsoft/design-to-code",
   "email": "name@example.com",
   "dependentChangeType": "minor",
   "date": "2021-03-01T19:10:06.323Z"
@@ -23,7 +23,7 @@ File location and name: `change/@microsoft-fast-tooling-4685ad54-b24a-4d2b-b160-
 More information on the change process and change types can be found on the [Beachball website](https://microsoft.github.io/beachball/cli/change.html#change).
 :::
 
-These changes are then committed and submitted as a pull request for code review. Once approved and merged into `main` the continuous delivery (CD) process awaits, located on GitHub Actions [CD - Publisher](https://github.com/microsoft/fast-tooling/blob/main/.github/workflows/cd-publish.yml) workflow. This process is triggered every Sunday through Thursday night or on-demand available for repository code owners.
+These changes are then committed and submitted as a pull request for code review. Once approved and merged into `main` the continuous delivery (CD) process awaits, located on GitHub Actions [CD - Publisher](https://github.com/microsoft/design-to-code/blob/main/.github/workflows/cd-publish.yml) workflow. This process is triggered every Sunday through Thursday night or on-demand available for repository code owners.
 
 Once fired, the `./change/*` files are used as instructions for Beachball's [Semantic versioning](https://semver.org/) and changelog generation. The process then runs `npm run publish-ci` to publish new package versions to the NPM registry. Publishing to the NPM registry requires a GitHub Secret `NPM_TOKEN` which can be found on the NPM User account for the "Access Tokens" page.
 

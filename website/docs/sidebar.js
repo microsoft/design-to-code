@@ -1,6 +1,6 @@
 import versions from "./versions.json" assert { type: "json" };
-const toolingPackageName = "@microsoft/fast-tooling";
-const toolingReactPackageName = "@microsoft/fast-tooling-react";
+const toolingPackageName = "@microsoft/design-to-code";
+const toolingReactPackageName = "@microsoft/design-to-code-react";
 
 /**
  * The contents of the "documentation" property can either be a "doc" or "category".
@@ -43,17 +43,17 @@ export default {
                 {
                     type: "doc",
                     label: "Introduction",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system/introduction`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system/introduction`,
                 },
                 {
                     type: "doc",
                     label: "Messages",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system/messages`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system/messages`,
                 },
                 {
                     type: "doc",
                     label: "Data Format",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system/data-format`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system/data-format`,
                 },
             ],
         },
@@ -67,17 +67,17 @@ export default {
                 {
                     type: "doc",
                     label: "Form",
-                    path: `fast-tooling-react/${versions[toolingReactPackageName].versions[0]}/components/form`,
+                    path: `design-to-code-react/${versions[toolingReactPackageName].versions[0]}/components/form`,
                 },
                 {
                     type: "doc",
                     label: "Navigation",
-                    path: `fast-tooling-react/${versions[toolingReactPackageName].versions[0]}/components/navigation`,
+                    path: `design-to-code-react/${versions[toolingReactPackageName].versions[0]}/components/navigation`,
                 },
                 {
                     type: "doc",
                     label: "Viewer",
-                    path: `fast-tooling-react/${versions[toolingReactPackageName].versions[0]}/components/viewer`,
+                    path: `design-to-code-react/${versions[toolingReactPackageName].versions[0]}/components/viewer`,
                 },
             ],
         },
@@ -91,32 +91,32 @@ export default {
                 {
                     type: "doc",
                     label: "Color Picker",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/color-picker`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/color-picker`,
                 },
                 {
                     type: "doc",
                     label: "CSS Box Model",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/css-box-model`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/css-box-model`,
                 },
                 {
                     type: "doc",
                     label: "CSS Layout",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/css-layout`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/css-layout`,
                 },
                 {
                     type: "doc",
                     label: "File",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/file`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/file`,
                 },
                 {
                     type: "doc",
                     label: "HTML Render",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/html-render`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/html-render`,
                 },
                 {
                     type: "doc",
                     label: "Units Text Field",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/components/units-text-field`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/components/units-text-field`,
                 },
             ],
         },
@@ -130,22 +130,22 @@ export default {
                 {
                     type: "doc",
                     label: "Shortcuts",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system-services/shortcuts`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system-services/shortcuts`,
                 },
                 {
                     type: "doc",
                     label: "Monaco Editor",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system-services/monaco-editor`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system-services/monaco-editor`,
                 },
                 {
                     type: "doc",
                     label: "Data Validation",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system-services/data-validation`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system-services/data-validation`,
                 },
                 {
                     type: "doc",
                     label: "Create a Service",
-                    path: `fast-tooling/${versions[toolingPackageName].versions[0]}/message-system-services/create-a-service`,
+                    path: `design-to-code/${versions[toolingPackageName].versions[0]}/message-system-services/create-a-service`,
                 },
             ],
         },

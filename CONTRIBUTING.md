@@ -85,7 +85,7 @@ If you are merging a pull request, be sure to use the pull request title as the 
 For further reading on how commits are created through the GitHub interface during pull request merging, read this [article](https://docs.github.com/en/github/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request).
 ### Documenting breaking changes
 
-Make sure to document the migration strategy in a `MIGRATION.md` file in the package(s) that has breaking changes, eg. `packages/fast-tooling/MIGRATION.md`.
+Make sure to document the migration strategy in a `MIGRATION.md` file in the package(s) that has breaking changes, eg. `packages/design-to-code/MIGRATION.md`.
 
 Example of how to format `MIGRATION.md`:
 
@@ -100,7 +100,7 @@ Example of how to format `MIGRATION.md`:
 
 ### Recommended settings for Visual Studio Code
 
-You can use any code editor you like when working with the FAST Tooling monorepo. One of our favorites is [Visual Studio Code](https://code.visualstudio.com/). VS Code has great autocomplete support for TypeScript and JavaScript APIs, as well as a rich ecosystem of plugins.
+You can use any code editor you like when working with the Design to Code monorepo. One of our favorites is [Visual Studio Code](https://code.visualstudio.com/). VS Code has great autocomplete support for TypeScript and JavaScript APIs, as well as a rich ecosystem of plugins.
 
 Default VS Code settings for this project are configured as [Workspace settings](https://code.visualstudio.com/docs/getstarted/settings) in the `.vscode` directory. These settings override user settings for the workspace and are configured to ensure consistent code formatting across different environments. We also include a list of [Workspace recommended extensions](https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions) for VS Code for syntax highlighting and code linting.
 
