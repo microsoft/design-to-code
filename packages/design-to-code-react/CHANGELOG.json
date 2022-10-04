@@ -2,6 +2,21 @@
   "name": "@microsoft/design-to-code-react",
   "entries": [
     {
+      "date": "Tue, 04 Oct 2022 07:14:24 GMT",
+      "tag": "@microsoft/design-to-code-react_v2.13.13",
+      "version": "2.13.13",
+      "comments": {
+        "none": [
+          {
+            "author": "7559015+janechu@users.noreply.github.com",
+            "package": "@microsoft/design-to-code-react",
+            "commit": "438c89a1a206e98d108dfad918980feb0e02dbba",
+            "comment": "Updated package name"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 13 Jul 2022 07:07:28 GMT",
       "tag": "@microsoft/design-to-code-react_v2.13.13",
       "version": "2.13.13",
